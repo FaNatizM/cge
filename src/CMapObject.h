@@ -10,18 +10,20 @@ using TMapObjectPrivate = std::shared_ptr< CMapObjectPrivate >;
 
 
 
+// Объект на карте
 class CMapObject {
     public:
         explicit CMapObject();
 
         char& f_GetSymbol() const;
-        void f_SetSymbol(const char);
+        void f_SetSymbol( const char );
 
         int& f_GetXPos() const;
-        void f_SetXPos(const int);
+        void f_SetXPos( const int );
 
         int& f_GetYPos() const;
-        void f_SetYPos(const int);
+        void f_SetYPos( const int );
+
 
     private:
         TMapObjectPrivate m_impl;

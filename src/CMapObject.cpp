@@ -8,7 +8,7 @@ class CMapObjectPrivate {
         explicit CMapObjectPrivate()
             : m_x( 0 )
             , m_y( 0 )
-            , m_symbol( ' ' ) {
+            , m_symbol( 'X' ) {
         }
 
 

@@ -35,7 +35,7 @@ CMapObject& CMap::f_GetObject() const {
 
 
 
-CMap::CMap(char fill, int x_len, int y_len, CMapObject& obj) {
+CMap::CMap(char fill, int x_len, int y_len, const CMapObject& obj) {
     this->width = x_len;
     this->height = y_len;
     this->fillSymbol = fill;
