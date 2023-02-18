@@ -1,26 +1,29 @@
 #ifndef CENGINE_H
 #define CENGINE_H
 
+#include <memory>
+
 #include "CMap.h"
 
 
 
 
-// Класс для обработки действий пользователя и управления отрисовкой
+// Р”РІРёР¶РѕРє
+// Р РµР°Р»РёР·СѓРµС‚ С†РёРєР» РѕР±СЂР°Р±РѕС‚РєРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РІРІРѕРґР° Рё РѕС‚СЂРёСЃРѕРІРєРё СЌРєСЂР°РЅР°
+class CEnginePrivate;
+using TEnginePrivate = std::shared_ptr< CEnginePrivate >;
+
+
+
 class CEngine {
     public:
         explicit CEngine( const CMap& a_map );
 
-        bool inputAscii( CMapObject&, int, int );
-
-        void f_Draw();
-
-        // Бесконечный цикл исполнения
+        // Р¦РёРєР» РІС‹РїРѕР»РЅРµРЅРёСЏ
         void f_Exec();
 
     private:
-        CMap m_map;
-        int ascii;
+        TEnginePrivate m_impl;
 };
 
 
