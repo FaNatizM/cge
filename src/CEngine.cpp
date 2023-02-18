@@ -77,6 +77,8 @@ void CEngine::f_Exec() {
     while ( true ) {
 
         auto ms = f_GetCurrentTime();
+        const auto once_25_ms = 40;
+        const auto once_60_ms = 90;
         TTime step{ 40 };
 
         if ( step <= ( ms - g_ms_last ) ) {
