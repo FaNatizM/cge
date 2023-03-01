@@ -1,14 +1,19 @@
 #include "CWRDEntity.h"
 
+#include <vector>
+
 
 
 
 namespace NWRD {
+    using TObjects
+        = std::vector< CObject >;
+
+
+
     struct CEntity::SImpl {
         public:
-            explicit SImpl(
-                const NGE::CTexture&
-                a_texture );
+            explicit SImpl();
 
             template< typename... Types >
             static TImpl f_Create(
@@ -22,20 +27,35 @@ namespace NWRD {
             return impl;
         }
 
+        inline bool f_ExistObject(
+            const int a_index ) {
+            if ( a_index < 0 ) {
+                return false;
+            }
+
+            if ( m_objects.size()
+                <= a_index ) {
+                return false;
+            }
+
+            return true;
+        }
+
 
         public:
+            CEntityID m_id;
 
-            // Объект сущности
-            CObject m_object;
+            // Объекты сущности
+            TObjects m_objects;
     };
 }
 
 
 
 
-NWRD::CEntity::SImpl::SImpl(
-    const NGE::CTexture& a_texture )
-    : m_texture( a_texture ) {
+NWRD::CEntity::SImpl::SImpl()
+    : m_id()
+    , m_objects() {
 }
 
 
@@ -47,19 +67,64 @@ namespace NWRD {
 
 
 
-NGE::CTexture
-NWRD::CEntity::f_GetTexture() const {
-    return m_impl->m_texture;
+NWRD::CEntityID
+NWRD::CEntity::f_GetID() const {
+    return
+        m_impl->m_id;
 }
 
 
 
-NWRD::CEntity::CEntity(
-    const NGE::CTexture& a_texture
-    , const bool a_space )
+NWRD::CObject
+NWRD::CEntity::f_GetObject(
+    const int a_index ) const {
+    if ( m_impl->f_ExistObject( a_index )
+        == false ) {
+        return CObject();
+    }
+
+
+    return
+        m_impl->m_objects[ a_index ];
+}
+
+
+
+NGE::CTexture
+NWRD::CEntity::f_GetTexture(
+    const int a_index ) const {
+    if ( m_impl->f_ExistObject( a_index )
+        == false ) {
+        return NGE::CTexture();
+    }
+
+
+    return
+        m_impl->m_objects[ a_index ]
+            .f_GetTexture();
+}
+
+
+
+CPoint
+NWRD::CEntity::f_GetPoint(
+    const int a_index ) const {
+    if ( m_impl->f_ExistObject( a_index )
+        == false ) {
+        return CPoint();
+    }
+
+
+    return
+        m_impl->m_objects[ a_index ]
+            .f_GetPoint();
+}
+
+
+
+NWRD::CEntity::CEntity()
     : m_impl(
-        SImpl::f_Create(
-            a_texture, a_space ) ) {
+        SImpl::f_Create() ) {
 }
 
 
@@ -68,6 +133,6 @@ NWRD::CEntity::CEntity(
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::TEntity& a_entity ) {
-    std::cout << a_entity.f_GetObject();
+    std::cout << a_entity->f_GetObject();
     return a_out;
 }

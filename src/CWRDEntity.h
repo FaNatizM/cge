@@ -6,7 +6,8 @@
 #include <iostream>
 
 #include "HMacroses.h"
-#include "CGETexture.h"
+#include "CWRDObject.h"
+#include "CWRDEntityID.h"
 
 
 
@@ -21,15 +22,24 @@ namespace NWRD {
 
 
         public:
-            CObject
-            f_GetObject() const;
+            CEntityID f_GetID() const;
 
-            CPoint f_GetPoint() const;
+            CObject
+            f_GetObject(
+                const int a_index = 0 )
+                const;
+
+            NGE::CTexture
+            f_GetTexture(
+                const int a_index = 0 )
+                const;
+
+            CPoint f_GetPoint(
+                const int a_index = 0 )
+                const;
 
         protected:
-            explicit CEntity(
-                const NGE::CTexture&
-                a_texture );
+            explicit CEntity();
 
 
         private:

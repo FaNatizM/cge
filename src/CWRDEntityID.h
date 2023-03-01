@@ -1,5 +1,5 @@
-#ifndef CWRDENTITY_H
-#define CWRDENTITY_H
+#ifndef CWRDENTITYID_H
+#define CWRDENTITYID_H
 
 
 #include <memory>
