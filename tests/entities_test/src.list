@@ -9,4 +9,6 @@ src/CWRDEntityID.h
 src/CWRDEntityID.cpp
 src/CWRDEntity.h
 src/CWRDEntity.cpp
+src/CWRDItem.h
+src/CWRDItem.cpp
 tests/entities_test/main.cpp

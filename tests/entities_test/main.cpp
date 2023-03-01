@@ -1,6 +1,6 @@
 #include <cassert>
 
-#include "../../src/CWRDEntity.h"
+#include "../../src/CWRDItem.h"
 
 
 
@@ -49,4 +49,6 @@ bool f_TestID() {
 int main( void ) {
     f_TestObject();
     f_TestID();
+    NWRD::CEntity::f_Test();
+    NWRD::CItem::f_Test();
 }
