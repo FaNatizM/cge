@@ -1,0 +1,8 @@
+src/HMacroses.h
+src/CPoint.h
+src/CPoint.cpp
+src/CGETexture.h
+src/CGETexture.cpp
+src/CWRDEntityID.h
+src/CWRDEntityID.cpp
+tests/entities_test/main.cpp
