@@ -8,8 +8,6 @@
 
 
 namespace NGE {
-    using TNode
-        = std::pair< CPoint, CTexture >;
     using TNodes = std::map<
         CPoint, CTexture >;
 
@@ -25,12 +23,12 @@ namespace NGE {
                 , m_height( a_height )
                 , m_nodes() {
 
-                if ( m_width < 0 ) {
-                    m_width = 0;
+                if ( m_width <= 0 ) {
+                    m_width = 1;
                 }
 
-                if ( m_height < 0 ) {
-                    m_height = 0;
+                if ( m_height <= 0 ) {
+                    m_height = 1;
                 }
 
                 f_InitNodes();
@@ -47,7 +45,8 @@ namespace NGE {
                                 ... );
             }
 
-            static CTexture f_GetTexture();
+            static CTexture
+            f_GetTexture();
 
             void f_InitNodes();
 
@@ -107,6 +106,22 @@ NGE::CScene::CScene(
 
 
 
+NGE::CScene::TOperation
+NGE::CScene::
+f_GetVisualOperation() {
+    static TOperation f_VisualNode
+        = [ = ]( const TNode& a_node )
+            -> void {
+        std::cout << a_node.first
+            << ": " << a_node.second
+            << std::endl;
+    };
+
+    return f_VisualNode;
+}
+
+
+
 int NGE::CScene::f_GetWidth() const {
     return m_impl->m_width;
 }
@@ -123,10 +138,8 @@ void NGE::CScene::f_Draw() const {
     std::cout << std::endl;
 
     auto counter = 1;
-    for ( auto& node : m_impl->m_nodes ) {
-        // std::cout << node.first;
-
-        std::cout << " ";
+    for ( auto& node
+        : m_impl->m_nodes ) {
         node.second.f_Draw();
         std::cout << " ";
 
@@ -166,7 +179,7 @@ bool NGE::CScene::f_SetTexture(
     const CPoint& a_point
     , const CTexture& a_texture ) {
 
-    std::cout << a_point << std::endl;
+    // std::cout << a_point << std::endl;
 
     const auto node
         = m_impl->m_nodes.find(
@@ -174,6 +187,12 @@ bool NGE::CScene::f_SetTexture(
 
     if ( node
         == m_impl->m_nodes.end() ) {
+        std::cout
+            << "NWRD::CScene::"
+            << "f_SetTexture: "
+            << a_point
+            << ": " << a_texture
+            << " isn't existed!\n";
         return false;
     }
 
@@ -183,4 +202,49 @@ bool NGE::CScene::f_SetTexture(
 
 
     return true;
+}
+
+
+
+void NGE::CScene::f_Loop(
+    const TOperation&
+        a_operation ) {
+    auto begin
+        = m_impl->m_nodes.begin();
+    auto end
+        = m_impl->m_nodes.end();
+
+    std::for_each(
+        begin
+        , end
+        , a_operation );
+}
+
+
+
+void NGE::CScene::f_LoopConst(
+    const TOperation&
+        a_operation ) const {
+    auto begin
+        = m_impl->m_nodes.begin();
+    auto end
+        = m_impl->m_nodes.end();
+
+    std::for_each(
+        begin
+        , end
+        , a_operation );
+}
+
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NGE::CScene& a_scene ) {
+    a_scene.f_LoopConst(
+        NGE::CScene::
+        f_GetVisualOperation() );
+
+    return a_out;
 }
