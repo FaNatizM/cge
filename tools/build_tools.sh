@@ -195,6 +195,9 @@ f_BT_BuildAndRun() {
    fi
 
 
+   f_BT_Clear
+
+
    local src=()
    if [ -f "${a_src_list}" ]; then
       src=( "$( f_BT_CreateSrcList ${a_project_path} ${a_src_list} )" )
@@ -210,12 +213,12 @@ f_BT_BuildAndRun() {
 
 
    # Компиляция
-   g++ -v 2>"${C_OUT}"
+   local gpp_clang="$( g++ --version 2>"${C_OUT}" | grep -e 'clang' )"
    local gpp=${?}
 
    clang++ -v 2>"${C_OUT}"
    local clang=${?}
-   if [ ${gpp} -eq 0 ]; then
+   if [ ${gpp} -eq 0 ] && [ -z "${gpp_clang}" ]; then
       f_BT_BuildExeByGPP "${a_build_path}" "${a_src_path}" "${src[*]}"
       [ ${?} -ne 0 ] && return -3
    elif [ ${clang} -eq 0 ]; then
