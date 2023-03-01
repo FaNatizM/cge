@@ -1,6 +1,8 @@
 #include <cassert>
 
+#include "../../src/CWRDDecoration.h"
 #include "../../src/CWRDItem.h"
+#include "../../src/CWRDUnit.h"
 
 
 
@@ -51,4 +53,6 @@ int main( void ) {
     f_TestID();
     NWRD::CEntity::f_Test();
     NWRD::CItem::f_Test();
+    NWRD::CDecoration::f_Test();
+    NWRD::CUnit::f_Test();
 }
