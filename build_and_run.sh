@@ -18,7 +18,7 @@ g_args+=( "${g_project_path}/build" )
 g_args+=( "${g_project_path}/src" )
 g_args+=( "${HOME}/snake" )
 
-f_BT_BuildAndRunByCLang ${g_args[*]}
+f_BT_BuildAndRun ${g_args[*]}
 echo "Result code: ${?}"
 
 

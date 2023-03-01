@@ -19,7 +19,7 @@ g_args+=( "${g_project_path}/src" )
 g_args+=( "${PWD}/src.list" )
 g_args+=( "${HOME}/wrd_test" )
 
-f_BT_BuildAndRunByCLang ${g_args[*]}
+f_BT_BuildAndRun ${g_args[*]}
 echo "Result code: ${?}"
 
 

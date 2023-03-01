@@ -1,4 +1,9 @@
 # Библиотека средств сборки
+C_OUT="/dev/null"
+
+
+
+
 # Функция очистки консоли
 f_BT_Clear() {
    clear
@@ -158,7 +163,7 @@ f_BT_MoveAndRun() {
 
 
 
-f_BT_BuildAndRunByCLang() {
+f_BT_BuildAndRun() {
    local a_args=()
    local args_count=0
    while [ -n "${1}" ]; do
@@ -190,9 +195,6 @@ f_BT_BuildAndRunByCLang() {
    fi
 
 
-   #f_BT_Clear
-
-
    local src=()
    if [ -f "${a_src_list}" ]; then
       src=( "$( f_BT_CreateSrcList ${a_project_path} ${a_src_list} )" )
@@ -207,73 +209,25 @@ f_BT_BuildAndRunByCLang() {
    [ ${?} -ne 0 ] && return -2
 
 
-   f_BT_BuildExeByCLang "${a_build_path}" "${a_src_path}" "${src[*]}"
-   [ ${?} -ne 0 ] && return -3
+   # Компиляция
+   g++ -v 2>"${C_OUT}"
+   local gpp=${?}
 
-
-   f_BT_MoveAndRun "./a.out" "${a_bin}"
-   local result=${?}
-   [ ${result} -ne 0 ] && return -4
-   return ${result}
-}
-
-
-
-f_BT_BuildAndRunByGPP() {
-   local a_args=()
-   local args_count=0
-   while [ -n "${1}" ]; do
-      a_args+=( "${1}" )
-      args_count=$[${args_count}+1]
-      shift
-   done
-
-   local a_project_path=
-   local a_build_path=
-   local a_src_path=
-   local a_src_list=
-   local a_bin=
-
-   if [ ${args_count} -eq 4 ]; then
-      a_project_path=${a_args[0]}
-      a_build_path=${a_args[1]}
-      a_src_path=${a_args[2]}
-      a_bin=${a_args[3]}
-   fi
-
-   if [ ${args_count} -eq 5 ]; then
-      echo -e "\nBuild by src file"
-      a_project_path=${a_args[0]}
-      a_build_path=${a_args[1]}
-      a_src_path=${a_args[2]}
-      a_src_list=${a_args[3]}
-      a_bin=${a_args[4]}
-   fi
-
-
-   #f_BT_Clear
-
-
-   local src=()
-   if [ -f "${a_src_list}" ]; then
-      src=( "$( f_BT_CreateSrcList ${a_project_path} ${a_src_list} )" )
+   clang++ -v 2>"${C_OUT}"
+   local clang=${?}
+   if [ ${gpp} -eq 0 ]; then
+      f_BT_BuildExeByGPP "${a_build_path}" "${a_src_path}" "${src[*]}"
+      [ ${?} -ne 0 ] && return -3
+   elif [ ${clang} -eq 0 ]; then
+      f_BT_BuildExeByCLang "${a_build_path}" "${a_src_path}" "${src[*]}"
+      [ ${?} -ne 0 ] && return -3
    else
-      src=( "$( f_BT_GetSrcList ${a_src_path} )" )
+      [ ${?} -ne 0 ] && return -4
    fi
-
-   [ ${?} -ne 0 ] && return -1
-
-
-   f_BT_CreateBuildDir "${a_build_path}"
-   [ ${?} -ne 0 ] && return -2
-
-
-   f_BT_BuildExeByGPP "${a_build_path}" "${a_src_path}" "${src[*]}"
-   [ ${?} -ne 0 ] && return -3
 
 
    f_BT_MoveAndRun "./a.out" "${a_bin}"
    local result=${?}
-   [ ${result} -ne 0 ] && return -4
+   [ ${result} -ne 0 ] && return -5
    return ${result}
 }
