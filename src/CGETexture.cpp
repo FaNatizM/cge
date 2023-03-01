@@ -45,6 +45,24 @@ bool NGE::CTexture::operator==(
 
 
 
+NGE::TTexture NGE::CTexture::f_Get()
+    const {
+        return m_impl->m_texture;
+}
+
+
+
 void NGE::CTexture::f_Draw() const {
     std::cout << m_impl->m_texture;
 }
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NGE::CTexture& a_texture ) {
+    a_out << a_texture.f_Get();
+
+    return a_out;
+}
+
