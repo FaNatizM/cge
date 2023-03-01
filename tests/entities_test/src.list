@@ -15,4 +15,6 @@ src/CWRDItem.h
 src/CWRDItem.cpp
 src/CWRDUnit.h
 src/CWRDUnit.cpp
+src/CWRDItemsCreator.h
+src/CWRDItemsCreator.cpp
 tests/entities_test/main.cpp

@@ -46,19 +46,18 @@ namespace NWRD {
 
 
 
+NWRD::CItem::CItem()
+    : m_impl(
+        SImpl::f_Create() ) {
+}
+
+
 
 bool NWRD::CItem::f_Test() {
     CItem item;
     std::cout << item << std::endl;
 
     return true;
-}
-
-
-
-NWRD::CItem::CItem()
-    : m_impl(
-        SImpl::f_Create() ) {
 }
 
 

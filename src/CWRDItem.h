@@ -17,10 +17,9 @@ namespace NWRD {
 
 
         public:
-            static bool f_Test();
-
-        protected:
             explicit CItem();
+
+            static bool f_Test();
 
 
         private:

@@ -1,7 +1,7 @@
 #include <cassert>
 
 #include "../../src/CWRDDecoration.h"
-#include "../../src/CWRDItem.h"
+#include "../../src/CWRDItemsCreator.h"
 #include "../../src/CWRDUnit.h"
 
 
@@ -48,6 +48,16 @@ bool f_TestID() {
 
 
 
+bool f_TestItemsCreator() {
+    NWRD::CItemsCreator::f_Test();
+    const auto item
+        = NWRD::CItemsCreator::
+            f_MakeFood();
+    return true;
+}
+
+
+
 int main( void ) {
     f_TestObject();
     f_TestID();
@@ -55,4 +65,5 @@ int main( void ) {
     NWRD::CItem::f_Test();
     NWRD::CDecoration::f_Test();
     NWRD::CUnit::f_Test();
+    f_TestItemsCreator();
 }
