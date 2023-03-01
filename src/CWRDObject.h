@@ -18,10 +18,14 @@ namespace NWRD {
 
 
         public:
+            explicit CObject();
+
             explicit CObject(
                 const CPoint& a_point
                 , const NGE::CTexture&
                 a_texture );
+
+            bool f_IsNull() const;
 
             CPoint f_GetPoint() const;
 
