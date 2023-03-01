@@ -1,5 +1,6 @@
 #include "CWRDEntity.h"
 
+#include <cassert>
 #include <vector>
 
 
@@ -67,6 +68,18 @@ namespace NWRD {
 
 
 
+bool NWRD::CEntity::f_IsEmpty() const {
+    if ( f_GetObjectsCount()
+        == 0 ) {
+        return true;
+    }
+
+
+    return false;
+}
+
+
+
 NWRD::CEntityID
 NWRD::CEntity::f_GetID() const {
     return
@@ -86,6 +99,21 @@ NWRD::CEntity::f_GetObject(
 
     return
         m_impl->m_objects[ a_index ];
+}
+
+
+
+void NWRD::CEntity::f_AddObject(
+    const CObject& a_object ) {
+    m_impl->m_objects.push_back(
+        a_object );
+}
+
+
+
+size_t NWRD::CEntity::f_GetObjectsCount()
+    const {
+    return m_impl->m_objects.size();
 }
 
 
@@ -122,6 +150,40 @@ NWRD::CEntity::f_GetPoint(
 
 
 
+void NWRD::CEntity::f_Test() {
+    auto entity = CEntity();
+    std::cout << "entity: "
+        << entity << std::endl;
+
+    assert( entity.f_IsEmpty()
+         == true );
+
+    assert( entity.f_GetObject()
+        .f_IsNull() == true );
+
+    assert( entity.f_GetPoint()
+        .f_IsNull() == true );
+
+    assert( entity.f_GetTexture()
+        .f_IsUndefined() == true );
+
+    assert( entity.f_GetObjectsCount()
+        == 0 );
+
+
+    // Добавление объектов
+    CObject object_empty;
+    entity.f_AddObject( object_empty );
+
+    assert( entity.f_GetObjectsCount()
+        == 1 );
+
+    assert( entity.f_IsEmpty()
+         == false );
+}
+
+
+
 NWRD::CEntity::CEntity()
     : m_impl(
         SImpl::f_Create() ) {
@@ -133,6 +195,18 @@ NWRD::CEntity::CEntity()
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::TEntity& a_entity ) {
-    std::cout << a_entity->f_GetObject();
+    a_out << *a_entity;
+    return a_out;
+}
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NWRD::CEntity& a_entity ) {
+    a_out << "ID: "
+        << a_entity.f_GetID() << ": "
+        << a_entity.f_GetObject();
+
     return a_out;
 }

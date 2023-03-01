@@ -22,11 +22,20 @@ namespace NWRD {
 
 
         public:
+            bool f_IsEmpty() const;
+
             CEntityID f_GetID() const;
 
             CObject
             f_GetObject(
                 const int a_index = 0 )
+                const;
+
+            void f_AddObject(
+                const CObject&
+                a_object );
+
+            size_t f_GetObjectsCount()
                 const;
 
             NGE::CTexture
@@ -37,6 +46,8 @@ namespace NWRD {
             CPoint f_GetPoint(
                 const int a_index = 0 )
                 const;
+
+            static void f_Test();
 
         protected:
             explicit CEntity();
@@ -54,6 +65,12 @@ namespace NWRD {
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::TEntity& a_entity );
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NWRD::CEntity& a_entity );
 
 
 
