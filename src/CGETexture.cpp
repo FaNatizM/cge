@@ -45,6 +45,14 @@ bool NGE::CTexture::operator==(
 
 
 
+bool NGE::CTexture::f_IsUndefined(
+    ) const {
+    return m_impl->m_texture
+        == C_UNDEFINED;
+}
+
+
+
 NGE::TTexture NGE::CTexture::f_Get()
     const {
         return m_impl->m_texture;

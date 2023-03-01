@@ -64,7 +64,7 @@ namespace NGE {
 NGE::CTexture
 NGE::CScene::SImpl::f_GetTexture() {
     static auto texture
-        = CTexture( '.' );
+        = CTexture();
     return texture;
 }
 

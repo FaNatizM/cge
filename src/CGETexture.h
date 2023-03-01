@@ -18,13 +18,29 @@ namespace NGE {
 
     class CTexture {
         public:
+            static constexpr TTexture
+            C_UNDEFINED = '?';
+
+            static constexpr TTexture
+            C_NOWHERE = ' ';
+
+            static constexpr TTexture
+            C_GROUND = '.';
+
+            static constexpr TTexture
+            C_FOG = '~';
+
+
+        public:
             explicit CTexture(
                 const TTexture a_texture
-                    = ' ' );
+                    = C_UNDEFINED );
 
             bool operator==(
                 const CTexture& a_other )
                 const;
+
+            bool f_IsUndefined() const;
 
             TTexture f_Get() const;
 
