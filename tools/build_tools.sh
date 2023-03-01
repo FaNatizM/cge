@@ -86,7 +86,32 @@ f_BT_BuildExeByCLang() {
 
 
    # Чистка src
-   local objects=( $( ls "${a_src_path}" | grep -e '.gch' ) )
+   local objects=( $( ls "${a_src_path}" | grep -e '.gch$' ) )
+   local file=
+   for file in ${objects[*]}; do
+      mv -v "${a_src_path}/${file}" "${a_build_path}"
+   done
+
+
+   return ${result}
+}
+
+
+
+f_BT_BuildExeByGPP() {
+   local a_build_path="${1}"
+   local a_src_path="${2}"
+   local a_src=( "$(echo ${3} )" )
+
+
+   local command="g++ ${a_src[*]}"
+   echo -e "\n${command}\n"
+   ${command}
+   local result=${?}
+
+
+   # Чистка src
+   local objects=( $( ls "${a_src_path}" | grep -e '.o$' ) )
    local file=
    for file in ${objects[*]}; do
       mv -v "${a_src_path}/${file}" "${a_build_path}"
@@ -107,6 +132,12 @@ f_BT_MoveAndRun() {
    if [ ! -f "${a_bin_from}" ]; then
       return -1
    fi
+
+
+   # Создание каталога для исполняемого файла
+   local bin_path="$( dirname ${a_bin} )"
+   [ ! -d "${bin_path}" ] && mkdir -p "${bin_path}"
+   [ ! -d "${bin_path}" ] && return -1
 
 
    mv -v "${a_bin_from}" "${a_bin}"
@@ -177,6 +208,67 @@ f_BT_BuildAndRunByCLang() {
 
 
    f_BT_BuildExeByCLang "${a_build_path}" "${a_src_path}" "${src[*]}"
+   [ ${?} -ne 0 ] && return -3
+
+
+   f_BT_MoveAndRun "./a.out" "${a_bin}"
+   local result=${?}
+   [ ${result} -ne 0 ] && return -4
+   return ${result}
+}
+
+
+
+f_BT_BuildAndRunByGPP() {
+   local a_args=()
+   local args_count=0
+   while [ -n "${1}" ]; do
+      a_args+=( "${1}" )
+      args_count=$[${args_count}+1]
+      shift
+   done
+
+   local a_project_path=
+   local a_build_path=
+   local a_src_path=
+   local a_src_list=
+   local a_bin=
+
+   if [ ${args_count} -eq 4 ]; then
+      a_project_path=${a_args[0]}
+      a_build_path=${a_args[1]}
+      a_src_path=${a_args[2]}
+      a_bin=${a_args[3]}
+   fi
+
+   if [ ${args_count} -eq 5 ]; then
+      echo -e "\nBuild by src file"
+      a_project_path=${a_args[0]}
+      a_build_path=${a_args[1]}
+      a_src_path=${a_args[2]}
+      a_src_list=${a_args[3]}
+      a_bin=${a_args[4]}
+   fi
+
+
+   #f_BT_Clear
+
+
+   local src=()
+   if [ -f "${a_src_list}" ]; then
+      src=( "$( f_BT_CreateSrcList ${a_project_path} ${a_src_list} )" )
+   else
+      src=( "$( f_BT_GetSrcList ${a_src_path} )" )
+   fi
+
+   [ ${?} -ne 0 ] && return -1
+
+
+   f_BT_CreateBuildDir "${a_build_path}"
+   [ ${?} -ne 0 ] && return -2
+
+
+   f_BT_BuildExeByGPP "${a_build_path}" "${a_src_path}" "${src[*]}"
    [ ${?} -ne 0 ] && return -3
 
 
