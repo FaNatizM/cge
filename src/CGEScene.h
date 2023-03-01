@@ -1,35 +1,41 @@
-#ifndef CGESCENE_H
-#define CGESCENE_H
+﻿#ifndef CGECENE_H
+#define CGECENE_H
+
+
+#include <memory>
+
+#include "HMacroses.h"
+#include "CPoint.h"
+#include "CGETexture.h"
 
 
 
 
-// Graphic Engine namespace
 namespace NGE {
-
-    // Класс сцены, на которой происходит отрисовка
-    //  Сцена отрисовывается по узлам
-    //  В каждом узле отрисовывается конкретный символ
     class CScene {
         public:
-
-            // Настройка сцены
-            static void f_Configure(
+            explicit CScene(
                 const int a_width
                 , const int a_height );
 
-            // Задание текстуры по координатам
-            static void f_SetTexture(
-                const int a_x
-                , const int a_y
-                , const CTexture& a_texture );
+            int f_GetWidth() const;
 
-            // Отрисовка сцены
-            static void f_Repaint();
+            int f_GetHeight() const;
+
+            void f_Draw() const;
+
+            CTexture f_GetTexture(
+                const CPoint& a_point )
+                const;
+
+            bool f_SetTexture(
+                const CPoint& a_point
+                , const CTexture&
+                    a_texture );
 
 
         private:
-            explicit CScene();
+            M_IMPL_STRUCT( SImpl, TImpl )
     };
 }
 
