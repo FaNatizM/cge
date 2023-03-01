@@ -3,6 +3,7 @@
 
 
 #include <memory>
+#include <functional>
 
 #include "HMacroses.h"
 #include "CPoint.h"
