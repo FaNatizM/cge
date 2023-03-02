@@ -98,6 +98,13 @@ NWRD::CObject::f_GetPoint() const {
 
 
 
+void NWRD::CObject::f_SetPoint(
+    const CPoint& a_point ) {
+    m_impl->m_point = a_point;
+}
+
+
+
 NGE::CTexture
 NWRD::CObject::f_GetTexture() const {
     return m_impl->m_texture;

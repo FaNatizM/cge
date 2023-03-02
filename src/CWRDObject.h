@@ -29,6 +29,8 @@ namespace NWRD {
 
             CPoint f_GetPoint() const;
 
+            void f_SetPoint( const CPoint& a_point );
+
             NGE::CTexture
             f_GetTexture() const;
 
