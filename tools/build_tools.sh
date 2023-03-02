@@ -78,6 +78,21 @@ f_BT_CreateBuildDir() {
 
 
 
+f_BT_MoveBuiltObjects() {
+   local a_build_path="${1}"
+   local a_src_path="${2}"
+
+   local objects=( $( ls "${a_src_path}" | grep -e '.gch$' ) )
+   local file=
+   for file in ${objects[*]}; do
+      mv -v "${a_src_path}/${file}" "${a_build_path}"
+   done
+
+   return 0
+}
+
+
+
 f_BT_BuildExeByCLang() {
    local a_build_path="${1}"
    local a_src_path="${2}"
@@ -91,11 +106,7 @@ f_BT_BuildExeByCLang() {
 
 
    # Чистка src
-   local objects=( $( ls "${a_src_path}" | grep -e '.gch$' ) )
-   local file=
-   for file in ${objects[*]}; do
-      mv -v "${a_src_path}/${file}" "${a_build_path}"
-   done
+   f_BT_MoveBuiltObjects "${a_build_path}" "${a_src_path}"
 
 
    return ${result}
@@ -116,11 +127,7 @@ f_BT_BuildExeByGPP() {
 
 
    # Чистка src
-   local objects=( $( ls "${a_src_path}" | grep -e '.o$' ) )
-   local file=
-   for file in ${objects[*]}; do
-      mv -v "${a_src_path}/${file}" "${a_build_path}"
-   done
+   f_BT_MoveBuiltObjects "${a_build_path}" "${a_src_path}"
 
 
    return ${result}
