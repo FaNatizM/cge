@@ -32,6 +32,9 @@ namespace NWRD {
 
             bool f_IsEmpty() const;
 
+            // Метод занятия места
+            // void f_Take();
+
 
         protected:
             explicit CPlace(

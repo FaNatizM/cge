@@ -27,16 +27,7 @@ namespace NWRD {
                         m_left_top );
             }
 
-            template< typename... Types >
-            static TImpl f_Create(
-                Types&& ... a_params ) {
-                return std::make_shared<
-                    SImpl >(
-                        std::forward<
-                            Types >(
-                                a_params )
-                                ... );
-            }
+            M_IMPL_MAKE_STRUCT( SImpl, TImpl )
 
             CPoint
             f_ComputeRightBottom(
@@ -136,6 +127,9 @@ void NWRD::CViewer::f_View() const {
         // может скрывать объекты
         if ( a_node.second->f_IsEmpty()
             == false ) {
+
+            // Берём текстуру от предмета
+            //  у локации
             return;
         }
 
