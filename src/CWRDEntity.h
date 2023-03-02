@@ -47,6 +47,9 @@ namespace NWRD {
                 const int a_index = 0 )
                 const;
 
+            virtual bool f_Move(
+                const CPoint& a_point );
+
             static void f_Test();
 
         protected:

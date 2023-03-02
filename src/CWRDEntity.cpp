@@ -150,6 +150,23 @@ NWRD::CEntity::f_GetPoint(
 
 
 
+bool NWRD::CEntity::f_Move(
+    const CPoint& a_point ) {
+    if ( f_IsEmpty() == true ) {
+        return false;
+    }
+
+
+    auto object
+        = m_impl->m_objects[ 0 ];
+    object.f_SetPoint( a_point );
+
+
+    return true;
+}
+
+
+
 void NWRD::CEntity::f_Test() {
     auto entity = CEntity();
     std::cout << "entity: "
@@ -172,6 +189,8 @@ void NWRD::CEntity::f_Test() {
 
 
     // Добавление объектов
+    assert( entity.f_Move( CPoint( 1, 1 ) ) == false );
+
     CObject object_empty;
     entity.f_AddObject( object_empty );
 
@@ -180,6 +199,8 @@ void NWRD::CEntity::f_Test() {
 
     assert( entity.f_IsEmpty()
          == false );
+
+    assert( entity.f_Move( CPoint( 1, 1 ) ) == true );
 }
 
 
