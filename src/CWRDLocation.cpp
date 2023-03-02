@@ -12,6 +12,9 @@ namespace NWRD {
     using TNodes = std::map<
         CPoint, TPlace >;
 
+    using TItems = std::map<
+        CEntityID, CItem >;
+
 
 
 
@@ -22,7 +25,8 @@ namespace NWRD {
                 , const int a_height )
                 : m_width( a_width )
                 , m_height( a_height )
-                , m_nodes() {
+                , m_nodes()
+                , m_items() {
 
                 if ( m_width <= 0 ) {
                     m_width = 1;
@@ -35,16 +39,8 @@ namespace NWRD {
                 f_InitNodes();
             }
 
-            template< typename... Types >
-            static TImpl f_Create(
-                Types&& ... a_params ) {
-                return std::make_unique<
-                    SImpl >(
-                        std::forward<
-                            Types >(
-                                a_params )
-                                ... );
-            }
+            M_IMPL_MAKE_STRUCT(
+                SImpl, TImpl )
 
             void f_InitNodes();
 
@@ -53,6 +49,7 @@ namespace NWRD {
             int m_width;
             int m_height;
             TNodes m_nodes;
+            TItems m_nodes;
     };
 }
 
@@ -242,6 +239,64 @@ void NWRD::CLocation::f_Loop(
         , a_operation );
 }
 
+
+
+NWRD::CEntityID NWRD::CLocation::f_AddItem(
+    const CItem& a_item ) {
+
+    const auto id = a_item.f_GetID();
+    m_impl->m_items[ id ] = a_item;
+
+    return id;
+}
+
+
+
+NWRD::CItem f_GetItem(
+    const NWRD::CEntityID& a_id ) const {
+    auto item_node
+        = m_impl->m_items.find(
+            a_id );
+
+    if ( item_node
+        == m_impl->m_items.end() ) {
+        return CItem();
+    }
+
+
+    return item_node.second();
+}
+
+
+
+bool NWRD::CItem::f_MoveItem(
+    const CEntityID& a_id
+    , const CPoint& a_point ) {
+    auto item_node
+        = m_impl->m_items.find(
+            a_id );
+
+    if ( item_node
+        == m_impl->m_items.end() ) {
+        return false;
+    }
+
+
+    const auto item
+        = item_node.second();
+    return item.f_Move( a_point );
+}
+
+
+
+void NWRD::CLocation::f_LoopItems(
+    const TItemOperation a_operation )
+    const {
+    std::for_each(
+        m_impl->m_items.begin()
+        , m_impl->m_items.end()
+        , a_operation );
+}
 
 
 

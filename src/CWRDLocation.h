@@ -23,6 +23,14 @@ namespace NWRD {
             void( const TNode& ) >;
 
 
+    using TItem = std::pair<
+        const CEntityID, CItem >;
+
+    using TItemOperation
+        = std::function<
+            void( const TItem& ) >;
+
+
 
 
     class CLocation {
@@ -68,6 +76,21 @@ namespace NWRD {
                 const CPoint& a_point
                 , const TPlace&
                 a_place );
+
+            CEntityID f_AddItem(
+                const CItem& a_item );
+
+            CItem f_GetItem(
+                const CEntityID& a_id ) const;
+
+            bool f_MoveItem(
+                const CEntityID& a_id
+                , const CPoint& a_point );
+
+            void f_LoopItems(
+                const TItemOperation )
+                const;
+
 
         private:
             M_IMPL_SHARED_STRUCT(
