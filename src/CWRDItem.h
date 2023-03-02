@@ -12,12 +12,27 @@
 
 
 namespace NWRD {
+    enum class TItemType {
+        EUndefined = -1
+    };
+
+
+
+
     class CItem : public CEntity {
         M_IMPL_UNIQUE_V_DECL( CItem )
 
 
         public:
-            explicit CItem();
+            explicit CItem(
+                const TItemType a_type
+                    = TItemType::EUndefined
+                , const NGE::CTexture& a_texture
+                    = NGE::CTexture() );
+
+            TItemType f_GetType() const;
+
+            bool f_IsUndefined() const;
 
             static bool f_Test();
 
