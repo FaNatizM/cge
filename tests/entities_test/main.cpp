@@ -24,6 +24,10 @@ bool f_TestObject() {
     assert( texture
         == object.f_GetTexture() );
 
+    object.f_SetPoint( CPoint( 1, 1 ) );
+    assert(
+        object.f_GetPoint().f_GetX() == 1 );
+
 
     auto object_empty = NWRD::CObject();
     assert( object_empty.f_IsNull()
