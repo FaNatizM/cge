@@ -137,5 +137,19 @@ a_class& a_class::operator=(\
 
 
 
+#define M_IMPL_MAKE_STRUCT(\
+    a_struct, a_type )\
+    template< typename... Types >\
+    static a_type f_Create(\
+        Types&& ... a_params ) {\
+        auto impl\
+            = std::make_unique<\
+                a_struct >(\
+                    std::forward<\
+                        Types >( a_params ) ... );\
+            return impl;\
+    }\
+
+
 
 #endif
