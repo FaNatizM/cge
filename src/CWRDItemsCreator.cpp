@@ -8,65 +8,67 @@
 namespace NWRD {
     struct CItemsCreator::SImpl {
         public:
-            explicit SImpl();
+            explicit SImpl(
+                const TItemType a_type
+                , const NGE::CTexture& a_texture );
 
-            template< typename... Types >
-            static TImpl f_Create(
-                Types&& ... a_params ) {
-                auto impl
-                    = std::make_unique<
-                        SImpl >(
-                            std::forward<
-                                Types >( a_params ) ... );
+            M_IMPL_MAKE_STRUCT(
+                SImpl, TImpl )
 
-            return impl;
-        }
+
+        public:
+            TItemType m_type;
+            NGE::CTexture m_texture;
     };
 }
 
 
 
 
-NWRD::CItemsCreator::SImpl::SImpl() {
+NWRD::CItemsCreator::SImpl::SImpl(
+    const TItemType a_type
+    , const NGE::CTexture& a_texture )
+    : m_type( a_type )
+    , m_texture( a_texture ){
+}
+
+
+
+
+NWRD::CItemsCreator::CItemsCreator(
+    const TItemType a_type
+    , const NGE::CTexture& a_texture )
+    : m_impl(
+        SImpl::f_Create( a_type, a_texture ) ) {
 }
 
 
 
 NWRD::CItem
-NWRD::CItemsCreator::f_MakeFood() {
-    CItem food;
-    return food;
+NWRD::CItemsCreator::f_Create() const {
+    CItem item(
+        m_impl->m_type
+        , m_impl->m_texture );
+
+    return item;
 }
 
 
 
 bool NWRD::CItemsCreator::f_Test() {
     const auto creator
-        = CItemsCreator::f_Get();
+        = CItemsCreator(
+            TItemType::EUndefined
+            , NGE::CTexture( '1' ) );
 
     std::cout << creator << std::endl;
 
+    const auto item
+        = creator.f_Create();
 
-    const auto food
-        = NWRD::CItemsCreator
-            ::f_MakeFood();
+    assert( item.f_IsUndefined() == true );
 
     return true;
-}
-
-
-
-NWRD::CItemsCreator::CItemsCreator()
-    : m_impl(
-        SImpl::f_Create() ) {
-}
-
-
-
-NWRD::CItemsCreator
-NWRD::CItemsCreator::f_Get() {
-    static CItemsCreator creator;
-    return creator;
 }
 
 

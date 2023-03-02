@@ -50,9 +50,6 @@ bool f_TestID() {
 
 bool f_TestItemsCreator() {
     NWRD::CItemsCreator::f_Test();
-    const auto item
-        = NWRD::CItemsCreator::
-            f_MakeFood();
     return true;
 }
 

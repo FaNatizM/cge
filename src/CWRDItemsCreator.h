@@ -14,15 +14,14 @@
 namespace NWRD {
     class CItemsCreator {
         public:
-            static CItem f_MakeFood();
+            explicit CItemsCreator(
+                const TItemType a_type
+                ,const NGE::CTexture& a_texure
+            );
+
+            CItem f_Create() const;
 
             static bool f_Test();
-
-        private:
-            explicit CItemsCreator();
-
-            static CItemsCreator
-                f_Get();
 
 
         private:
