@@ -122,18 +122,6 @@ void NWRD::CViewer::f_View() const {
         }
 
 
-        // Убеждаемся, что в месте нет
-        // нет объекта, или, что место
-        // может скрывать объекты
-        if ( a_node.second->f_IsEmpty()
-            == false ) {
-
-            // Берём текстуру от предмета
-            //  у локации
-            return;
-        }
-
-        // Место пустое
         // Задаём узел сцены
         m_impl->m_scene.f_SetTexture(
             point
@@ -162,6 +150,7 @@ void NWRD::CViewer::f_View() const {
             = m_impl->m_left_top;
         const auto end
             = m_impl->m_right_bottom;
+
 
         // Задаём узлы сцены по
         // локации

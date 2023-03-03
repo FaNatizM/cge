@@ -11,17 +11,8 @@ namespace NWRD {
                 , const NGE::CTexture&
                 a_texture );
 
-            template< typename... Types >
-            static TImpl f_Create(
-                Types&& ... a_params ) {
-                auto impl
-                    = std::make_unique<
-                        SImpl >(
-                            std::forward<
-                                Types >( a_params ) ... );
-
-            return impl;
-        }
+            M_IMPL_MAKE_STRUCT(
+                SImpl, TImpl )
 
 
         public:
@@ -47,10 +38,13 @@ NWRD::CObject::SImpl::SImpl(
 
 
 
-namespace NWRD {
-    M_IMPL_UNIQUE( CObject, SImpl )
-}
+NWRD::CObject
+NWRD::CObject::f_MakeNull() {
+    static auto null
+        = CObject();
 
+    return null;
+}
 
 
 

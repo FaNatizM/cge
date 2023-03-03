@@ -25,7 +25,7 @@ namespace NWRD {
                 , const int a_height )
                 : m_width( a_width )
                 , m_height( a_height )
-                , m_nodes()
+                , m_places()
                 , m_items() {
 
                 if ( m_width <= 0 ) {
@@ -48,8 +48,8 @@ namespace NWRD {
         public:
             int m_width;
             int m_height;
-            TNodes m_nodes;
-            TItems m_nodes;
+            TNodes m_places;
+            TItems m_items;
     };
 }
 
@@ -70,12 +70,12 @@ void NWRD::CLocation::SImpl::f_InitNodes() {
                 = CPoint( column, row );
             const auto place
                 = CPlace::f_MakeGround();
-            m_nodes[ point ]
+            m_places[ point ]
                 = place;
         }
     }
 
-    assert( m_nodes.size() == size );
+    assert( m_places.size() == size );
 }
 
 
@@ -125,11 +125,11 @@ bool NWRD::CLocation::f_ExistPlace(
     const CPoint& a_point
     ) const {
     auto node
-        = m_impl->m_nodes.find(
+        = m_impl->m_places.find(
             a_point );
 
     if ( node
-        == m_impl->m_nodes.end() ) {
+        == m_impl->m_places.end() ) {
         return false;
     }
 
@@ -145,16 +145,16 @@ NWRD::CLocation::f_GetTexture(
     const {
 
     auto node
-        = m_impl->m_nodes.find(
+        = m_impl->m_places.find(
             a_point );
 
     if ( node
-        == m_impl->m_nodes.end() ) {
+        == m_impl->m_places.end() ) {
         return NGE::CTexture();
     }
 
 
-    return m_impl->m_nodes[ a_point ]
+    return m_impl->m_places[ a_point ]
         ->f_GetTexture();
 }
 
@@ -166,16 +166,16 @@ bool NWRD::CLocation::f_IsEmpty(
     std::cout << a_point << std::endl;
 
     const auto node
-        = m_impl->m_nodes.find(
+        = m_impl->m_places.find(
             a_point );
 
     if ( node
-        == m_impl->m_nodes.end() ) {
+        == m_impl->m_places.end() ) {
         return false;
     }
 
 
-    return m_impl->m_nodes[ a_point ]
+    return m_impl->m_places[ a_point ]
         ->f_IsEmpty();
 }
 
@@ -185,19 +185,19 @@ bool NWRD::CLocation::f_SetPlace(
     const CPoint& a_point
     , const TPlace& a_place ) {
     const auto node
-        = m_impl->m_nodes.find(
+        = m_impl->m_places.find(
             a_point );
     if ( a_place == nullptr ) {
         return false;
     }
 
     if ( node
-        == m_impl->m_nodes.end() ) {
+        == m_impl->m_places.end() ) {
         return false;
     }
 
 
-    m_impl->m_nodes[ a_point ]
+    m_impl->m_places[ a_point ]
         = a_place;
 
     return true;
@@ -209,8 +209,8 @@ void NWRD::CLocation::f_Loop(
     const TOperation a_operation )
     const {
     std::for_each(
-        m_impl->m_nodes.begin()
-        , m_impl->m_nodes.end()
+        m_impl->m_places.begin()
+        , m_impl->m_places.end()
         , a_operation );
 }
 
@@ -223,15 +223,24 @@ void NWRD::CLocation::f_Loop(
     const {
     auto begin
         = m_impl
-            ->m_nodes.find( a_begin );
+            ->m_places.find( a_begin );
     if ( begin
-        == m_impl->m_nodes.end() ) {
-        begin = m_impl->m_nodes.begin();
+        == m_impl->m_places.end() ) {
+        begin = m_impl->m_places.begin();
     }
 
     auto end
         = m_impl
-            ->m_nodes.find( a_end );
+            ->m_places.find( a_end );
+    if ( end
+        != m_impl->m_places.end() ) {
+
+        // Переводим на следующий
+        // за нужным элементом, т.к.
+        // последний элемент цикл
+        // не проходит
+        end++;
+    }
 
     std::for_each(
         begin
@@ -252,7 +261,7 @@ NWRD::CEntityID NWRD::CLocation::f_AddItem(
 
 
 
-NWRD::CItem f_GetItem(
+NWRD::CItem NWRD::CLocation::f_GetItem(
     const NWRD::CEntityID& a_id ) const {
     auto item_node
         = m_impl->m_items.find(
@@ -264,12 +273,12 @@ NWRD::CItem f_GetItem(
     }
 
 
-    return item_node.second();
+    return item_node->second;
 }
 
 
 
-bool NWRD::CItem::f_MoveItem(
+bool NWRD::CLocation::f_MoveItem(
     const CEntityID& a_id
     , const CPoint& a_point ) {
     auto item_node
@@ -282,9 +291,25 @@ bool NWRD::CItem::f_MoveItem(
     }
 
 
-    const auto item
-        = item_node.second();
-    return item.f_Move( a_point );
+    auto item
+        = item_node->second;
+
+    // Проверки возможности движения
+    if ( f_ExistPlace( a_point )
+        == false ) {
+        return false;
+    }
+
+    // Задаём позицию предмету
+    if ( item.f_Move( a_point )
+        == false ) {
+        return false;
+    }
+
+    // Занимаем место
+    return m_impl->m_places[ a_point ]
+        ->f_Take(
+            item.f_GetObject() );
 }
 
 
@@ -302,7 +327,8 @@ void NWRD::CLocation::f_LoopItems(
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NWRD::CLocation& a_location ) {
+    , const NWRD::CLocation&
+        a_location ) {
     a_location.f_Loop(
         NWRD::CLocation
             ::f_GetVisualOperation() );

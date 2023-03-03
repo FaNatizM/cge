@@ -9,6 +9,7 @@
 #include "CPoint.h"
 #include "CGETexture.h"
 #include "CWRDPlace.h"
+#include "CWRDItem.h"
 
 
 

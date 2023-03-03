@@ -11,17 +11,8 @@ namespace NWRD {
                 a_texture
                 , const bool a_space );
 
-            template< typename... Types >
-            static TImpl f_Create(
-                Types&& ... a_params ) {
-                auto impl
-                    = std::make_unique<
-                        SImpl >(
-                            std::forward<
-                                Types >( a_params ) ... );
-
-            return impl;
-        }
+            M_IMPL_MAKE_STRUCT(
+                SImpl, TImpl )
 
 
         public:
@@ -39,6 +30,10 @@ namespace NWRD {
             // Признак сокрытия
             // объекта
             bool m_hiding;
+
+            // Сущность, которая занимает
+            // место
+            CObject m_object;
     };
 }
 
@@ -50,7 +45,8 @@ NWRD::CPlace::SImpl::SImpl(
     , const bool a_space )
     : m_texture( a_texture )
     , m_space( a_space )
-    , m_empty( true ) {
+    , m_empty( true )
+    , m_object( CObject::f_MakeNull() ) {
 }
 
 
@@ -69,7 +65,8 @@ namespace NWRD {
             explicit CPlaceNowhere()
                 : CPlace(
                     NGE::CTexture(
-                        '~' )
+                        NGE::CTexture
+                        ::C_NOWHERE )
                     , false ) {
             }
     };
@@ -81,7 +78,8 @@ namespace NWRD {
             explicit CPlaceGround()
                 : CPlace(
                     NGE::CTexture(
-                        '.' )
+                        NGE::CTexture
+                        ::C_GROUND )
                     , true ) {
             }
     };
@@ -114,6 +112,19 @@ NWRD::CPlace::f_MakeGround() {
 
 NGE::CTexture
 NWRD::CPlace::f_GetTexture() const {
+
+    // Убеждаемся, что в месте нет
+    // нет объекта, или, что место
+    // может скрывать объекты
+    if ( f_IsEmpty() == false ) {
+
+        // Берём текстуру от предмета
+        //  у локации
+        return m_impl->m_object
+            .f_GetTexture();
+    }
+
+
     return m_impl->m_texture;
 }
 
@@ -126,7 +137,8 @@ bool NWRD::CPlace::f_IsSpace() const {
 
 
 bool NWRD::CPlace::f_IsEmpty() const {
-    return m_impl->m_empty;
+    return m_impl->m_object
+        .f_IsNull() == true;
 }
 
 
@@ -144,6 +156,44 @@ NWRD::CPlace::CPlace(
 void NWRD::CPlace::f_SetEmpty(
     const bool a_value ) {
     m_impl->m_empty = a_value;
+}
+
+
+
+bool NWRD::CPlace::f_Take(
+    const CObject& a_object ) {
+    if ( m_impl->m_space == false ) {
+        return false;
+    }
+
+    f_SetEmpty( false );
+    m_impl->m_object = a_object;
+
+    return true;
+}
+
+
+
+NWRD::CObject NWRD::CPlace::f_Free() {
+    if ( f_IsEmpty() == true ) {
+        return m_impl->m_object;
+    }
+
+    const auto object
+        = m_impl->m_object;
+    m_impl->m_object
+        = CObject::f_MakeNull();
+
+    f_SetEmpty( true );
+
+    return object;
+}
+
+
+
+NWRD::CObject
+NWRD::CPlace::f_GetObject() const {
+    return m_impl->m_object;
 }
 
 
@@ -166,7 +216,9 @@ std::ostream& operator<<(
         << a_place->f_GetTexture()
         << "\": "
         << space
-        << ": " << empty;
+        << ": " << empty
+        << " ("
+        << a_place->f_GetObject() << ")";
 
 
     return a_out;

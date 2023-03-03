@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "../../src/CWRDViewer.h"
+#include "../../src/CWRDItemsCreator.h"
 
 
 
@@ -148,9 +149,58 @@ bool f_TestViewerBig() {
 
 
 
+bool f_TestItemsMoves() {
+    std::cout
+        << "\n\nf_TestItemsMoves()\n";
+
+
+    auto scene
+        = NGE::CScene( 3, 3 );
+    auto location
+        = NWRD::CLocation( 4, 4 );
+    auto viewer
+        = NWRD::CViewer(
+            scene
+            , location );
+
+    auto items_creator
+        = NWRD::CItemsCreator(
+            NWRD::TItemType::EUndefined
+            , NGE::CTexture( 'x' )
+        );
+
+    auto item = items_creator.f_Create();
+    auto item_id
+        = location.f_AddItem( item );
+    auto point = CPoint( 0, 2 );
+    // assert( location.f_MoveItem(
+    //    item_id
+    //    , point )
+    //        == true );
+
+    std::cout << "item: "
+        << item << std::endl;
+    std::cout << "item point: "
+        << item.f_GetPoint()
+        << std::endl;
+
+    assert(
+        ( item.f_GetPoint() == point )
+            == false );
+
+    viewer.f_View();
+    scene.f_Draw();
+
+
+    return true;
+}
+
+
+
 int main( void ) {
     f_TestPlace();
     f_TestLocation();
     f_TestViewerSmall();
     f_TestViewerBig();
+    f_TestItemsMoves();
 }

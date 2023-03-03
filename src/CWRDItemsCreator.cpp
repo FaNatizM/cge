@@ -29,7 +29,7 @@ NWRD::CItemsCreator::SImpl::SImpl(
     const TItemType a_type
     , const NGE::CTexture& a_texture )
     : m_type( a_type )
-    , m_texture( a_texture ){
+    , m_texture( a_texture ) {
 }
 
 
@@ -39,7 +39,8 @@ NWRD::CItemsCreator::CItemsCreator(
     const TItemType a_type
     , const NGE::CTexture& a_texture )
     : m_impl(
-        SImpl::f_Create( a_type, a_texture ) ) {
+        SImpl::f_Create(
+            a_type, a_texture ) ) {
 }
 
 
@@ -66,7 +67,8 @@ bool NWRD::CItemsCreator::f_Test() {
     const auto item
         = creator.f_Create();
 
-    assert( item.f_IsUndefined() == true );
+    assert( item.f_IsUndefined()
+        == true );
 
     return true;
 }

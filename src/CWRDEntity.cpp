@@ -16,31 +16,22 @@ namespace NWRD {
         public:
             explicit SImpl();
 
-            template< typename... Types >
-            static TImpl f_Create(
-                Types&& ... a_params ) {
-                auto impl
-                    = std::make_unique<
-                        SImpl >(
-                            std::forward<
-                                Types >( a_params ) ... );
+            M_IMPL_MAKE_STRUCT(
+                SImpl, TImpl )
 
-            return impl;
-        }
+            inline bool f_ExistObject(
+                const int a_index ) {
+                if ( a_index < 0 ) {
+                    return false;
+                }
 
-        inline bool f_ExistObject(
-            const int a_index ) {
-            if ( a_index < 0 ) {
-                return false;
+                if ( m_objects.size()
+                    <= a_index ) {
+                    return false;
+                }
+
+                return true;
             }
-
-            if ( m_objects.size()
-                <= a_index ) {
-                return false;
-            }
-
-            return true;
-        }
 
 
         public:
@@ -62,8 +53,12 @@ NWRD::CEntity::SImpl::SImpl()
 
 
 
-namespace NWRD {
-    M_IMPL_UNIQUE( CEntity, SImpl )
+NWRD::CEntity
+NWRD::CEntity::f_MakeNull() {
+    static auto null
+        = CEntity();
+
+    return null;
 }
 
 

@@ -36,19 +36,16 @@ NWRD::CItem::SImpl::SImpl(
 
 
 
-namespace NWRD {
-    M_IMPL_UNIQUE( CItem, SImpl )
-}
-
-
-
 NWRD::CItem::CItem(
     const TItemType a_type
     , const NGE::CTexture& a_texture )
-    : m_impl(
+    : CEntity()
+    , m_impl(
         SImpl::f_Create( a_type ) ) {
+
     const auto object
         = CObject( CPoint(), a_texture );
+
     f_AddObject( object );
 }
 

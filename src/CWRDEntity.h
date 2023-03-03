@@ -18,10 +18,12 @@ namespace NWRD {
 
 
     class CEntity {
-        M_IMPL_UNIQUE_V_DECL( CEntity )
+        M_IMPL_SHARED_V_DECL( CEntity )
 
 
         public:
+            static CEntity f_MakeNull();
+
             bool f_IsEmpty() const;
 
             CEntityID f_GetID() const;
@@ -57,7 +59,7 @@ namespace NWRD {
 
 
         private:
-            M_IMPL_UNIQUE_STRUCT(
+            M_IMPL_SHARED_STRUCT(
                 SImpl, TImpl )
     };
 }

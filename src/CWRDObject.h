@@ -14,10 +14,12 @@
 
 namespace NWRD {
     class CObject {
-        M_IMPL_UNIQUE_V_DECL( CObject )
+        M_IMPL_SHARED_V_DECL( CObject )
 
 
         public:
+            static CObject f_MakeNull();
+
             explicit CObject();
 
             explicit CObject(
@@ -36,7 +38,7 @@ namespace NWRD {
 
 
         private:
-            M_IMPL_UNIQUE_STRUCT(
+            M_IMPL_SHARED_STRUCT(
                 SImpl, TImpl )
     };
 }

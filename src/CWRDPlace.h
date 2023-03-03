@@ -7,6 +7,7 @@
 
 #include "HMacroses.h"
 #include "CGETexture.h"
+#include "CWRDObject.h"
 
 
 
@@ -16,6 +17,8 @@ namespace NWRD {
 
 
 
+    // Место на локации
+    // в котором может быть сущность
     class CPlace {
         M_IMPL_UNIQUE_V_DECL( CPlace )
 
@@ -33,7 +36,14 @@ namespace NWRD {
             bool f_IsEmpty() const;
 
             // Метод занятия места
-            // void f_Take();
+            bool f_Take(
+                const CObject&
+                a_object );
+
+            // Метод освобождения места
+            CObject f_Free();
+
+            CObject f_GetObject() const;
 
 
         protected:

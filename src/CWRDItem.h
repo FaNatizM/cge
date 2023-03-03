@@ -20,7 +20,7 @@ namespace NWRD {
 
 
     class CItem : public CEntity {
-        M_IMPL_UNIQUE_V_DECL( CItem )
+        M_IMPL_SHARED_V_DECL( CItem )
 
 
         public:
@@ -38,7 +38,7 @@ namespace NWRD {
 
 
         private:
-            M_IMPL_UNIQUE_STRUCT(
+            M_IMPL_SHARED_STRUCT(
                 SImpl, TImpl )
     };
 }
