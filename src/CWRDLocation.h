@@ -15,13 +15,13 @@
 
 
 namespace NWRD {
-    using TNode
+    using TPlace
         = std::pair<
-            const CPoint, TPlace >;
+            const CPoint, CPlace >;
 
     using TOperation
         = std::function<
-            void( const TNode& ) >;
+            void( const TPlace& ) >;
 
 
     using TItem = std::pair<
@@ -75,7 +75,7 @@ namespace NWRD {
 
             bool f_SetPlace(
                 const CPoint& a_point
-                , const TPlace&
+                , const CPlace&
                 a_place );
 
             CEntityID f_AddItem(

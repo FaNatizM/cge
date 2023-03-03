@@ -88,17 +88,17 @@ void NWRD::CViewer::f_View() const {
     // Обходим локацию,
     // чтобы задать сцену
     TOperation f_SetSceneNode
-        = [ = ]( const TNode& a_node )
+        = [ = ]( const TPlace& a_place )
             -> void {
 
         // Вычисляем координаты узла
         // обзорщика
         const auto point
             = CPoint(
-                a_node.first.f_GetX()
+                a_place.first.f_GetX()
                 - m_impl->m_left_top
                     .f_GetX()
-                , a_node.first.f_GetY()
+                , a_place.first.f_GetY()
                 - m_impl->m_left_top
                     .f_GetY() );
 
@@ -125,8 +125,8 @@ void NWRD::CViewer::f_View() const {
         // Задаём узел сцены
         m_impl->m_scene.f_SetTexture(
             point
-            , a_node.second
-                ->f_GetTexture() );
+            , a_place.second
+                .f_GetTexture() );
     };
 
 
@@ -190,7 +190,7 @@ void NWRD::CViewer::f_View() const {
             <= point.f_GetX() ) {
             a_node.second
                 = nowhere
-                    ->f_GetTexture();
+                    .f_GetTexture();
             return;
         }
 
@@ -201,7 +201,7 @@ void NWRD::CViewer::f_View() const {
             <= point.f_GetY() ) {
             a_node.second
                 = nowhere
-                    ->f_GetTexture();
+                    .f_GetTexture();
             return;
         }
     };

@@ -13,14 +13,12 @@ bool f_TestPlace() {
 
     auto nowhere_1
         = NWRD::CPlace::f_MakeNowhere();
-    assert( nowhere.use_count() == 3 );
 
     std::cout << nowhere_1 << std::endl;
 
 
     auto ground
         = NWRD::CPlace::f_MakeGround();
-    assert( ground.use_count() == 2 );
 
     std::cout << ground << std::endl;
 
@@ -42,7 +40,7 @@ bool f_TestLocation() {
         CPoint( 1, 1 ), nowhere );
     std::cout << location << std::endl;
 
-    assert( nowhere->f_IsEmpty()
+    assert( nowhere.f_IsEmpty()
         == location.f_IsEmpty(
             CPoint( 1, 1 ) ) );
 
@@ -172,11 +170,13 @@ bool f_TestItemsMoves() {
     auto item = items_creator.f_Create();
     auto item_id
         = location.f_AddItem( item );
+
+
     auto point = CPoint( 0, 2 );
-    // assert( location.f_MoveItem(
-    //    item_id
-    //    , point )
-    //        == true );
+    assert( location.f_MoveItem(
+        item_id
+        , point )
+            == true );
 
     std::cout << "item: "
         << item << std::endl;
@@ -186,7 +186,19 @@ bool f_TestItemsMoves() {
 
     assert(
         ( item.f_GetPoint() == point )
-            == false );
+            == true );
+
+
+    point = CPoint( 0, 1 );
+    assert( location.f_MoveItem(
+        item_id
+        , point )
+            == true );
+
+    assert(
+        ( item.f_GetPoint() == point )
+            == true );
+
 
     viewer.f_View();
     scene.f_Draw();

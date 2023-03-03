@@ -9,8 +9,8 @@
 
 
 namespace NWRD {
-    using TNodes = std::map<
-        CPoint, TPlace >;
+    using TPlaces = std::map<
+        CPoint, CPlace >;
 
     using TItems = std::map<
         CEntityID, CItem >;
@@ -48,7 +48,7 @@ namespace NWRD {
         public:
             int m_width;
             int m_height;
-            TNodes m_places;
+            TPlaces m_places;
             TItems m_items;
     };
 }
@@ -95,11 +95,11 @@ NWRD::CLocation::CLocation(
 NWRD::TOperation
 NWRD::CLocation::f_GetVisualOperation() {
     static TOperation f_VisualNode
-        = []( const TNode& a_node )
+        = []( const TPlace& a_place )
             -> void {
-        std::cout << a_node.first
+        std::cout << a_place.first
             << ": "
-            << a_node.second
+            << a_place.second
             << std::endl;
     };
 
@@ -155,7 +155,7 @@ NWRD::CLocation::f_GetTexture(
 
 
     return m_impl->m_places[ a_point ]
-        ->f_GetTexture();
+        .f_GetTexture();
 }
 
 
@@ -176,20 +176,17 @@ bool NWRD::CLocation::f_IsEmpty(
 
 
     return m_impl->m_places[ a_point ]
-        ->f_IsEmpty();
+        .f_IsEmpty();
 }
 
 
 
 bool NWRD::CLocation::f_SetPlace(
     const CPoint& a_point
-    , const TPlace& a_place ) {
+    , const CPlace& a_place ) {
     const auto node
         = m_impl->m_places.find(
             a_point );
-    if ( a_place == nullptr ) {
-        return false;
-    }
 
     if ( node
         == m_impl->m_places.end() ) {
@@ -290,25 +287,49 @@ bool NWRD::CLocation::f_MoveItem(
         return false;
     }
 
-
+    // Освобождаем предыдущее место
     auto item
         = item_node->second;
+    const auto item_point
+        = item.f_GetPoint();
 
-    // Проверки возможности движения
-    if ( f_ExistPlace( a_point )
-        == false ) {
-        return false;
+    if ( f_ExistPlace( item_point ) ) {
+        m_impl->m_places[ item_point ]
+            .f_Free();
     }
 
+
+    // Занятие нового места
+    // Проверки возможности движения
+    auto x = a_point.f_GetX();
+    auto y = a_point.f_GetY();
+    if ( x < 0 ) {
+        x = 0;
+    }
+
+    if ( m_impl->m_width <= x ) {
+        x = m_impl->m_width - 1;
+    }
+
+    if ( y < 0 ) {
+        y = 0;
+    }
+
+    if ( m_impl->m_height <= y ) {
+        y = m_impl->m_height - 1;
+    }
+
+    const auto point = CPoint( x, y );
+
     // Задаём позицию предмету
-    if ( item.f_Move( a_point )
+    if ( item.f_Move( point )
         == false ) {
         return false;
     }
 
     // Занимаем место
-    return m_impl->m_places[ a_point ]
-        ->f_Take(
+    return m_impl->m_places[ point ]
+        .f_Take(
             item.f_GetObject() );
 }
 

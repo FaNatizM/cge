@@ -88,24 +88,30 @@ namespace NWRD {
 
 
 
-NWRD::TPlace
+NWRD::CPlace
 NWRD::CPlace::f_MakeNowhere() {
-    static auto nowhere =
-        std::make_shared<
-            CPlaceNowhere >();
+    const auto nowhere = CPlaceNowhere();
 
     return nowhere;
 }
 
 
 
-NWRD::TPlace
+NWRD::CPlace
 NWRD::CPlace::f_MakeGround() {
-    static auto ground =
-        std::make_shared<
-            CPlaceGround >();
+    const auto ground = CPlaceGround();
 
     return ground;
+}
+
+
+
+NWRD::CPlace::CPlace(
+    const NGE::CTexture& a_texture
+    , const bool a_space )
+    : m_impl(
+        SImpl::f_Create(
+            a_texture, a_space ) ) {
 }
 
 
@@ -139,16 +145,6 @@ bool NWRD::CPlace::f_IsSpace() const {
 bool NWRD::CPlace::f_IsEmpty() const {
     return m_impl->m_object
         .f_IsNull() == true;
-}
-
-
-
-NWRD::CPlace::CPlace(
-    const NGE::CTexture& a_texture
-    , const bool a_space )
-    : m_impl(
-        SImpl::f_Create(
-            a_texture, a_space ) ) {
 }
 
 
@@ -201,24 +197,24 @@ NWRD::CPlace::f_GetObject() const {
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NWRD::TPlace& a_place ) {
+    , const NWRD::CPlace& a_place ) {
     const std::string space
-        = a_place->f_IsSpace() == true
+        = a_place.f_IsSpace() == true
             ? "space"
             : "no space";
 
     const std::string empty
-        = a_place->f_IsEmpty() == true
+        = a_place.f_IsEmpty() == true
             ? "is empty"
             : "isn't empty";
 
     a_out << "\""
-        << a_place->f_GetTexture()
+        << a_place.f_GetTexture()
         << "\": "
         << space
         << ": " << empty
         << " ("
-        << a_place->f_GetObject() << ")";
+        << a_place.f_GetObject() << ")";
 
 
     return a_out;

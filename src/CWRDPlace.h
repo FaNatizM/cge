@@ -13,20 +13,26 @@
 
 
 namespace NWRD {
-    M_POINTER_TYPE( CPlace, TPlace )
 
-
-
-    // Место на локации
-    // в котором может быть сущность
+    // Уникальное место на локации
+    // в котором может быть объект
+    // Объект может быть общим на несколько
+    // мест. Например, "нулевой" объект
+    // обший на все пустые места
     class CPlace {
         M_IMPL_UNIQUE_V_DECL( CPlace )
 
 
         public:
-            static TPlace f_MakeNowhere();
+            static CPlace f_MakeNowhere();
 
-            static TPlace f_MakeGround();
+            static CPlace f_MakeGround();
+
+            explicit CPlace(
+                const NGE::CTexture&
+                a_texture = NGE::CTexture(
+                    NGE::CTexture::C_NOWHERE )
+                , const bool a_space = false );
 
             NGE::CTexture
             f_GetTexture() const;
@@ -47,11 +53,6 @@ namespace NWRD {
 
 
         protected:
-            explicit CPlace(
-                const NGE::CTexture&
-                a_texture
-                , const bool a_space );
-
             void f_SetEmpty(
                 const bool a_value );
 
@@ -67,7 +68,7 @@ namespace NWRD {
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NWRD::TPlace& a_place );
+    , const NWRD::CPlace& a_place );
 
 
 
