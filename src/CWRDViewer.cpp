@@ -213,6 +213,13 @@ void NWRD::CViewer::f_View() const {
 
 
 
+void NWRD::CViewer::f_ViewAndDraw() const {
+    f_View();
+    m_impl->m_scene.f_Draw();
+}
+
+
+
 bool NWRD::CViewer::f_SetPoint(
     const CPoint& a_point ) {
 

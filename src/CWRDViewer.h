@@ -22,6 +22,8 @@ namespace NWRD {
 
             void f_View() const;
 
+            void f_ViewAndDraw() const;
+
             bool f_SetPoint(
                 const CPoint& a_point );
 
