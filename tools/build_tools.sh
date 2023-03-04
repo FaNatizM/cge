@@ -140,6 +140,15 @@ f_BT_MoveAndRun() {
    local a_bin_from="${1}"
    local a_bin="${2}"
 
+   # Принимаем остальные входные аргументы для запускаемой программы
+   local a_exe_args=()
+   while [ -n "${3}" ]; do
+      a_exe_args+=( "${3}" )
+      shift
+   done
+
+   echo "${g_exe_args[*]}"
+
 
    if [ ! -f "${a_bin_from}" ]; then
       echo -e "\nЦелевого файла ${a_bin_from} не существует!"
@@ -167,7 +176,7 @@ f_BT_MoveAndRun() {
 
 
    if [ -f "${a_bin}" ]; then
-      "${a_bin}"
+      "${a_bin}" ${a_exe_args[*]}
       return ${?}
    fi
 
@@ -303,13 +312,11 @@ f_BT_CMakeAndRun() {
 
    # Переносим целевой файл в целевой каталог
    echo -e "\nЗапускаем приложение..."
-   f_BT_MoveAndRun "${a_build_path}/${a_target}" "${a_target_path}/${a_target}"
+   local args=()
+   args+=( "${a_build_path}/${a_target}" )
+   args+=( "${a_target_path}/${a_target}" )
+   f_BT_MoveAndRun ${args[*]} ${a_exe_args[*]}
    local result=${?}
    [ ${result} -ne 0 ] && return -5
    return ${result}
-
-
-   # Todo
-   # Запускаем программу с аргументами
-   # ./${a_target} ${a_exe_args[*]}
 }
