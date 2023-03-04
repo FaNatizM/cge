@@ -142,6 +142,7 @@ f_BT_MoveAndRun() {
 
 
    if [ ! -f "${a_bin_from}" ]; then
+      echo -e "\nЦелевого файла ${a_bin_from} не существует!"
       return -1
    fi
 
@@ -149,11 +150,16 @@ f_BT_MoveAndRun() {
    # Создание каталога для исполняемого файла
    local bin_path="$( dirname ${a_bin} )"
    [ ! -d "${bin_path}" ] && mkdir -p "${bin_path}"
-   [ ! -d "${bin_path}" ] && return -1
+   if [ ! -d "${bin_path}" ]; then
+      echo -e "\nНе удалось создать путь для целевого файла ${a_bin}!"
+      return -1
+   fi
 
 
    mv -v "${a_bin_from}" "${a_bin}"
    if [ ! -f "${a_bin}" ]; then
+      echo -e "\nНе удалось переместить целевой файл:"
+      echo "\nmv -v ${a_bin_from} ${a_bin}"
       return -1
    fi
 
@@ -240,4 +246,70 @@ f_BT_BuildAndRun() {
    local result=${?}
    [ ${result} -ne 0 ] && return -5
    return ${result}
+}
+
+
+
+f_BT_CMakeAndRun() {
+   local a_target="${1}"
+   local a_project_path="${2}"
+   local a_build_path="${3}"
+   local a_target_path="${4}"
+
+   # Принимаем остальные входные аргументы для запускаемой программы
+   local a_exe_args=()
+   while [ -n "${5}" ]; do
+      a_exe_args+=( "${5}" )
+      shift
+   done
+
+   echo "${g_exe_args[*]}"
+
+
+   f_BT_Clear
+
+
+   f_BT_CreateBuildDir "${a_build_path}"
+   [ ${?} -ne 0 ] && return -1
+
+   # Создаём путь к целевому каталогу, если он не существует
+   [ ! -d "${a_target_path}" ] && mkdir -p "${a_target_path}"
+   [ ! -d "${a_target_path}" ] && return -2
+
+
+   # Переходим в каталог сборки
+   cd "${a_build_path}"
+
+   # Todo
+   # rm -rf ./*
+
+
+   # Запускаем cmake
+   echo -e "\ncmake..."
+   cmake "${a_project_path}"
+   [ ${?} -ne 0 ] && return -3
+
+
+   # Запускаем make
+   # Todo threads count
+   echo -e "\nmake..."
+   make -j2
+   [ ${?} -ne 0 ] && return -4
+
+
+   # Переходим в каталог проекта
+   cd "${a_project_path}"
+
+
+   # Переносим целевой файл в целевой каталог
+   echo -e "\nЗапускаем приложение..."
+   f_BT_MoveAndRun "${a_build_path}/${a_target}" "${a_target_path}/${a_target}"
+   local result=${?}
+   [ ${result} -ne 0 ] && return -5
+   return ${result}
+
+
+   # Todo
+   # Запускаем программу с аргументами
+   # ./${a_target} ${a_exe_args[*]}
 }
