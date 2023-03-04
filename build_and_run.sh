@@ -8,15 +8,16 @@ g_project_path="${PWD}"
 cd "${g_scpt_path}"
 
 
-# Загрузка библиотеки
-source "${g_project_path}/tools/build_tools.sh"
-
-
 g_args=()
 g_args+=( "${g_project_path}" )
 g_args+=( "${g_project_path}/build" )
 g_args+=( "${g_project_path}/src" )
 g_args+=( "${HOME}/snake" )
+
+
+# Загрузка библиотеки
+source "${g_project_path}/tools/build_tools.sh"
+
 
 f_BT_BuildAndRun ${g_args[*]}
 echo "Result code: ${?}"
