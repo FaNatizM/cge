@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Todo
+# CMake ignores
+
+# Special
+bin
+build
+lib
+plugins
