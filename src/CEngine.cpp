@@ -27,6 +27,7 @@ struct CEngine::SImpl {
 void CEngine::SImpl::f_Draw() {
     system( "clear" );
 
+    // Рисуем происходящее
     m_game.f_ViewAndDraw();
 }
 
