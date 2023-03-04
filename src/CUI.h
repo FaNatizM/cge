@@ -17,7 +17,7 @@ namespace NUI {
             // создаёт объект-команду
             // Если пользователь ввёл символы, которые
             // программа не ожидает, то метод вернёт пустую команду
-            static TCommand f_ProcessInput( const CMap& a_map );
+            static TCommand f_ProcessInput( const CGame& a_game );
 
         private:
             explicit CUI() {}

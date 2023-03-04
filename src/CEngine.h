@@ -3,27 +3,25 @@
 
 #include <memory>
 
-#include "CMap.h"
+#include "CGame.h"
 
 
 
 
 // Движок
 // Реализует цикл обработки пользовательского ввода и отрисовки экрана
-class CEnginePrivate;
-using TEnginePrivate = std::shared_ptr< CEnginePrivate >;
-
-
-
 class CEngine {
     public:
-        explicit CEngine( const CMap& a_map );
+        explicit CEngine(
+            const CGame& a_game );
 
         // Цикл выполнения
         void f_Exec();
 
+
     private:
-        TEnginePrivate m_impl;
+        M_IMPL_SHARED_STRUCT(
+            SImpl, TImpl )
 };
 
 

@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "CMap.h"
+#include "CGame.h"
 
 
 
@@ -34,28 +34,28 @@ namespace NUI {
             }
 
             // Создание команды бездействия
-            static TCommand f_Create( const CMap& a_map );
+            static TCommand f_Create( const CGame& a_game );
 
             // Создание команды движения
             static TCommand f_Create(
-                const CMap& a_map
+                const CGame& a_game
                 , const EMoveSide a_side );
 
             // Создание команды выход
-            static TCommand f_CreateExit( const CMap& a_map );
+            static TCommand f_CreateExit( const CGame& a_game );
 
             // Если команду не удалось обработать,
             // то игра будет завершена
             virtual bool f_Execute() = 0;
 
         protected:
-            explicit CCommand( const CMap& a_map );
+            explicit CCommand( const CGame& a_game );
 
-            CMap& f_GetMap();
+            CGame& f_GetGame();
 
 
         private:
-            CMap m_map;
+            CGame m_game;
     };
 }
 

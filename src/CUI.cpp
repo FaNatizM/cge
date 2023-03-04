@@ -19,7 +19,7 @@ namespace NUI {
                 : m_input( 0 ) {
             }
 
-            TCommand f_ProcessInput( const CMap& a_map );
+            TCommand f_ProcessInput( const CGame& a_game );
 
 
         private:
@@ -40,7 +40,7 @@ namespace NUI {
 
 
 
-NUI::TCommand NUI::CCore::f_ProcessInput( const CMap& a_map ) {
+NUI::TCommand NUI::CCore::f_ProcessInput( const CGame& a_game ) {
 
     // обработка действий пользователя
     // set_keypress();
@@ -51,32 +51,32 @@ NUI::TCommand NUI::CCore::f_ProcessInput( const CMap& a_map ) {
 
         // Если клавиша не та, то генерируем команду выход
         // reset_keypress();
-        return CCommand::f_CreateExit( a_map );
+        return CCommand::f_CreateExit( a_game );
     }
 
 
     TCommand command;
     switch ( static_cast< KEYS >( getchar() ) ) {
         case KEYS::KEY_DOWN:
-            command = CCommand::f_Create( a_map, EMoveSide::E_Bottom );
+            command = CCommand::f_Create( a_game, EMoveSide::E_Bottom );
             break;
 
         case KEYS::KEY_UP:
-            command = CCommand::f_Create( a_map, EMoveSide::E_Top );
+            command = CCommand::f_Create( a_game, EMoveSide::E_Top );
             break;
 
         case KEYS::KEY_RIGHT:
-            command = CCommand::f_Create( a_map, EMoveSide::E_Right );
+            command = CCommand::f_Create( a_game, EMoveSide::E_Right );
             break;
 
         case KEYS::KEY_LEFT:
-            command = CCommand::f_Create( a_map, EMoveSide::E_Left );
+            command = CCommand::f_Create( a_game, EMoveSide::E_Left );
             break;
 
         default:
 
             // Пустая команда
-            command = CCommand::f_Create( a_map );
+            command = CCommand::f_Create( a_game );
             break;
     }
 
@@ -87,7 +87,7 @@ NUI::TCommand NUI::CCore::f_ProcessInput( const CMap& a_map ) {
 
 
 
-NUI::TCommand NUI::CUI::f_ProcessInput( const CMap& a_map ) {
+NUI::TCommand NUI::CUI::f_ProcessInput( const CGame& a_game ) {
     auto core = f_Get();
-    return core->f_ProcessInput( a_map );
+    return core->f_ProcessInput( a_game );
 }

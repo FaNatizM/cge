@@ -8,8 +8,8 @@
 namespace NUI {
     class CCommandNothing : public CCommand {
         public:
-            explicit CCommandNothing( const CMap& a_map )
-                : CCommand( a_map ) {
+            explicit CCommandNothing( const CGame& a_game )
+                : CCommand( a_game ) {
             }
 
             bool f_Execute() override {
@@ -21,8 +21,8 @@ namespace NUI {
 
     class CCommandExit : public CCommand {
         public:
-            explicit CCommandExit( const CMap& a_map )
-                : CCommand( a_map ) {
+            explicit CCommandExit( const CGame& a_game )
+                : CCommand( a_game ) {
             }
 
             bool f_Execute() override {
@@ -35,9 +35,9 @@ namespace NUI {
     class CCommandMove : public CCommand {
         public:
             explicit CCommandMove(
-                const CMap& a_map
+                const CGame& a_game
                 , const EMoveSide& a_side )
-                : CCommand( a_map )
+                : CCommand( a_game )
                 , m_move_side( a_side ) {
             }
 
@@ -53,36 +53,21 @@ namespace NUI {
 // Двигаем объект на карте
 bool NUI::CCommandMove::f_Execute() {
 
-    const auto map = f_GetMap();
-    auto object = map.f_GetObject();
-
     switch ( m_move_side ) {
         case EMoveSide::E_Bottom:
-            if ( object.f_GetYPos() < map.f_GetHeight() - 1 ) {
-                object.f_SetYPos( object.f_GetYPos() + 1 );
-            }
-
+            f_GetGame().f_MoveDown();
             break;
 
         case EMoveSide::E_Top:
-            if ( object.f_GetYPos() > 0 ) {
-                object.f_SetYPos( object.f_GetYPos() - 1);
-            }
-
+            f_GetGame().f_MoveUp();
             break;
 
         case EMoveSide::E_Right:
-            if ( object.f_GetXPos() < ( map.f_GetWidth() - 1 ) ) {
-                object.f_SetXPos( object.f_GetXPos() + 1 );
-            }
-
+            f_GetGame().f_MoveRight();
             break;
 
         case EMoveSide::E_Left:
-            if ( object.f_GetXPos() > 0 ) {
-                object.f_SetXPos( object.f_GetXPos() - 1 );
-            }
-
+            f_GetGame().f_MoveLeft();
             break;
 
         default:
@@ -98,31 +83,31 @@ bool NUI::CCommandMove::f_Execute() {
 
 
 
-NUI::CCommand::CCommand( const CMap& a_map )
-    : m_map( a_map ) {
+NUI::CCommand::CCommand( const CGame& a_game )
+    : m_game( a_game ) {
 }
 
 
 
-CMap& NUI::CCommand::f_GetMap() {
-    return m_map;
+CGame& NUI::CCommand::f_GetGame() {
+    return m_game;
 }
 
 
 
-NUI::TCommand NUI::CCommand::f_Create( const CMap& a_map ) {
-    return TCommand( new CCommandNothing( a_map ) );
+NUI::TCommand NUI::CCommand::f_Create( const CGame& a_game ) {
+    return TCommand( new CCommandNothing( a_game ) );
 }
 
 
-NUI::TCommand NUI::CCommand::f_CreateExit( const CMap& a_map ) {
-    return TCommand( new CCommandExit( a_map ) );
+NUI::TCommand NUI::CCommand::f_CreateExit( const CGame& a_game ) {
+    return TCommand( new CCommandExit( a_game ) );
 }
 
 
 
 NUI::TCommand NUI::CCommand::f_Create(
-    const CMap& a_map
+    const CGame& a_game
     , const EMoveSide a_side ) {
-    return TCommand( new CCommandMove( a_map, a_side ) );
+    return TCommand( new CCommandMove( a_game, a_side ) );
 }

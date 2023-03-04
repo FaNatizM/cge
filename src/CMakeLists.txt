@@ -5,10 +5,8 @@ project( src )
 
 
 set( SOURCES
-   CMap.h
-   CMap.cpp
-   CMapObject.h
-   CMapObject.cpp
+   CGame.h
+   CGame.cpp
    CUI.h
    CUI.cpp
    CUICommand.h

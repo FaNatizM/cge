@@ -7,46 +7,36 @@
 
 
 
-class CEnginePrivate {
+struct CEngine::SImpl {
     public:
-        CEnginePrivate( const CMap& a_map )
-            : m_map( a_map ) {
+        explicit SImpl( const CGame& a_game )
+            : m_game( a_game ) {
         }
+
+        M_IMPL_MAKE_STRUCT( SImpl, TImpl )
 
     void f_Draw();
 
 
     public:
-        CMap m_map;
+        CGame m_game;
 };
 
 
 
+void CEngine::SImpl::f_Draw() {
+    system( "clear" );
 
-CEngine::CEngine( const CMap& a_map )
-    : m_impl( TEnginePrivate( new CEnginePrivate( a_map ) ) ) {
-
-    m_impl->f_Draw();
+    m_game.f_ViewAndDraw();
 }
 
 
 
-void CEnginePrivate::f_Draw() {
-    system( "clear" );
 
-    CMapObject object = m_map.f_GetObject();
-    for ( int i = 0; i < m_map.f_GetWidth(); i++ ) {
-        for ( int j = 0; j < m_map.f_GetHeight(); j++ ) {
-            if ( ( i == object.f_GetYPos() )
-                && (j == object.f_GetXPos() ) ) {
-                std::cout << " " << object.f_GetSymbol() << " ";
-            } else {
-                    std::cout << " " << m_map.f_GetSymbol() << " ";
-            }
-        }
+CEngine::CEngine( const CGame& a_game )
+    : m_impl( SImpl::f_Create( a_game ) ) {
 
-        std::cout << std::endl;
-    }
+    m_impl->f_Draw();
 }
 
 
@@ -91,7 +81,7 @@ void CEngine::f_Exec() {
 
 
         // Обрабатываем пользовательский ввод
-        auto command = NUI::CUI::f_ProcessInput( m_impl->m_map );
+        auto command = NUI::CUI::f_ProcessInput( m_impl->m_game );
 
         // Выполняем пользовательскую команду
         if ( command->f_Execute() == false ) {

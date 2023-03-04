@@ -6,14 +6,8 @@
 
 
 int main() {
-
-    // очистка буфера
-    // getchar();
-
-
-    CMapObject object;
-    CMap map( '.', 20, 20, object );
-    CEngine test( map );
+    CGame game;
+    CEngine test( game );
     test.f_Exec();
 
 
