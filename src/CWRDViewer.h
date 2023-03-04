@@ -32,6 +32,14 @@ namespace NWRD {
             bool f_MoveRight();
             bool f_MoveDown();
 
+            // Захват сущности в обзорщик
+            // Если сущность подходит
+            // близко к краю обзорщика,
+            // то обзорщик сдвигается
+            void f_CatchEntity( const CEntity& a_entity );
+
+            void f_MoveWithEntity();
+
 
         private:
             M_IMPL_SHARED_STRUCT(

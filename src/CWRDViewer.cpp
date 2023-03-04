@@ -8,6 +8,11 @@
 
 
 namespace NWRD {
+    static constexpr auto C_DELTA_MOVE_COEFF = 2;
+
+
+
+
     struct CViewer::SImpl {
         public:
             explicit SImpl(
@@ -21,7 +26,8 @@ namespace NWRD {
                     CPoint() )
                 , m_scene( a_scene )
                 , m_location(
-                    a_location ) {
+                    a_location )
+                , m_catched( CEntity::f_MakeNull() ) {
                 m_right_bottom
                     = f_ComputeRightBottom(
                         m_left_top );
@@ -46,6 +52,9 @@ namespace NWRD {
             NGE::CScene m_scene;
 
             CLocation m_location;
+
+            // Сущность за которой следит просмотрщик
+            CEntity m_catched;
     };
 }
 
@@ -326,4 +335,47 @@ bool NWRD::CViewer::f_MoveDown() {
         CPoint(
             point.f_GetX()
             , point.f_GetY() + 1 ) );
+}
+
+
+
+void NWRD::CViewer::f_CatchEntity(
+    const CEntity& a_entity ) {
+    m_impl->m_catched = a_entity;
+}
+
+
+
+void NWRD::CViewer::f_MoveWithEntity() {
+    if ( m_impl->m_catched.f_IsEmpty() == true ) {
+        return;
+    }
+
+    const auto object = m_impl->m_catched.f_GetObject();
+    if ( object.f_IsNull() == true ) {
+        return;
+    }
+
+
+    const auto x = object.f_GetPoint().f_GetX();
+    const auto y = object.f_GetPoint().f_GetY();
+    const auto view_width = m_impl->m_scene.f_GetWidth();
+    const auto view_height = m_impl->m_scene.f_GetHeight();
+    const auto delta_x_move = ( view_width / C_DELTA_MOVE_COEFF );
+    const auto delta_y_move = ( view_height / C_DELTA_MOVE_COEFF );
+    if ( m_impl->m_right_bottom.f_GetX() - x < delta_x_move ) {
+        f_MoveRight();
+    }
+
+    if ( x - m_impl->m_left_top.f_GetX() < delta_x_move ) {
+        f_MoveLeft();
+    }
+
+    if ( m_impl->m_right_bottom.f_GetY() - y < delta_y_move ) {
+        f_MoveDown();
+    }
+
+    if ( y - m_impl->m_left_top.f_GetY() < delta_y_move ) {
+        f_MoveUp();
+    }
 }
