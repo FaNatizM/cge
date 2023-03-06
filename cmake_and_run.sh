@@ -21,7 +21,7 @@ g_args=()
 g_args+=( "src/snake" )
 g_args+=( "${PWD}" )
 g_args+=( "${g_rep_root}/build" )
-g_args+=( "${g_rep_root}/bin" )
+g_args+=( "${HOME}" )
 
 
 # Загрузка библиотеки
