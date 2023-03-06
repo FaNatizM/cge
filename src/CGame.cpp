@@ -36,6 +36,48 @@ struct CGame::SImpl {
                 m_item.f_GetID()
                 , point )
                     == true );
+
+
+            // Создаём неподвижный предмет
+            const auto food_creator
+                = NWRD::CItemsCreator(
+                    NWRD::TItemType::EUndefined
+                    , NGE::CTexture( 'o' ) );
+
+            auto food = food_creator.f_Create();
+
+            // Добавление предмета на локацию
+            assert( m_location.f_AddItem( food )
+                == food.f_GetID() );
+
+            // Двигаем предмет
+            point = CPoint( 5, 8 );
+            assert( m_location.f_MoveItem(
+                food.f_GetID()
+                , point )
+                    == true );
+
+
+            // Создаём ничто
+            m_location.f_SetPlace(
+                CPoint( 4, 4 )
+                , NWRD::CPlace::f_MakeNowhere() );
+
+            m_location.f_SetPlace(
+                CPoint( 3, 4 )
+                , NWRD::CPlace::f_MakeNowhere() );
+
+            m_location.f_SetPlace(
+                CPoint( 5, 4 )
+                , NWRD::CPlace::f_MakeNowhere() );
+
+            m_location.f_SetPlace(
+                CPoint( 4, 3 )
+                , NWRD::CPlace::f_MakeNowhere() );
+
+            m_location.f_SetPlace(
+                CPoint( 4, 5 )
+                , NWRD::CPlace::f_MakeNowhere() );
         };
 
         M_IMPL_MAKE_STRUCT( SImpl, TImpl )

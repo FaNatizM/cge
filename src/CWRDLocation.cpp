@@ -287,20 +287,10 @@ bool NWRD::CLocation::f_MoveItem(
         return false;
     }
 
-    // Освобождаем предыдущее место
-    auto item
-        = item_node->second;
-    const auto item_point
-        = item.f_GetPoint();
 
-    if ( f_ExistPlace( item_point ) ) {
-        m_impl->m_places[ item_point ]
-            .f_Free();
-    }
-
-
-    // Занятие нового места
+    // Предмет существует
     // Проверки возможности движения
+    // нет ли границы карты
     auto x = a_point.f_GetX();
     auto y = a_point.f_GetY();
     if ( x < 0 ) {
@@ -321,16 +311,61 @@ bool NWRD::CLocation::f_MoveItem(
 
     const auto point = CPoint( x, y );
 
-    // Задаём позицию предмету
-    if ( item.f_Move( point )
-        == false ) {
+
+    // Занятие нового места
+    // Проверяем не занято ли оно
+    auto& place =
+        m_impl->m_places[ point ];
+
+    if ( place.f_IsSpace() == false ) {
+
+        // Место недоступно для объектов
         return false;
     }
 
+    if ( place.f_IsEmpty() == false ) {
+
+        // Место занято
+        return false;
+    }
+
+
+    // Запоминаем предыдущую позицию предмета
+    auto item
+        = item_node->second;
+
+        const auto item_point_perv
+            = item.f_GetPoint();
+
+    // Задаём позицию предмету
+    if ( item.f_Move( point )
+        == false ) {
+
+        // Не удалось сместить объект
+        return false;
+    }
+
+
     // Занимаем место
-    return m_impl->m_places[ point ]
-        .f_Take(
-            item.f_GetObject() );
+    const auto taken
+        = m_impl->m_places[ point ]
+            .f_Take(
+                item.f_GetObject() );
+
+
+    // Освобождаем предыдущее место
+    // если оно существует
+    if ( taken == true ) {
+        if ( f_ExistPlace( item_point_perv )
+            == true ) {
+            m_impl->m_places[
+                item_point_perv ]
+                    .f_Free();
+        }
+    }
+
+
+    return taken;
 }
 
 
