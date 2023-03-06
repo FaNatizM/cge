@@ -141,6 +141,8 @@ bool CGame::f_MoveLeft() {
             , point.f_GetY() ) );
 
     m_impl->m_viewer.f_MoveWithEntity();
+
+    return result;
 }
 
 
@@ -156,6 +158,8 @@ bool CGame::f_MoveRight() {
             , point.f_GetY() ) );
 
     m_impl->m_viewer.f_MoveWithEntity();
+
+    return result;
 }
 
 
@@ -171,4 +175,6 @@ bool CGame::f_MoveDown() {
             , point.f_GetY() + 1 ) );
 
     m_impl->m_viewer.f_MoveWithEntity();
+
+    return result;
 }
