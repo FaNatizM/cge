@@ -5,7 +5,7 @@
 #include <memory>
 #include <iostream>
 
-#include "CWRDModel.h"
+#include "CWRDObject.h"
 
 
 
@@ -26,16 +26,16 @@ namespace NWRD {
 
         public:
             virtual CObject f_GetObject(
-                const int& a_index )
+                const int a_index = 0 )
                 const = 0;
 
             virtual CPoint f_GetPoint(
-                const int a_index )
+                const int a_index = 0 )
                 const = 0;
 
             virtual NGE::CTexture
             f_GetTexture(
-                const int a_index )
+                const int a_index = 0 )
                 const = 0;
 
             virtual
@@ -46,7 +46,7 @@ namespace NWRD {
             // модели
             virtual void f_Loop(
                 const TOperation&
-                a_operation );
+                a_operation ) = 0;
 
             // Перемещение модели
             virtual bool f_Move(

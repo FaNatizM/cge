@@ -14,14 +14,15 @@ namespace NWRD {
 
     // Модель сущности, которая содержит
     // один объект
-    class CModelPoint {
+    class CModelPoint : public CModel {
         M_IMPL_SHARED_DECL( CModelPoint )
 
 
         public:
             explicit CModelPoint(
                 const CObject&
-                a_object );
+                a_object
+                = CObject() );
 
             CObject
             f_GetObject(
@@ -29,12 +30,12 @@ namespace NWRD {
                 const override;
 
             CPoint f_GetPoint(
-                const int a_index = 0 )
+                const int a_index )
                 const override;
 
             NGE::CTexture
             f_GetTexture(
-                const int a_index = 0 )
+                const int a_index )
                 const override;
 
             size_t f_GetObjectsCount()

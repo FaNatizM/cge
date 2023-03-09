@@ -1,4 +1,4 @@
-#include "CWRDEntity.h"
+#include "CWRDModelPoint.h"
 
 #include <cassert>
 #include <vector>
@@ -34,6 +34,14 @@ NWRD::CModelPoint::SImpl::SImpl(
 
 
 
+NWRD::CModelPoint::CModelPoint(
+    const CObject& a_object )
+    : CModel()
+    , m_impl(
+        SImpl::f_Create( a_object ) ) {
+}
+
+
 
 NWRD::CObject
 NWRD::CModelPoint::f_GetObject(
@@ -49,7 +57,7 @@ NWRD::CModelPoint::f_GetPoint(
     const int ) const {
 
     return
-        m_impl->m_objects;
+        m_impl->m_object.f_GetPoint();
 }
 
 
@@ -58,14 +66,22 @@ NGE::CTexture
 NWRD::CModelPoint::f_GetTexture(
     const int ) const {
     return
-        m_impl->m_object;
+        m_impl->m_object.f_GetTexture();
 }
 
 
 
-size_t NWRD::CModelPoint::f_GetObjectsCount()
+size_t
+NWRD::CModelPoint::f_GetObjectsCount()
     const {
     return 1;
+}
+
+
+
+void NWRD::CModelPoint::f_Loop(
+    const TOperation& a_operation ) {
+    a_operation( m_impl->m_object );
 }
 
 
@@ -82,46 +98,28 @@ bool NWRD::CModelPoint::f_Move(
 
 
 void NWRD::CModelPoint::f_Test() {
-    auto entity = CModelPoint();
-    std::cout << "entity: "
-        << entity << std::endl;
+    auto model = CModelPoint();
+    std::cout << "model: "
+        << model << std::endl;
 
-    assert( entity.f_IsEmpty()
-         == true );
-
-    assert( entity.f_GetObject()
+    assert( model.f_GetObject()
         .f_IsNull() == true );
 
-    assert( entity.f_GetPoint()
+    assert( model.f_GetPoint()
         .f_IsNull() == true );
 
-    assert( entity.f_GetTexture()
+    assert( model.f_GetTexture()
         .f_IsUndefined() == true );
 
-    assert( entity.f_GetObjectsCount()
-        == 0 );
+    assert( model.f_GetObjectsCount()
+        == 1 );
 
 
     // Добавление объектов
-    assert( entity.f_Move( CPoint( 1, 1 ) ) == false );
+    assert(
+        model.f_Move( CPoint( 1, 1 ) )
+        == true );
 
-    CObject object_empty;
-    entity.f_AddObject( object_empty );
-
-    assert( entity.f_GetObjectsCount()
-        == 1 );
-
-    assert( entity.f_IsEmpty()
-         == false );
-
-    assert( entity.f_Move( CPoint( 1, 1 ) ) == true );
-}
-
-
-
-NWRD::CModelPoint::CModelPoint()
-    : m_impl(
-        SImpl::f_Create() ) {
 }
 
 
@@ -129,10 +127,10 @@ NWRD::CModelPoint::CModelPoint()
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NWRD::CModelPoint& a_entity ) {
-    a_out << "ID: "
-        << a_entity.f_GetID() << ": "
-        << a_entity.f_GetObject();
+    , const NWRD::CModelPoint&
+        a_model ) {
+    a_out << "object: "
+        << a_model.f_GetObject();
 
     return a_out;
 }

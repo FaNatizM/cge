@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "HMacroses.h"
-#include "CWRDObject.h"
+#include "CWRDModel.h"
 #include "CWRDEntityID.h"
 
 
