@@ -14,6 +14,10 @@ set( SOURCES
    ../../src/CGEScene.cpp
    ../../src/CWRDObject.h
    ../../src/CWRDObject.cpp
+   ../../src/CWRDModel.h
+   ../../src/CWRDModel.cpp
+   ../../src/CWRDModelPoint.h
+   ../../src/CWRDModelPoint.cpp
    ../../src/CWRDEntityID.h
    ../../src/CWRDEntityID.cpp
    ../../src/CWRDEntity.h

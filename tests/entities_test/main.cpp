@@ -3,6 +3,7 @@
 #include "../../src/CWRDDecoration.h"
 #include "../../src/CWRDItemsCreator.h"
 #include "../../src/CWRDUnit.h"
+#include "../../src/CWRDModelPoint.h"
 
 
 
@@ -26,7 +27,8 @@ bool f_TestObject() {
 
     object.f_SetPoint( CPoint( 1, 1 ) );
     assert(
-        object.f_GetPoint().f_GetX() == 1 );
+        object.f_GetPoint().f_GetX()
+            == 1 );
 
 
     auto object_empty = NWRD::CObject();
@@ -62,6 +64,7 @@ bool f_TestItemsCreator() {
 int main( void ) {
     f_TestObject();
     f_TestID();
+    NWRD::CModelPoint::f_Test();
     NWRD::CEntity::f_Test();
     NWRD::CItem::f_Test();
     NWRD::CDecoration::f_Test();
