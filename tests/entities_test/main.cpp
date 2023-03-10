@@ -64,6 +64,7 @@ bool f_TestItemsCreator() {
 int main( void ) {
     f_TestObject();
     f_TestID();
+    NWRD::CModel::f_Test();
     NWRD::CModelPoint::f_Test();
     NWRD::CEntity::f_Test();
     NWRD::CItem::f_Test();

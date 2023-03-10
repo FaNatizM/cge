@@ -7,47 +7,50 @@
 
 
 namespace NWRD {
-    using TObjects
-        = std::vector< CObject >;
-
-
-
     struct CEntity::SImpl {
         public:
-            explicit SImpl();
+            explicit SImpl(
+                const CModel& a_model );
 
             M_IMPL_MAKE_STRUCT(
                 SImpl, TImpl )
 
-            inline bool f_ExistObject(
-                const int a_index ) {
-                if ( a_index < 0 ) {
-                    return false;
-                }
-
-                if ( m_objects.size()
-                    <= a_index ) {
-                    return false;
-                }
-
-                return true;
-            }
+            bool f_ExistObject(
+                const int a_index )
+                const;
 
 
         public:
             CEntityID m_id;
 
             // Объекты сущности
-            TObjects m_objects;
+            CModel m_model;
     };
 }
 
 
 
 
-NWRD::CEntity::SImpl::SImpl()
+NWRD::CEntity::SImpl::SImpl(
+    const CModel& a_model )
     : m_id()
-    , m_objects() {
+    , m_model( a_model ) {
+}
+
+
+
+bool NWRD::CEntity::SImpl::f_ExistObject(
+    const int a_index ) const {
+    if ( a_index < 0 ) {
+        return false;
+    }
+
+    if ( m_model.f_GetObjectsCount()
+        <= a_index ) {
+        return false;
+    }
+
+    return true;
 }
 
 
@@ -92,23 +95,22 @@ NWRD::CEntity::f_GetObject(
     }
 
 
-    return
-        m_impl->m_objects[ a_index ];
+    return m_impl->m_model.f_GetObject(
+        a_index );
 }
 
 
 
 void NWRD::CEntity::f_AddObject(
     const CObject& a_object ) {
-    m_impl->m_objects.push_back(
-        a_object );
 }
 
 
 
 size_t NWRD::CEntity::f_GetObjectsCount()
     const {
-    return m_impl->m_objects.size();
+    return m_impl->m_model
+        .f_GetObjectsCount();
 }
 
 
@@ -123,8 +125,8 @@ NWRD::CEntity::f_GetTexture(
 
 
     return
-        m_impl->m_objects[ a_index ]
-            .f_GetTexture();
+        m_impl->m_model
+            .f_GetTexture( a_index );
 }
 
 
@@ -139,8 +141,8 @@ NWRD::CEntity::f_GetPoint(
 
 
     return
-        m_impl->m_objects[ a_index ]
-            .f_GetPoint();
+        m_impl->m_model
+            .f_GetPoint( a_index );
 }
 
 
@@ -152,9 +154,7 @@ bool NWRD::CEntity::f_Move(
     }
 
 
-    auto object
-        = m_impl->m_objects[ 0 ];
-    object.f_SetPoint( a_point );
+    m_impl->m_model.f_Move( a_point );
 
 
     return true;
@@ -200,9 +200,10 @@ void NWRD::CEntity::f_Test() {
 
 
 
-NWRD::CEntity::CEntity()
+NWRD::CEntity::CEntity(
+    const CModel& a_model )
     : m_impl(
-        SImpl::f_Create() ) {
+        SImpl::f_Create( a_model ) ) {
 }
 
 

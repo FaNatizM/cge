@@ -2,7 +2,6 @@
 #define CWRDMODEL_H
 
 
-#include <memory>
 #include <iostream>
 
 #include "CWRDObject.h"
@@ -25,36 +24,36 @@ namespace NWRD {
 
 
         public:
+            explicit CModel();
+
             virtual CObject f_GetObject(
                 const int a_index = 0 )
-                const = 0;
+                const;
 
             virtual CPoint f_GetPoint(
                 const int a_index = 0 )
-                const = 0;
+                const;
 
             virtual NGE::CTexture
             f_GetTexture(
                 const int a_index = 0 )
-                const = 0;
+                const;
 
             virtual
             size_t f_GetObjectsCount()
-                const = 0;
+                const;
 
             // Обход всех объектов
             // модели
             virtual void f_Loop(
                 const TOperation&
-                a_operation ) = 0;
+                a_operation );
 
             // Перемещение модели
             virtual bool f_Move(
-                const CPoint& a_point )
-                = 0;
+                const CPoint& a_point );
 
-        protected:
-            explicit CModel();
+            static void f_Test();
     };
 }
 

@@ -5,7 +5,6 @@
 #include <memory>
 #include <iostream>
 
-#include "HMacroses.h"
 #include "CWRDModel.h"
 #include "CWRDEntityID.h"
 
@@ -55,7 +54,9 @@ namespace NWRD {
             static void f_Test();
 
         protected:
-            explicit CEntity();
+            explicit CEntity(
+                const CModel& a_model
+                = CModel() );
 
 
         private:

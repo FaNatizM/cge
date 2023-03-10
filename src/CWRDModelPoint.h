@@ -30,12 +30,12 @@ namespace NWRD {
                 const override;
 
             CPoint f_GetPoint(
-                const int a_index )
+                const int a_index = 0 )
                 const override;
 
             NGE::CTexture
             f_GetTexture(
-                const int a_index )
+                const int a_index = 0 )
                 const override;
 
             size_t f_GetObjectsCount()
