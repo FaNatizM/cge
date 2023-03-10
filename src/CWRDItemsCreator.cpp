@@ -46,9 +46,9 @@ NWRD::CItemsCreator::CItemsCreator(
 
 
 
-NWRD::CItem
+NWRD::TItem
 NWRD::CItemsCreator::f_Create() const {
-    CItem item(
+    const auto item = CItem::f_Create(
         m_impl->m_type
         , m_impl->m_model );
 
@@ -85,7 +85,10 @@ bool NWRD::CItemsCreator::f_Test() {
     const auto item
         = creator.f_Create();
 
-    assert( item.f_IsUndefined()
+    assert( item->f_IsUndefined()
+        == true );
+
+    assert( item->f_IsEmpty()
         == true );
 
     return true;

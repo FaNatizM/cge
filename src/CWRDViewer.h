@@ -36,7 +36,7 @@ namespace NWRD {
             // Если сущность подходит
             // близко к краю обзорщика,
             // то обзорщик сдвигается
-            void f_CatchEntity( const CEntity& a_entity );
+            void f_CatchEntity( const TEntity& a_entity );
 
             void f_MoveWithEntity();
 

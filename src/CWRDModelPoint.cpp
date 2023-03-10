@@ -91,8 +91,6 @@ bool NWRD::CModelPoint::f_Move(
     m_impl
         ->m_object.f_SetPoint( a_point );
 
-    std::cout << "test\n";
-
     return true;
 }
 

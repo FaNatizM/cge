@@ -13,7 +13,7 @@ namespace NWRD {
         CPoint, CPlace >;
 
     using TItems = std::map<
-        CEntityID, CItem >;
+        CEntityID, TItem >;
 
 
 
@@ -248,9 +248,9 @@ void NWRD::CLocation::f_Loop(
 
 
 NWRD::CEntityID NWRD::CLocation::f_AddItem(
-    const CItem& a_item ) {
+    const TItem& a_item ) {
 
-    const auto id = a_item.f_GetID();
+    const auto id = a_item->f_GetID();
     m_impl->m_items[ id ] = a_item;
 
     return id;
@@ -258,7 +258,7 @@ NWRD::CEntityID NWRD::CLocation::f_AddItem(
 
 
 
-NWRD::CItem NWRD::CLocation::f_GetItem(
+NWRD::TItem NWRD::CLocation::f_GetItem(
     const NWRD::CEntityID& a_id ) const {
     auto item_node
         = m_impl->m_items.find(
@@ -266,7 +266,7 @@ NWRD::CItem NWRD::CLocation::f_GetItem(
 
     if ( item_node
         == m_impl->m_items.end() ) {
-        return CItem();
+        return CItem::f_Create();
     }
 
 
@@ -336,10 +336,10 @@ bool NWRD::CLocation::f_MoveItem(
         = item_node->second;
 
     const auto item_point_perv
-        = item.f_GetPoint();
+        = item->f_GetPoint();
 
     // Задаём позицию предмету
-    if ( item.f_Move( point )
+    if ( item->f_Move( point )
         == false ) {
 
         // Не удалось сместить объект
@@ -351,7 +351,7 @@ bool NWRD::CLocation::f_MoveItem(
     const auto taken
         = m_impl->m_places[ point ]
             .f_Take(
-                item.f_GetObject() );
+                item->f_GetObject() );
 
 
     // Освобождаем предыдущее место

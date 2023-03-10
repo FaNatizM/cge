@@ -24,12 +24,12 @@ namespace NWRD {
             void( const TPlace& ) >;
 
 
-    using TItem = std::pair<
-        const CEntityID, CItem >;
+    using TItemNode = std::pair<
+        const CEntityID, TItem >;
 
     using TItemOperation
         = std::function<
-            void( const TItem& ) >;
+            void( const TItemNode& ) >;
 
 
 
@@ -79,9 +79,9 @@ namespace NWRD {
                 a_place );
 
             CEntityID f_AddItem(
-                const CItem& a_item );
+                const TItem& a_item );
 
-            CItem f_GetItem(
+            TItem f_GetItem(
                 const CEntityID& a_id ) const;
 
             bool f_MoveItem(

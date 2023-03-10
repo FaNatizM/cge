@@ -27,7 +27,7 @@ namespace NWRD {
                 , m_scene( a_scene )
                 , m_location(
                     a_location )
-                , m_catched( CEntity::f_MakeNull() ) {
+                , m_catched( CEntity::f_Create() ) {
                 m_right_bottom
                     = f_ComputeRightBottom(
                         m_left_top );
@@ -54,7 +54,7 @@ namespace NWRD {
             CLocation m_location;
 
             // Сущность за которой следит просмотрщик
-            CEntity m_catched;
+            TEntity m_catched;
     };
 }
 
@@ -340,18 +340,18 @@ bool NWRD::CViewer::f_MoveDown() {
 
 
 void NWRD::CViewer::f_CatchEntity(
-    const CEntity& a_entity ) {
+    const TEntity& a_entity ) {
     m_impl->m_catched = a_entity;
 }
 
 
 
 void NWRD::CViewer::f_MoveWithEntity() {
-    if ( m_impl->m_catched.f_IsEmpty() == true ) {
+    if ( m_impl->m_catched->f_IsEmpty() == true ) {
         return;
     }
 
-    const auto object = m_impl->m_catched.f_GetObject();
+    const auto object = m_impl->m_catched->f_GetObject();
     if ( object.f_IsNull() == true ) {
         return;
     }

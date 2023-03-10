@@ -21,6 +21,8 @@ namespace NWRD {
 
 
         public:
+            M_MAKE_SHARED( CEntity, TEntity )
+
             static CEntity f_MakeNull();
 
             bool f_IsEmpty() const;
@@ -58,7 +60,7 @@ namespace NWRD {
 
             static void f_Test();
 
-        protected:
+        public:
             explicit CEntity(
                 const TModel& a_model
                 = CModel

@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 
+#include "../../src/CWRDModelPoint.h"
 #include "../../src/CWRDViewer.h"
 #include "../../src/CWRDItemsCreator.h"
 
@@ -161,11 +162,13 @@ bool f_TestItemsMoves() {
             scene
             , location );
 
+    auto object = NWRD::CObject(
+        CPoint(), NGE::CTexture( 'x' ) );
     auto items_creator
         = NWRD::CItemsCreator(
             NWRD::TItemType::EUndefined
-            , NGE::CTexture( 'x' )
-        );
+            , NWRD::CModelPoint::f_Create( object )
+    );
 
     auto item = items_creator.f_Create();
     auto item_id
@@ -181,11 +184,11 @@ bool f_TestItemsMoves() {
     std::cout << "item: "
         << item << std::endl;
     std::cout << "item point: "
-        << item.f_GetPoint()
+        << item->f_GetPoint()
         << std::endl;
 
     assert(
-        ( item.f_GetPoint() == point )
+        ( item->f_GetPoint() == point )
             == true );
 
 
@@ -196,7 +199,7 @@ bool f_TestItemsMoves() {
             == true );
 
     assert(
-        ( item.f_GetPoint() == point )
+        ( item->f_GetPoint() == point )
             == true );
 
 

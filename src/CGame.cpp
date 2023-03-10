@@ -33,7 +33,7 @@ struct CGame::SImpl {
                 = NWRD::CItemsCreator(
                     NWRD::TItemType
                         ::EUndefined
-                    , NWRD::CModelPoint(
+                    , NWRD::CModelPoint::f_Create(
                         item_object ) );
 
             m_item = item_creator
@@ -46,7 +46,7 @@ struct CGame::SImpl {
             assert(
                 m_location.f_AddItem(
                     m_item )
-                == m_item.f_GetID() );
+                == m_item->f_GetID() );
 
             // Захватываем предмет
             // обзорщиком
@@ -57,7 +57,7 @@ struct CGame::SImpl {
             auto point = CPoint( 0, 0 );
             assert(
                 m_location.f_MoveItem(
-                    m_item.f_GetID()
+                    m_item->f_GetID()
                     , point )
                 == true );
 
@@ -73,7 +73,7 @@ struct CGame::SImpl {
                 = NWRD::CItemsCreator(
                     NWRD::TItemType
                         ::EUndefined
-                    , NWRD::CModelPoint(
+                    , NWRD::CModelPoint::f_Create(
                         food_object ) );
 
             auto food = food_creator
@@ -84,12 +84,12 @@ struct CGame::SImpl {
             assert(
                 m_location.f_AddItem(
                     food )
-                == food.f_GetID() );
+                == food->f_GetID() );
 
             // Двигаем предмет
             point = CPoint( 5, 8 );
             assert( m_location.f_MoveItem(
-                food.f_GetID()
+                food->f_GetID()
                 , point )
                     == true );
 
@@ -128,7 +128,7 @@ struct CGame::SImpl {
         NWRD::CViewer m_viewer;
 
         // То, что двигаем по карте
-        NWRD::CItem m_item;
+        NWRD::TItem m_item;
 };
 
 
@@ -149,12 +149,12 @@ void CGame::f_ViewAndDraw() const {
 
 bool CGame::f_MoveUp() {
     const auto point
-        = m_impl->m_item.f_GetPoint();
+        = m_impl->m_item->f_GetPoint();
 
     // Если предмет подходит близко к краю
     // просмотрщика, то сдвигаем просмотрщик
     const auto result = m_impl->m_location.f_MoveItem(
-        m_impl->m_item.f_GetID()
+        m_impl->m_item->f_GetID()
         , CPoint(
             point.f_GetX()
             , point.f_GetY() - 1 ) );
@@ -168,10 +168,10 @@ bool CGame::f_MoveUp() {
 
 bool CGame::f_MoveLeft() {
     const auto point
-        = m_impl->m_item.f_GetPoint();
+        = m_impl->m_item->f_GetPoint();
 
     const auto result = m_impl->m_location.f_MoveItem(
-        m_impl->m_item.f_GetID()
+        m_impl->m_item->f_GetID()
         , CPoint(
             point.f_GetX() - 1
             , point.f_GetY() ) );
@@ -185,10 +185,10 @@ bool CGame::f_MoveLeft() {
 
 bool CGame::f_MoveRight() {
     const auto point
-        = m_impl->m_item.f_GetPoint();
+        = m_impl->m_item->f_GetPoint();
 
     const auto result = m_impl->m_location.f_MoveItem(
-        m_impl->m_item.f_GetID()
+        m_impl->m_item->f_GetID()
         , CPoint(
             point.f_GetX() + 1
             , point.f_GetY() ) );
@@ -202,10 +202,10 @@ bool CGame::f_MoveRight() {
 
 bool CGame::f_MoveDown() {
     const auto point
-        = m_impl->m_item.f_GetPoint();
+        = m_impl->m_item->f_GetPoint();
 
     const auto result = m_impl->m_location.f_MoveItem(
-        m_impl->m_item.f_GetID()
+        m_impl->m_item->f_GetID()
         , CPoint(
             point.f_GetX()
             , point.f_GetY() + 1 ) );

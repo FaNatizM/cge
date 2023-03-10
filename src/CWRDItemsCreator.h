@@ -17,7 +17,7 @@ namespace NWRD {
                 , const TModel&
                     a_model );
 
-            CItem f_Create() const;
+            TItem f_Create() const;
 
             std::ostream& f_Visual(
                 std::ostream& a_out )

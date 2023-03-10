@@ -29,6 +29,10 @@ set( SOURCES
    CWRDViewer.cpp
    CWRDObject.h
    CWRDObject.cpp
+   CWRDModel.h
+   CWRDModel.cpp
+   CWRDModelPoint.h
+   CWRDModelPoint.cpp
    CWRDEntityID.h
    CWRDEntityID.cpp
    CWRDEntity.h
