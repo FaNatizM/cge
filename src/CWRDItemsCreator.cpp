@@ -10,7 +10,7 @@ namespace NWRD {
         public:
             explicit SImpl(
                 const TItemType a_type
-                , const CModel&
+                , const TModel&
                     a_model );
 
             M_IMPL_MAKE_STRUCT(
@@ -19,7 +19,7 @@ namespace NWRD {
 
         public:
             TItemType m_type;
-            CModel m_model;
+            TModel m_model;
     };
 }
 
@@ -28,7 +28,7 @@ namespace NWRD {
 
 NWRD::CItemsCreator::SImpl::SImpl(
     const TItemType a_type
-    , const CModel& a_model )
+    , const TModel& a_model )
     : m_type( a_type )
     , m_model( a_model ) {
 }
@@ -38,7 +38,7 @@ NWRD::CItemsCreator::SImpl::SImpl(
 
 NWRD::CItemsCreator::CItemsCreator(
     const TItemType a_type
-    , const CModel& a_model )
+    , const TModel& a_model )
     : m_impl(
         SImpl::f_Create(
             a_type, a_model ) ) {
@@ -78,7 +78,7 @@ bool NWRD::CItemsCreator::f_Test() {
     const auto creator
         = CItemsCreator(
             TItemType::EUndefined
-            , CModel() );
+            , CModel::f_Create() );
 
     std::cout << creator << std::endl;
 

@@ -38,7 +38,7 @@ NWRD::CItem::SImpl::SImpl(
 
 NWRD::CItem::CItem(
     const TItemType a_type
-    , const CModel& a_model )
+    , const TModel& a_model )
     : CEntity( a_model )
     , m_impl(
         SImpl::f_Create( a_type ) ) {

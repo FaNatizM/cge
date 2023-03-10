@@ -10,6 +10,9 @@
 
 
 namespace NWRD {
+    M_POINTER_TYPE( CModelPoint, TModelPoint )
+
+
 
     // Модель сущности, которая содержит
     // один объект
@@ -22,6 +25,9 @@ namespace NWRD {
                 const CObject&
                 a_object
                 = CObject() );
+
+        public:
+            M_MAKE_SHARED( CModelPoint, TModelPoint )
 
             CObject
             f_GetObject(

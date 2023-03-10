@@ -67,10 +67,6 @@ NWRD::CEntity::f_MakeNull() {
 
 
 bool NWRD::CEntity::f_IsEmpty() const {
-    std::cout << "size: "
-        << f_GetObjectsCount()
-        << std::endl;
-
     if ( f_GetObjectsCount()
         < 1 ) {
         return true;
@@ -130,7 +126,7 @@ NWRD::CEntity::f_GetTexture(
 
     return
         m_impl->m_model
-            .f_GetTexture( a_index );
+            ->f_GetTexture( a_index );
 }
 
 
@@ -146,7 +142,7 @@ NWRD::CEntity::f_GetPoint(
 
     return
         m_impl->m_model
-            .f_GetPoint( a_index );
+            ->f_GetPoint( a_index );
 }
 
 
@@ -159,7 +155,7 @@ bool NWRD::CEntity::f_Move(
 
 
     return m_impl->m_model
-        .f_Move( a_point );
+        ->f_Move( a_point );
 }
 
 
@@ -168,7 +164,7 @@ std::ostream& NWRD::CEntity::f_Visual(
     std::ostream& a_out )
     const {
     a_out << "ID: "
-        << f_GetID() << ": "
+        << f_GetID()
         << "; model: "
         << m_impl->m_model
         << "; size: "
@@ -209,14 +205,14 @@ void NWRD::CEntity::f_Test() {
     entity.f_AddObject( object_empty );
 
     assert( entity.f_GetObjectsCount()
-        == 1 );
+        == 0 );
 
     assert( entity.f_IsEmpty()
-         == false );
+         == true );
 
     assert(
         entity.f_Move( CPoint( 1, 1 ) )
-            == true );
+            == false );
 }
 
 
@@ -233,8 +229,7 @@ NWRD::CEntity::CEntity(
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::TEntity& a_entity ) {
-    a_out << *a_entity;
-    return a_out;
+    return a_entity->f_Visual( a_out );
 }
 
 

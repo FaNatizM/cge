@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+#include <functional>
 
 #include "CWRDObject.h"
 
@@ -74,6 +75,8 @@ namespace NWRD {
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::CModel& a_model );
+
+
 
 std::ostream& operator<<(
     std::ostream& a_out

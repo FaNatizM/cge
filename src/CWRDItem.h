@@ -31,9 +31,9 @@ namespace NWRD {
                 const TItemType a_type
                     = TItemType
                         ::EUndefined
-                , const CModel&
+                , const TModel&
                     a_model
-                    = CModel() );
+                    = CModel::f_Create() );
 
         public:
             M_MAKE_SHARED(

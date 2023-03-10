@@ -9,6 +9,9 @@
 
 
 bool f_TestObject() {
+    std::cout << "f_TestObject()\n";
+
+
     auto point = CPoint( 0, 1 );
     auto texture = NGE::CTexture( 'x' );
     auto object
@@ -42,6 +45,9 @@ bool f_TestObject() {
 
 
 bool f_TestID() {
+    std::cout << "\n\nf_TestID()\n";
+
+
     NWRD::CEntityID::f_Test();
 
     NWRD::CEntityID id;
@@ -62,10 +68,13 @@ bool f_TestItemsCreator() {
 
 
 bool f_TestItemsMoving() {
+    std::cout << "\n\nf_TestItemsMoving()\n";
+
+
     const auto object = NWRD::CObject(
         CPoint()
         , NGE::CTexture( '1') );
-    const auto model = NWRD::CModelPoint(
+    const auto model = NWRD::CModelPoint::f_Create(
         object );
     std::cout << "model = "
         << model << std::endl;

@@ -14,7 +14,7 @@ namespace NWRD {
         public:
             explicit CItemsCreator(
                 const TItemType a_type
-                , const CModel&
+                , const TModel&
                     a_model );
 
             CItem f_Create() const;
