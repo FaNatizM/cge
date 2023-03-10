@@ -152,4 +152,21 @@ a_class& a_class::operator=(\
 
 
 
+#define M_MAKE_SHARED(\
+    a_type, a_pointer )\
+    template< typename... Types >\
+    static a_pointer f_Create(\
+        Types&& ... a_params ) {\
+        auto impl\
+            = std::make_shared<\
+                a_type >(\
+                    std::forward<\
+                        Types >(\
+                            a_params\
+                        ) ... );\
+            return impl;\
+    }\
+
+
+
 #endif

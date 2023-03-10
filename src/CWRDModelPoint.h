@@ -2,7 +2,6 @@
 #define CWRDMODELPOINT_H
 
 
-#include <memory>
 #include <iostream>
 
 #include "CWRDModel.h"
@@ -48,6 +47,10 @@ namespace NWRD {
             bool f_Move(
                 const CPoint& a_point )
                 override;
+
+            std::ostream& f_Visual(
+                std::ostream& a_out )
+                const override;
 
             static void f_Test();
 

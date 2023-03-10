@@ -51,12 +51,18 @@ namespace NWRD {
             virtual bool f_Move(
                 const CPoint& a_point );
 
+            virtual
+            std::ostream& f_Visual(
+                std::ostream& a_out )
+                const;
+
             static void f_Test();
 
         protected:
             explicit CEntity(
-                const CModel& a_model
-                = CModel() );
+                const TModel& a_model
+                = CModel
+                    ::f_Create() );
 
 
         private:

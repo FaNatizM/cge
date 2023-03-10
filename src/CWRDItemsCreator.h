@@ -2,10 +2,8 @@
 #define CWRDITEMSCREATOR_H
 
 
-#include <memory>
 #include <iostream>
 
-#include "HMacroses.h"
 #include "CWRDItem.h"
 
 
@@ -16,10 +14,14 @@ namespace NWRD {
         public:
             explicit CItemsCreator(
                 const TItemType a_type
-                ,const NGE::CTexture& a_texure
-            );
+                , const CModel&
+                    a_model );
 
             CItem f_Create() const;
+
+            std::ostream& f_Visual(
+                std::ostream& a_out )
+                const;
 
             static bool f_Test();
 

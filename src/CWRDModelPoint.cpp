@@ -91,8 +91,20 @@ bool NWRD::CModelPoint::f_Move(
     m_impl
         ->m_object.f_SetPoint( a_point );
 
+    std::cout << "test\n";
 
     return true;
+}
+
+
+
+std::ostream&
+NWRD::CModelPoint::f_Visual(
+    std::ostream& a_out )
+    const {
+    a_out << "object: "
+        << m_impl->m_object;
+    return a_out;
 }
 
 
@@ -120,17 +132,4 @@ void NWRD::CModelPoint::f_Test() {
         model.f_Move( CPoint( 1, 1 ) )
         == true );
 
-}
-
-
-
-
-std::ostream& operator<<(
-    std::ostream& a_out
-    , const NWRD::CModelPoint&
-        a_model ) {
-    a_out << "object: "
-        << a_model.f_GetObject();
-
-    return a_out;
 }

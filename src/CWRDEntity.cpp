@@ -10,7 +10,7 @@ namespace NWRD {
     struct CEntity::SImpl {
         public:
             explicit SImpl(
-                const CModel& a_model );
+                const TModel& a_model );
 
             M_IMPL_MAKE_STRUCT(
                 SImpl, TImpl )
@@ -24,7 +24,7 @@ namespace NWRD {
             CEntityID m_id;
 
             // Объекты сущности
-            CModel m_model;
+            TModel m_model;
     };
 }
 
@@ -32,7 +32,7 @@ namespace NWRD {
 
 
 NWRD::CEntity::SImpl::SImpl(
-    const CModel& a_model )
+    const TModel& a_model )
     : m_id()
     , m_model( a_model ) {
 }
@@ -45,7 +45,7 @@ bool NWRD::CEntity::SImpl::f_ExistObject(
         return false;
     }
 
-    if ( m_model.f_GetObjectsCount()
+    if ( m_model->f_GetObjectsCount()
         <= a_index ) {
         return false;
     }
@@ -67,8 +67,12 @@ NWRD::CEntity::f_MakeNull() {
 
 
 bool NWRD::CEntity::f_IsEmpty() const {
+    std::cout << "size: "
+        << f_GetObjectsCount()
+        << std::endl;
+
     if ( f_GetObjectsCount()
-        == 0 ) {
+        < 1 ) {
         return true;
     }
 
@@ -95,7 +99,7 @@ NWRD::CEntity::f_GetObject(
     }
 
 
-    return m_impl->m_model.f_GetObject(
+    return m_impl->m_model->f_GetObject(
         a_index );
 }
 
@@ -110,7 +114,7 @@ void NWRD::CEntity::f_AddObject(
 size_t NWRD::CEntity::f_GetObjectsCount()
     const {
     return m_impl->m_model
-        .f_GetObjectsCount();
+        ->f_GetObjectsCount();
 }
 
 
@@ -154,10 +158,23 @@ bool NWRD::CEntity::f_Move(
     }
 
 
-    m_impl->m_model.f_Move( a_point );
+    return m_impl->m_model
+        .f_Move( a_point );
+}
 
 
-    return true;
+
+std::ostream& NWRD::CEntity::f_Visual(
+    std::ostream& a_out )
+    const {
+    a_out << "ID: "
+        << f_GetID() << ": "
+        << "; model: "
+        << m_impl->m_model
+        << "; size: "
+        << f_GetObjectsCount();
+
+    return a_out;
 }
 
 
@@ -184,7 +201,9 @@ void NWRD::CEntity::f_Test() {
 
 
     // Добавление объектов
-    assert( entity.f_Move( CPoint( 1, 1 ) ) == false );
+    assert(
+        entity.f_Move( CPoint( 1, 1 ) )
+            == false );
 
     CObject object_empty;
     entity.f_AddObject( object_empty );
@@ -195,13 +214,15 @@ void NWRD::CEntity::f_Test() {
     assert( entity.f_IsEmpty()
          == false );
 
-    assert( entity.f_Move( CPoint( 1, 1 ) ) == true );
+    assert(
+        entity.f_Move( CPoint( 1, 1 ) )
+            == true );
 }
 
 
 
 NWRD::CEntity::CEntity(
-    const CModel& a_model )
+    const TModel& a_model )
     : m_impl(
         SImpl::f_Create( a_model ) ) {
 }
@@ -221,9 +242,5 @@ std::ostream& operator<<(
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::CEntity& a_entity ) {
-    a_out << "ID: "
-        << a_entity.f_GetID() << ": "
-        << a_entity.f_GetObject();
-
-    return a_out;
+    return a_entity.f_Visual( a_out );
 }

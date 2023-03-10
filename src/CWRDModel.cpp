@@ -56,6 +56,15 @@ bool NWRD::CModel::f_Move(
 
 
 
+std::ostream& NWRD::CModel::f_Visual(
+    std::ostream& a_out )
+    const {
+    a_out << "empty model";
+    return a_out;
+}
+
+
+
 void NWRD::CModel::f_Test() {
     auto model = CModel();
     std::cout << "model: "
@@ -83,12 +92,13 @@ void NWRD::CModel::f_Test() {
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::CModel& a_model ) {
-
-    a_out << a_model.f_GetPoint()
-        << ": \""
-        << a_model.f_GetTexture()
-        << "\"";
+    return a_model.f_Visual( a_out );
+}
 
 
-    return a_out;
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NWRD::TModel& a_model ) {
+    return a_model->f_Visual( a_out );
 }

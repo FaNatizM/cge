@@ -2,10 +2,8 @@
 #define CWRDITEM_H
 
 
-#include <memory>
 #include <iostream>
 
-#include "HMacroses.h"
 #include "CWRDEntity.h"
 
 
@@ -19,6 +17,11 @@ namespace NWRD {
 
 
 
+
+    M_POINTER_TYPE( CItem, TItem )
+
+
+
     class CItem : public CEntity {
         M_IMPL_SHARED_V_DECL( CItem )
 
@@ -26,9 +29,15 @@ namespace NWRD {
         public:
             explicit CItem(
                 const TItemType a_type
-                    = TItemType::EUndefined
-                , const NGE::CTexture& a_texture
-                    = NGE::CTexture() );
+                    = TItemType
+                        ::EUndefined
+                , const CModel&
+                    a_model
+                    = CModel() );
+
+        public:
+            M_MAKE_SHARED(
+                CItem, TItem )
 
             TItemType f_GetType() const;
 
@@ -49,6 +58,12 @@ namespace NWRD {
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::CItem& a_item );
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NWRD::TItem& a_item );
 
 
 

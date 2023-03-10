@@ -330,12 +330,13 @@ bool NWRD::CLocation::f_MoveItem(
     }
 
 
-    // Запоминаем предыдущую позицию предмета
+    // Запоминаем предыдущую
+    // позицию предмета
     auto item
         = item_node->second;
 
-        const auto item_point_perv
-            = item.f_GetPoint();
+    const auto item_point_perv
+        = item.f_GetPoint();
 
     // Задаём позицию предмету
     if ( item.f_Move( point )
@@ -356,7 +357,8 @@ bool NWRD::CLocation::f_MoveItem(
     // Освобождаем предыдущее место
     // если оно существует
     if ( taken == true ) {
-        if ( f_ExistPlace( item_point_perv )
+        if ( f_ExistPlace(
+                item_point_perv )
             == true ) {
             m_impl->m_places[
                 item_point_perv ]

@@ -10,6 +10,9 @@
 
 
 namespace NWRD {
+    M_POINTER_TYPE( CModel, TModel )
+
+
 
     // Базовый класс модели объекта
     class CModel {
@@ -25,6 +28,9 @@ namespace NWRD {
 
         public:
             explicit CModel();
+
+            M_MAKE_SHARED(
+                CModel, TModel)
 
             virtual CObject f_GetObject(
                 const int a_index = 0 )
@@ -53,6 +59,11 @@ namespace NWRD {
             virtual bool f_Move(
                 const CPoint& a_point );
 
+            virtual
+            std::ostream& f_Visual(
+                std::ostream& a_out )
+                const;
+
             static void f_Test();
     };
 }
@@ -63,6 +74,10 @@ namespace NWRD {
 std::ostream& operator<<(
     std::ostream& a_out
     , const NWRD::CModel& a_model );
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NWRD::TModel& a_model );
 
 
 

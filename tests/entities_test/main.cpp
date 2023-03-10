@@ -61,6 +61,35 @@ bool f_TestItemsCreator() {
 
 
 
+bool f_TestItemsMoving() {
+    const auto object = NWRD::CObject(
+        CPoint()
+        , NGE::CTexture( '1') );
+    const auto model = NWRD::CModelPoint(
+        object );
+    std::cout << "model = "
+        << model << std::endl;
+
+
+    const auto item
+        = NWRD::CItem::f_Create(
+            NWRD::TItemType::EUndefined
+            , model );
+
+    std::cout << "item = "
+        << item << std::endl;
+
+    assert( item->f_IsEmpty() == false );
+
+    assert(
+        item->f_Move( CPoint( 1, 1 ) )
+            == true );
+
+    return true;
+}
+
+
+
 int main( void ) {
     f_TestObject();
     f_TestID();
@@ -71,4 +100,5 @@ int main( void ) {
     NWRD::CDecoration::f_Test();
     NWRD::CUnit::f_Test();
     f_TestItemsCreator();
+    f_TestItemsMoving();
 }

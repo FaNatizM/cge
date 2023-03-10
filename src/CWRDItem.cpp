@@ -38,15 +38,10 @@ NWRD::CItem::SImpl::SImpl(
 
 NWRD::CItem::CItem(
     const TItemType a_type
-    , const NGE::CTexture& a_texture )
-    : CEntity()
+    , const CModel& a_model )
+    : CEntity( a_model )
     , m_impl(
         SImpl::f_Create( a_type ) ) {
-
-    const auto object
-        = CObject( CPoint(), a_texture );
-
-    f_AddObject( object );
 }
 
 
@@ -69,7 +64,8 @@ bool NWRD::CItem::f_Test() {
     CItem item;
     std::cout << item << std::endl;
 
-    assert( item.f_IsUndefined() == true );
+    assert( item.f_IsUndefined()
+        == true );
 
     return true;
 }
@@ -79,7 +75,16 @@ bool NWRD::CItem::f_Test() {
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NWRD::CItem& a_entity ) {
-    
-    return a_out;
+    , const NWRD::CItem& a_item ) {
+
+    return a_item.f_Visual( a_out );
+}
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const NWRD::TItem& a_item ) {
+
+    return a_item->f_Visual( a_out );
 }

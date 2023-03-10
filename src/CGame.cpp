@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cassert>
 
+#include "CWRDModelPoint.h"
 #include "CWRDItemsCreator.h"
 
 
@@ -11,43 +12,78 @@
 struct CGame::SImpl {
     public:
         explicit SImpl()
-            : m_location( NWRD::CLocation( 20, 20 ) )
-            , m_viewer( NWRD::CViewer( NGE::CScene( 10, 10 ), m_location ) )
+            : m_location(
+                NWRD::CLocation(
+                    20, 20 ) )
+            , m_viewer(
+                NWRD::CViewer(
+                    NGE::CScene(
+                        10, 10 )
+                    , m_location ) )
             , m_item() {
 
-            // Создание предмета, который будем двигать
+            // Создание предмета,
+            // который будем двигать
+            const auto item_object
+                = NWRD::CObject(
+                    CPoint()
+                    , NGE::CTexture(
+                        'x' ) );
             const auto item_creator
                 = NWRD::CItemsCreator(
-                    NWRD::TItemType::EUndefined
-                    , NGE::CTexture( 'x' ) );
+                    NWRD::TItemType
+                        ::EUndefined
+                    , NWRD::CModelPoint(
+                        item_object ) );
 
-            m_item = item_creator.f_Create();
+            m_item = item_creator
+                .f_Create();
+            std::cout << "item = "
+                << m_item << std::endl;
 
-            // Добавление предмета на локацию
-            assert( m_location.f_AddItem( m_item )
+            // Добавление предмета
+            // на локацию
+            assert(
+                m_location.f_AddItem(
+                    m_item )
                 == m_item.f_GetID() );
 
-            // Захватываем предмет обзорщиком
-            m_viewer.f_CatchEntity( m_item );
+            // Захватываем предмет
+            // обзорщиком
+            m_viewer.f_CatchEntity(
+                m_item );
 
             // Двигаем предмет
             auto point = CPoint( 0, 0 );
-            assert( m_location.f_MoveItem(
-                m_item.f_GetID()
-                , point )
-                    == true );
+            assert(
+                m_location.f_MoveItem(
+                    m_item.f_GetID()
+                    , point )
+                == true );
 
 
-            // Создаём неподвижный предмет
+            // Создаём неподвижный
+            // предмет
+            const auto food_object
+                = NWRD::CObject(
+                    CPoint()
+                    , NGE::CTexture(
+                        'o' ) );
             const auto food_creator
                 = NWRD::CItemsCreator(
-                    NWRD::TItemType::EUndefined
-                    , NGE::CTexture( 'o' ) );
+                    NWRD::TItemType
+                        ::EUndefined
+                    , NWRD::CModelPoint(
+                        food_object ) );
 
-            auto food = food_creator.f_Create();
+            auto food = food_creator
+                .f_Create();
 
-            // Добавление предмета на локацию
-            assert( m_location.f_AddItem( food )
+            // Добавление предмета
+            // на локацию
+            assert(
+                m_location.f_AddItem(
+                    food )
                 == food.f_GetID() );
 
             // Двигаем предмет
