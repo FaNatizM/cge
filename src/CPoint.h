@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <iostream>
+#include <vector>
 
 
 
@@ -50,6 +51,11 @@ class CPoint {
                SImpl >;
         TImpl m_impl;
 };
+
+
+
+using TPoints = std::vector< CPoint >;
+
 
 
 
