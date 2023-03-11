@@ -79,17 +79,26 @@ NWRD::CModelPoint::f_GetObjectsCount()
 
 
 
-void NWRD::CModelPoint::f_Loop(
+bool NWRD::CModelPoint::f_Loop(
     const TOperation& a_operation ) {
     a_operation( m_impl->m_object );
+    return true;
+}
+
+
+
+TPoints NWRD::CModelPoint::f_CheckMove(
+    const CPoint& a_point )
+    const {
+    return TPoints( 1, a_point );
 }
 
 
 
 bool NWRD::CModelPoint::f_Move(
-    const CPoint& a_point ) {
+    const TPoints& a_points ) {
     m_impl
-        ->m_object.f_SetPoint( a_point );
+        ->m_object.f_SetPoint( a_points[ 0 ] );
 
     return true;
 }
@@ -127,7 +136,7 @@ void NWRD::CModelPoint::f_Test() {
 
     // Добавление объектов
     assert(
-        model.f_Move( CPoint( 1, 1 ) )
+        model.f_Move( { CPoint( 1, 1 ) } )
         == true );
 
 }

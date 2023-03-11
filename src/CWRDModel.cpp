@@ -43,14 +43,23 @@ NWRD::CModel::f_GetObjectsCount()
 
 
 
-void NWRD::CModel::f_Loop(
+bool NWRD::CModel::f_Loop(
     const TOperation& ) {
+    return true;
+}
+
+
+
+TPoints NWRD::CModel::f_CheckMove(
+    const CPoint& a_point )
+    const {
+    return TPoints();
 }
 
 
 
 bool NWRD::CModel::f_Move(
-    const CPoint& a_point ) {
+    const TPoints& a_points ) {
     return false;
 }
 
@@ -83,7 +92,7 @@ void NWRD::CModel::f_Test() {
         == 0 );
 
     assert(
-        model.f_Move( CPoint( 1, 1 ) )
+        model.f_Move( { CPoint( 1, 1 ) } )
         == false );
 }
 

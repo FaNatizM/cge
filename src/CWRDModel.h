@@ -23,8 +23,8 @@ namespace NWRD {
         public:
             using TOperation
                 = std::function<
-                    void( const CObject&)
-                    >;
+                    void( const CObject& )
+                >;
 
 
         public:
@@ -52,13 +52,17 @@ namespace NWRD {
 
             // Обход всех объектов
             // модели
-            virtual void f_Loop(
+            virtual bool f_Loop(
                 const TOperation&
                 a_operation );
 
+            virtual TPoints f_CheckMove(
+                const CPoint& a_point )
+                const;
+
             // Перемещение модели
             virtual bool f_Move(
-                const CPoint& a_point );
+                const TPoints& a_points );
 
             virtual
             std::ostream& f_Visual(

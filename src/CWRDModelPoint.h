@@ -46,12 +46,16 @@ namespace NWRD {
             size_t f_GetObjectsCount()
                 const override;
 
-            void f_Loop(
+            bool f_Loop(
                 const TOperation&
                 a_operation ) override;
 
-            bool f_Move(
+            TPoints f_CheckMove(
                 const CPoint& a_point )
+                const override;
+
+            bool f_Move(
+                const TPoints& a_points )
                 override;
 
             std::ostream& f_Visual(

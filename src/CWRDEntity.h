@@ -50,8 +50,21 @@ namespace NWRD {
                 const int a_index = 0 )
                 const;
 
+            virtual bool f_LoopModel(
+                const CModel::TOperation&
+                a_operation );
+
+            // Функция вычисления перемещения
+            // Определяет новое место куда
+            // будет передвинута сущность
+            // Если сдвигать нечего, то вернёт
+            // пустой вектор
+            virtual TPoints f_CheckMove(
+                const CPoint& a_point )
+                const;
+
             virtual bool f_Move(
-                const CPoint& a_point );
+                const TPoints& a_points );
 
             virtual
             std::ostream& f_Visual(

@@ -147,15 +147,31 @@ NWRD::CEntity::f_GetPoint(
 
 
 
+bool NWRD::CEntity::f_LoopModel(
+    const CModel::TOperation&
+    a_operation ) {
+    return m_impl->m_model->f_Loop( a_operation );
+}
+
+
+
+TPoints NWRD::CEntity::f_CheckMove(
+    const CPoint& a_point )
+    const {
+    return m_impl->m_model->f_CheckMove( a_point );
+}
+
+
+
 bool NWRD::CEntity::f_Move(
-    const CPoint& a_point ) {
+    const TPoints& a_points ) {
     if ( f_IsEmpty() == true ) {
         return false;
     }
 
 
     return m_impl->m_model
-        ->f_Move( a_point );
+        ->f_Move( a_points );
 }
 
 
@@ -198,7 +214,7 @@ void NWRD::CEntity::f_Test() {
 
     // Добавление объектов
     assert(
-        entity.f_Move( CPoint( 1, 1 ) )
+        entity.f_Move( { CPoint( 1, 1 ) } )
             == false );
 
     CObject object_empty;
@@ -211,7 +227,7 @@ void NWRD::CEntity::f_Test() {
          == true );
 
     assert(
-        entity.f_Move( CPoint( 1, 1 ) )
+        entity.f_Move( { CPoint( 1, 1 ) } )
             == false );
 }
 

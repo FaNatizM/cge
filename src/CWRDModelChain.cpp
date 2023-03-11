@@ -102,19 +102,41 @@ NWRD::CModelChain::f_GetObjectsCount()
 
 
 
-void NWRD::CModelChain::f_Loop(
+bool NWRD::CModelChain::f_Loop(
     const TOperation& a_operation ) {
 
     // a_operation( m_impl->m_object );
+    return true;
+}
+
+
+
+TPoints NWRD::CModelPoint::f_CheckMove(
+    const CPoint& a_point )
+    const {
+
+    // Вычисляем новое положение каждого
+    // объкта цепочки
+
+    auto points = TPoints();
+
+    points.push_back(
+        m_impl->m_objects[ 0 ].f_GetPoint() );
+    points.push_back(
+        m_impl->m_objects[ 1 ].f_GetPoint() );
+    points.push_back(
+        m_impl->m_objects[ 2 ].f_GetPoint() );
+
+    return points;
 }
 
 
 
 bool NWRD::CModelChain::f_Move(
-    const CPoint& a_point ) {
+    const TPoints& a_points ) {
     m_impl
         ->m_objects[ 0 ]
-            .f_SetPoint( a_point );
+            .f_SetPoint( a_points[ 0 ] );
 
     return true;
 }
