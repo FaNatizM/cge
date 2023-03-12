@@ -67,6 +67,26 @@ NWRD::CObject::CObject(
 
 
 
+bool NWRD::CObject::operator==(
+    const CObject& a_other ) const {
+    if (
+        ( f_GetPoint() == a_other.f_GetPoint() )
+            == false ) {
+        return false;
+    }
+
+    if (
+        ( f_GetTexture() == a_other.f_GetTexture() )
+            == false ) {
+        return false;
+    }
+
+
+    return true;
+}
+
+
+
 bool NWRD::CObject::f_IsNull() const {
     if ( m_impl->m_point.f_IsNull()
         == true ) {

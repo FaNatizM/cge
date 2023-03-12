@@ -27,6 +27,10 @@ namespace NWRD {
                 , const NGE::CTexture&
                 a_texture );
 
+            bool operator==(
+                const CObject& a_other )
+                const;
+
             bool f_IsNull() const;
 
             CPoint f_GetPoint() const;
