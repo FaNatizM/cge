@@ -59,9 +59,21 @@ using TPoints = std::vector< CPoint >;
 
 
 
+bool f_IsAdjacent(
+    const CPoint& a_left
+    , const CPoint& a_right );
+
+
+
 std::ostream& operator<<(
     std::ostream& a_out
     , const CPoint& a_point );
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const TPoints& a_points );
 
 
 

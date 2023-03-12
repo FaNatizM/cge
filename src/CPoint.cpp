@@ -120,6 +120,23 @@ TCoord CPoint::f_GetY() const {
 
 
 
+
+bool f_IsAdjacent(
+    const CPoint& a_left
+    , const CPoint& a_right ) {
+    auto delta_x
+        = std::abs( a_left.f_GetX()
+        - a_right.f_GetX() );
+
+    auto delta_y
+        = std::abs( a_left.f_GetY()
+        - a_right.f_GetY() );
+
+    return 1 == delta_x + delta_y;
+}
+
+
+
 std::ostream& operator<<(
     std::ostream& a_out
     , const CPoint& a_point ) {
@@ -128,4 +145,14 @@ std::ostream& operator<<(
         << ")";
 
     return a_out;
+}
+
+
+
+std::ostream& operator<<(
+    std::ostream& a_out
+    , const TPoints& a_points ) {
+    for ( auto point : a_points ) {
+        a_out << point << " ";
+    }
 }
