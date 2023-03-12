@@ -47,6 +47,11 @@ namespace NWRD {
                 const;
 
             virtual
+            bool f_ContainsObject(
+                const CObject& a_object )
+                const;
+
+            virtual
             size_t f_GetObjectsCount()
                 const;
 

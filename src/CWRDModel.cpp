@@ -35,6 +35,14 @@ NWRD::CModel::f_GetTexture(
 
 
 
+bool
+NWRD::CModel::f_ContainsObject(
+    const CObject& ) const {
+    return false;
+}
+
+
+
 size_t
 NWRD::CModel::f_GetObjectsCount()
     const {

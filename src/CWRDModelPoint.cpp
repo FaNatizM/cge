@@ -71,6 +71,14 @@ NWRD::CModelPoint::f_GetTexture(
 
 
 
+bool
+NWRD::CModelPoint::f_ContainsObject(
+    const CObject& a_object ) const {
+    return m_impl->m_object == a_object;
+}
+
+
+
 size_t
 NWRD::CModelPoint::f_GetObjectsCount()
     const {

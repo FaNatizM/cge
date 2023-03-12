@@ -147,6 +147,14 @@ NWRD::CEntity::f_GetPoint(
 
 
 
+bool
+NWRD::CEntity::f_ContainsObject(
+    const CObject& a_object ) const {
+    return m_impl->m_model->f_ContainsObject( a_object );
+}
+
+
+
 bool NWRD::CEntity::f_LoopModel(
     const CModel::TOperation&
     a_operation ) {

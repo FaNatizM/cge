@@ -47,6 +47,10 @@ namespace NWRD {
                 const int a_index = 0 )
                 const override;
 
+            bool f_ContainsObject(
+                const CObject& a_object )
+                const override;
+
             size_t f_GetObjectsCount()
                 const override;
 

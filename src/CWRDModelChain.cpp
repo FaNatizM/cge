@@ -24,6 +24,19 @@ namespace NWRD {
             M_IMPL_MAKE_STRUCT(
                 SImpl, TImpl )
 
+            int f_Contains( const CObject& a_object ) {
+                int counter = 0;
+                for ( auto object : m_objects ) {
+                    if ( object == a_object ) {
+                        return counter;
+                    }
+
+                    counter++;
+                }
+
+                return -1;
+            }
+
 
         public:
 
@@ -94,6 +107,14 @@ NWRD::CModelChain::f_GetTexture(
 
 
 
+bool
+NWRD::CModelChain::f_ContainsObject(
+    const CObject& a_object ) const {
+    return 0 <= m_impl->f_Contains( a_object );
+}
+
+
+
 size_t
 NWRD::CModelChain::f_GetObjectsCount()
     const {
@@ -111,7 +132,7 @@ bool NWRD::CModelChain::f_Loop(
 
 
 
-TPoints NWRD::CModelPoint::f_CheckMove(
+TPoints NWRD::CModelChain::f_CheckMove(
     const CPoint& a_point )
     const {
 

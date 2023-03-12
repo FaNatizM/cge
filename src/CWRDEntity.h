@@ -50,6 +50,11 @@ namespace NWRD {
                 const int a_index = 0 )
                 const;
 
+            // Метод определения, содержит ли сущность объект
+            bool f_ContainsObject(
+                const CObject& a_object )
+                const;
+
             virtual bool f_LoopModel(
                 const CModel::TOperation&
                 a_operation );
