@@ -337,11 +337,54 @@ bool NWRD::CLocation::f_MoveItem(
     auto item
         = item_node->second;
     const auto points = item->f_CheckMove( point );
+    if ( points.empty() == true ) {
+        return false;
+    }
 
     // Определяем можно ли сдвинуть сущность туда,
     // проверяя, не заняты ли места другими сущностями
     // Обхнод points, и проверка мест
     // Проверка принадлежности объекта в месте сущности
+    // Нужно убедиться, что новое место для объекта
+    // свободно, или оно уже принадлежит сдвигаемой
+    // сущности (такое место тоже считается свободным)
+    for ( auto point_new : points ) {
+        if ( f_ExistPlace( point_new ) == false ) {
+
+            // Места не существует, сдвигать некуда
+            return false;
+        }
+
+        auto& place_new
+            = m_impl->m_places[ point_new ];
+
+        if ( place.f_IsSpace() == false ) {
+
+            // Место не является пространством
+            return false;
+        }
+
+        if ( place.f_IsEmpty() == true ) {
+
+            // Место свободно
+            // Анализируем следующую точку сдвига
+            continue;
+        }
+
+        // Место занято, проверяем не самой ли
+        // сдвигаемой сущностью
+        const auto object_current
+            = place.f_GetObject();
+
+        if ( item->f_ContainsObject( object_current )
+            == false ) {
+
+            // Объект в месте принадлежит
+            // другой сущности
+            return false;
+        }
+    }
+
 
     // Занимаем новые места, освобождая предыдущие
     // Сдвигаем сущность
