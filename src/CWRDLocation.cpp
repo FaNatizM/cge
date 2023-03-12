@@ -336,7 +336,11 @@ bool NWRD::CLocation::f_MoveItem(
     // (все объекты)
     auto item
         = item_node->second;
-    const auto points = item->f_CheckMove( point );
+    TPoints item_points_perv;
+    const auto points
+        = item->f_CheckMove(
+            point
+            , item_points_perv );
     if ( points.empty() == true ) {
         return false;
     }
@@ -388,11 +392,6 @@ bool NWRD::CLocation::f_MoveItem(
 
     // Сдвигаем сущность
     // Задаём позицию предмету
-    // Перед этим запоминаем предыдущие места
-    // для их последующего освобождения
-    const auto item_points_perv
-        = item->f_GetPoints();
-
     if ( item->f_Move( points )
         == false ) {
 
@@ -403,35 +402,42 @@ bool NWRD::CLocation::f_MoveItem(
 
     // Занимаем новые места
     const CModel::TOperation f_Take
-        = [ = ]( const CObject& a_object ) {
-        const auto taken
+        = [ = ]( const CObject& a_object ) -> bool {
+        auto& place_new
             = m_impl->m_places[
-                a_object.f_GetPoint() ]
-                .f_Take(
-                    a_object );
+                a_object.f_GetPoint() ];
+
+        const auto place_taken =
+            place_new.f_Take( a_object );
 
         // Мы уже проверили, что занять
         // место получится
-        assert( taken == true );
+        assert( place_taken == true );
+
+        return place_taken;
     };
 
      const auto taken
          = item->f_LoopModel( f_Take );
 
+    if ( taken == false ) {
+        return false;
+    }
+
 
     // Освобождаем предыдущее место
-    // если оно существует
-    if ( taken == true ) {
-        for (
-            auto point_perv
-            : item_points_perv ) {
-            if ( f_ExistPlace(
-                point_perv )
-                    == true ) {
-                m_impl->m_places[
-                    point_perv ]
-                        .f_Free();
-            }
+    // если оно существует, и если оно
+    // не было обновлено в процессе сдвига
+    // (объект 1 занял место объекта 2)
+    auto counter = 0;
+    for (
+        auto point_perv
+        : item_points_perv ) {
+        if ( f_ExistPlace( point_perv )
+                == true ) {
+            m_impl->m_places[
+                point_perv ]
+                    .f_Free();
         }
     }
 

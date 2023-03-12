@@ -66,8 +66,8 @@ bool NWRD::CModel::f_Loop(
 
 
 TPoints NWRD::CModel::f_CheckMove(
-    const CPoint& a_point )
-    const {
+    const CPoint& a_point
+    , TPoints& a_points_free ) const {
     return TPoints();
 }
 

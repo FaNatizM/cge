@@ -28,7 +28,6 @@ namespace NWRD {
                 , const CObject& a_tail
             );
 
-        public:
             M_MAKE_SHARED(
                 CModelChain
                 , TModelChain )
@@ -61,7 +60,8 @@ namespace NWRD {
                 a_operation ) override;
 
             TPoints f_CheckMove(
-                const CPoint& a_point )
+                const CPoint& a_point
+                , TPoints& a_points_free )
                 const override;
 
             bool f_Move(

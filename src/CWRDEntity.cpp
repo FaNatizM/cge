@@ -170,9 +170,11 @@ bool NWRD::CEntity::f_LoopModel(
 
 
 TPoints NWRD::CEntity::f_CheckMove(
-    const CPoint& a_point )
-    const {
-    return m_impl->m_model->f_CheckMove( a_point );
+    const CPoint& a_point
+    , TPoints& a_points_free ) const {
+    return m_impl->m_model->f_CheckMove(
+        a_point
+        , a_points_free );
 }
 
 

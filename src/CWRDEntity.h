@@ -67,7 +67,8 @@ namespace NWRD {
             // Если сдвигать нечего, то вернёт
             // пустой вектор
             virtual TPoints f_CheckMove(
-                const CPoint& a_point )
+                const CPoint& a_point
+                , TPoints& a_points_free )
                 const;
 
             virtual bool f_Move(

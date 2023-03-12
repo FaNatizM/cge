@@ -96,15 +96,19 @@ NWRD::CModelPoint::f_GetObjectsCount()
 
 bool NWRD::CModelPoint::f_Loop(
     const TOperation& a_operation ) {
-    a_operation( m_impl->m_object );
-    return true;
+    return a_operation( m_impl->m_object );
 }
 
 
 
 TPoints NWRD::CModelPoint::f_CheckMove(
-    const CPoint& a_point )
-    const {
+    const CPoint& a_point
+    , TPoints& a_points_free ) const {
+
+    a_points_free.clear();
+    a_points_free.push_back(
+        m_impl->m_object.f_GetPoint() );
+
     return TPoints( 1, a_point );
 }
 

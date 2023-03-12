@@ -57,7 +57,8 @@ namespace NWRD {
                 a_operation ) override;
 
             TPoints f_CheckMove(
-                const CPoint& a_point )
+                const CPoint& a_point
+                , TPoints& a_points_free )
                 const override;
 
             bool f_Move(

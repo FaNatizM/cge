@@ -23,7 +23,7 @@ namespace NWRD {
         public:
             using TOperation
                 = std::function<
-                    void( const CObject& )
+                    bool( const CObject& )
                 >;
 
 
@@ -64,7 +64,8 @@ namespace NWRD {
                 a_operation );
 
             virtual TPoints f_CheckMove(
-                const CPoint& a_point )
+                const CPoint& a_point
+                , TPoints& a_points_free )
                 const;
 
             // Перемещение модели
