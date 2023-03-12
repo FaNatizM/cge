@@ -386,24 +386,22 @@ bool NWRD::CLocation::f_MoveItem(
     }
 
 
-    // Занимаем новые места, освобождая предыдущие
     // Сдвигаем сущность
-
-    // Запоминаем предыдущую
-    // позицию предмета
-    const auto item_point_perv
-        = item->f_GetPoint();
-
     // Задаём позицию предмету
+    // Перед этим запоминаем предыдущие места
+    // для их последующего освобождения
+    const auto item_points_perv
+        = item->f_GetPoints();
+
     if ( item->f_Move( points )
         == false ) {
 
-        // Не удалось сместить объект
+        // Не удалось сместить сущность
         return false;
     }
 
 
-    // Занимаем место
+    // Занимаем новые места
     const auto taken
         = m_impl->m_places[ point ]
             .f_Take(
@@ -413,12 +411,16 @@ bool NWRD::CLocation::f_MoveItem(
     // Освобождаем предыдущее место
     // если оно существует
     if ( taken == true ) {
-        if ( f_ExistPlace(
-                item_point_perv )
-            == true ) {
-            m_impl->m_places[
-                item_point_perv ]
-                    .f_Free();
+        for (
+            auto point_perv
+            : item_points_perv ) {
+            if ( f_ExistPlace(
+                point_perv )
+                    == true ) {
+                m_impl->m_places[
+                    point_perv ]
+                        .f_Free();
+            }
         }
     }
 
