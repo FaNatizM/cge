@@ -4,6 +4,7 @@
 #include <cassert>
 
 #include "CWRDModelPoint.h"
+#include "CWRDModelChain.h"
 #include "CWRDItemsCreator.h"
 
 
@@ -24,17 +25,20 @@ struct CGame::SImpl {
 
             // Создание предмета,
             // который будем двигать
-            const auto item_object
-                = NWRD::CObject(
-                    CPoint()
-                    , NGE::CTexture(
-                        'x' ) );
+             const auto head = NWRD::CObject(
+                 CPoint( 2, 0 ), NGE::CTexture( 'x' ) );
+             const auto body = NWRD::CObject(
+                 CPoint( 1, 0 ), head.f_GetTexture() );
+             const auto tail = NWRD::CObject(
+                 CPoint( 0, 0 ), head.f_GetTexture() );
+             const auto model
+                 = NWRD::CModelChain::f_Create(
+                     head, body, tail );
             const auto item_creator
                 = NWRD::CItemsCreator(
                     NWRD::TItemType
                         ::EUndefined
-                    , NWRD::CModelPoint::f_Create(
-                        item_object ) );
+                    , model );
 
             m_item = item_creator
                 .f_Create();
@@ -54,7 +58,13 @@ struct CGame::SImpl {
                 m_item );
 
             // Двигаем предмет
-            auto point = CPoint( 0, 0 );
+            auto point = CPoint( 3, 3 );
+            assert(
+                m_location.f_MoveItem(
+                    m_item->f_GetID()
+                    , point )
+                == true );
+            point = CPoint( 2, 0 );
             assert(
                 m_location.f_MoveItem(
                     m_item->f_GetID()

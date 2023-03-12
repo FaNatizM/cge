@@ -33,6 +33,8 @@ set( SOURCES
    CWRDModel.cpp
    CWRDModelPoint.h
    CWRDModelPoint.cpp
+   CWRDModelChain.h
+   CWRDModelChain.cpp
    CWRDEntityID.h
    CWRDEntityID.cpp
    CWRDEntity.h
