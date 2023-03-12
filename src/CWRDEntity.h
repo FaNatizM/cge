@@ -50,6 +50,8 @@ namespace NWRD {
                 const int a_index = 0 )
                 const;
 
+            TPoints f_GetPoints() const;
+
             // Метод определения, содержит ли сущность объект
             bool f_ContainsObject(
                 const CObject& a_object )

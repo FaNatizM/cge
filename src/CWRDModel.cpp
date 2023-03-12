@@ -26,6 +26,13 @@ NWRD::CModel::f_GetPoint(
 
 
 
+TPoints
+NWRD::CModel::f_GetPoints() const {
+    return TPoints();
+}
+
+
+
 NGE::CTexture
 NWRD::CModel::f_GetTexture(
     const int ) const {

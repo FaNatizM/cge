@@ -41,6 +41,8 @@ namespace NWRD {
                 const int a_index = 0 )
                 const;
 
+            virtual TPoints f_GetPoints() const;
+
             virtual NGE::CTexture
             f_GetTexture(
                 const int a_index = 0 )

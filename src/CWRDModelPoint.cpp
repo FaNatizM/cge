@@ -62,6 +62,13 @@ NWRD::CModelPoint::f_GetPoint(
 
 
 
+TPoints
+NWRD::CModelPoint::f_GetPoints() const {
+    return { m_impl->m_object.f_GetPoint() };
+}
+
+
+
 NGE::CTexture
 NWRD::CModelPoint::f_GetTexture(
     const int ) const {

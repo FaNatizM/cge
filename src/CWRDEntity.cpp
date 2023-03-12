@@ -147,6 +147,12 @@ NWRD::CEntity::f_GetPoint(
 
 
 
+TPoints NWRD::CEntity::f_GetPoints() const {
+    return m_impl->m_model->f_GetPoints();
+}
+
+
+
 bool
 NWRD::CEntity::f_ContainsObject(
     const CObject& a_object ) const {

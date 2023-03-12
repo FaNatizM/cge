@@ -97,6 +97,18 @@ NWRD::CModelChain::f_GetPoint(
 
 
 
+TPoints
+NWRD::CModelChain::f_GetPoints() const {
+    auto points = TPoints();
+    for ( auto object : m_impl->m_objects ) {
+        points.push_back( object.f_GetPoint() );
+    }
+
+    return points;
+}
+
+
+
 NGE::CTexture
 NWRD::CModelChain::f_GetTexture(
     const int ) const {
@@ -176,6 +188,7 @@ NWRD::CModelChain::f_Visual(
 
 
 void NWRD::CModelChain::f_Test() {
+
     /*
     auto model = CModelChain();
     std::cout << "model: "
