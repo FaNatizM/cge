@@ -25,6 +25,8 @@ set( SOURCES
    ../../src/CWRDModel.cpp
    ../../src/CWRDModelPoint.h
    ../../src/CWRDModelPoint.cpp
+   ../../src/CWRDModelChain.h
+   ../../src/CWRDModelChain.cpp
    ../../src/CWRDEntityID.h
    ../../src/CWRDEntityID.cpp
    ../../src/CWRDEntity.h
