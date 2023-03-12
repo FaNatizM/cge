@@ -402,10 +402,21 @@ bool NWRD::CLocation::f_MoveItem(
 
 
     // Занимаем новые места
-    const auto taken
-        = m_impl->m_places[ point ]
-            .f_Take(
-                item->f_GetObject() );
+    const CModel::TOperation f_Take
+        = [ = ]( const CObject& a_object ) {
+        const auto taken
+            = m_impl->m_places[
+                a_object.f_GetPoint() ]
+                .f_Take(
+                    a_object );
+
+        // Мы уже проверили, что занять
+        // место получится
+        assert( taken == true );
+    };
+
+     const auto taken
+         = item->f_LoopModel( f_Take );
 
 
     // Освобождаем предыдущее место
