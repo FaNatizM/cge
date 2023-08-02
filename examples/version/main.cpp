@@ -6,7 +6,9 @@
 
 
 int main( int, char*[] ) {
-    auto sum = NCGE::add(1, 1);
-    std::cout << sum << std::endl;
+    std::cout
+        << NCGE::f_GetVersion()
+        << std::endl;
+
     return 0;
 }
