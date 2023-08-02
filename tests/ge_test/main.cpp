@@ -2,9 +2,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../../src/CPoint.h"
-#include "../../src/CGETexture.h"
-#include "../../src/CGEScene.h"
+#include "../../src/CCGEPoint.h"
+#include "../../src/CCGETexture.h"
+#include "../../src/CCGEScene.h"
 
 
 

@@ -1,9 +1,9 @@
 #include <cassert>
 
-#include "../../src/CWRDDecoration.h"
-#include "../../src/CWRDItemsCreator.h"
-#include "../../src/CWRDUnit.h"
-#include "../../src/CWRDModelPoint.h"
+#include "../../src/CCGEDecoration.h"
+#include "../../src/CCGEItemsCreator.h"
+#include "../../src/CCGEUnit.h"
+#include "../../src/CCGEModelPoint.h"
 
 
 

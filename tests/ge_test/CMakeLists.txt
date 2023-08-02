@@ -5,13 +5,13 @@ project( ge_test )
 
 
 set( SOURCES
-   ../../src/HMacroses.h
-   ../../src/CPoint.h
-   ../../src/CPoint.cpp
-   ../../src/CGETexture.h
-   ../../src/CGETexture.cpp
-   ../../src/CGEScene.h
-   ../../src/CGEScene.cpp
+   ../../src/HCGEMacroses.h
+   ../../src/CCGEPoint.h
+   ../../src/CCGEPoint.cpp
+   ../../src/CCGETexture.h
+   ../../src/CCGETexture.cpp
+   ../../src/CCGEScene.h
+   ../../src/CCGEScene.cpp
    main.cpp )
 
 

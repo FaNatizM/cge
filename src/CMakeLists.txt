@@ -5,48 +5,48 @@ project( src )
 
 
 set( SOURCES
-   CGame.h
-   CGame.cpp
-   CUI.h
-   CUI.cpp
-   CUICommand.h
-   CUICommand.cpp
-   CEngine.h
-   CEngine.cpp
+   CCGEGame.h
+   CCGEGame.cpp
+   CCGEUI.h
+   CCGEUI.cpp
+   CCGEUICommand.h
+   CCGEUICommand.cpp
+   CCGEEngine.h
+   CCGEEngine.cpp
 
-   HMacroses.h
-   CPoint.h
-   CPoint.cpp
-   CGETexture.h
-   CGETexture.cpp
-   CGEScene.h
-   CGEScene.cpp
-   CWRDPlace.h
-   CWRDPlace.cpp
-   CWRDLocation.h
-   CWRDLocation.cpp
-   CWRDViewer.h
-   CWRDViewer.cpp
-   CWRDObject.h
-   CWRDObject.cpp
-   CWRDModel.h
-   CWRDModel.cpp
-   CWRDModelPoint.h
-   CWRDModelPoint.cpp
-   CWRDModelChain.h
-   CWRDModelChain.cpp
-   CWRDEntityID.h
-   CWRDEntityID.cpp
-   CWRDEntity.h
-   CWRDEntity.cpp
-   CWRDItem.h
-   CWRDItem.cpp
-   CWRDItemsCreator.h
-   CWRDItemsCreator.cpp
+   HCGEMacroses.h
+   CCGEPoint.h
+   CCGEPoint.cpp
+   CCGETexture.h
+   CCGETexture.cpp
+   CCGEScene.h
+   CCGEScene.cpp
+   CCGEPlace.h
+   CCGEPlace.cpp
+   CCGELocation.h
+   CCGELocation.cpp
+   CCGEViewer.h
+   CCGEViewer.cpp
+   CCGEObject.h
+   CCGEObject.cpp
+   CCGEModel.h
+   CCGEModel.cpp
+   CCGEModelPoint.h
+   CCGEModelPoint.cpp
+   CCGEModelChain.h
+   CCGEModelChain.cpp
+   CCGEEntityID.h
+   CCGEEntityID.cpp
+   CCGEEntity.h
+   CCGEEntity.cpp
+   CCGEItem.h
+   CCGEItem.cpp
+   CCGEItemsCreator.h
+   CCGEItemsCreator.cpp
    main.cpp )
 
 
-set( TARGET snake)
+set( TARGET snake )
 add_executable( ${TARGET} ${SOURCES} )
 
 

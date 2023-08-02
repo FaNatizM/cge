@@ -3,10 +3,10 @@
 #include <cassert>
 #include <iostream>
 
-#include "../../src/CWRDModelPoint.h"
-#include "../../src/CWRDModelChain.h"
-#include "../../src/CWRDViewer.h"
-#include "../../src/CWRDItemsCreator.h"
+#include "../../src/CCGEModelPoint.h"
+#include "../../src/CCGEModelChain.h"
+#include "../../src/CCGEViewer.h"
+#include "../../src/CCGEItemsCreator.h"
 
 
 
