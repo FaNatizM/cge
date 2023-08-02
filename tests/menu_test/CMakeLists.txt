@@ -5,8 +5,8 @@ project( menu_test )
 
 
 set( SOURCES
-   ../../src/private/HKeyboard.hpp
-   ../../src/menu/CCGEMenu.hpp
+   ../../src/cge/private/HKeyboard.hpp
+   ../../src/cge/menu/CCGEMenu.hpp
    main.cpp )
 
 

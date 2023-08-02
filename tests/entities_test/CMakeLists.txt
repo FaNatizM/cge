@@ -5,31 +5,31 @@ project( wrd_test )
 
 
 set( SOURCES
-   ../../src/HCGEMacroses.h
-   ../../src/CCGEPoint.h
-   ../../src/CCGEPoint.cpp
-   ../../src/CCGETexture.h
-   ../../src/CCGETexture.cpp
-   ../../src/CCGEScene.h
-   ../../src/CCGEScene.cpp
-   ../../src/CCGEObject.h
-   ../../src/CCGEObject.cpp
-   ../../src/CCGEModel.h
-   ../../src/CCGEModel.cpp
-   ../../src/CCGEModelPoint.h
-   ../../src/CCGEModelPoint.cpp
-   ../../src/CCGEEntityID.h
-   ../../src/CCGEEntityID.cpp
-   ../../src/CCGEEntity.h
-   ../../src/CCGEEntity.cpp
-   ../../src/CCGEDecoration.h
-   ../../src/CCGEDecoration.cpp
-   ../../src/CCGEItem.h
-   ../../src/CCGEItem.cpp
-   ../../src/CCGEUnit.h
-   ../../src/CCGEUnit.cpp
-   ../../src/CCGEItemsCreator.h
-   ../../src/CCGEItemsCreator.cpp
+   ../../src/cge/HCGEMacroses.h
+   ../../src/cge/CCGEPoint.h
+   ../../src/cge/CCGEPoint.cpp
+   ../../src/cge/CCGETexture.h
+   ../../src/cge/CCGETexture.cpp
+   ../../src/cge/CCGEScene.h
+   ../../src/cge/CCGEScene.cpp
+   ../../src/cge/CCGEObject.h
+   ../../src/cge/CCGEObject.cpp
+   ../../src/cge/CCGEModel.h
+   ../../src/cge/CCGEModel.cpp
+   ../../src/cge/CCGEModelPoint.h
+   ../../src/cge/CCGEModelPoint.cpp
+   ../../src/cge/CCGEEntityID.h
+   ../../src/cge/CCGEEntityID.cpp
+   ../../src/cge/CCGEEntity.h
+   ../../src/cge/CCGEEntity.cpp
+   ../../src/cge/CCGEDecoration.h
+   ../../src/cge/CCGEDecoration.cpp
+   ../../src/cge/CCGEItem.h
+   ../../src/cge/CCGEItem.cpp
+   ../../src/cge/CCGEUnit.h
+   ../../src/cge/CCGEUnit.cpp
+   ../../src/cge/CCGEItemsCreator.h
+   ../../src/cge/CCGEItemsCreator.cpp
    main.cpp )
 
 

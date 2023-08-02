@@ -1,7 +1,7 @@
 // Программа тестирования для алгоритмов операций над матрицами
 #include <iostream>
 
-#include "../../src/math/HMatrixTests.hpp"
+#include "../../src/cge/math/HMatrixTests.hpp"
 
 
 

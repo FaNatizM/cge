@@ -1,9 +1,9 @@
 #include <cassert>
 
-#include "../../src/CCGEDecoration.h"
-#include "../../src/CCGEItemsCreator.h"
-#include "../../src/CCGEUnit.h"
-#include "../../src/CCGEModelPoint.h"
+#include "../../src/cge/CCGEDecoration.h"
+#include "../../src/cge/CCGEItemsCreator.h"
+#include "../../src/cge/CCGEUnit.h"
+#include "../../src/cge/CCGEModelPoint.h"
 
 
 

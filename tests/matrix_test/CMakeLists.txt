@@ -6,10 +6,10 @@ project( ${TARGET} )
 
 
 set( SOURCES
-   ../../src/math/CBoundsMatrix.hpp
-   ../../src/math/CSquareMatrix.hpp
-   ../../src/math/HMatrixOperations.hpp
-   ../../src/math/HMatrixTests.hpp
+   ../../src/cge/math/CBoundsMatrix.hpp
+   ../../src/cge/math/CSquareMatrix.hpp
+   ../../src/cge/math/HMatrixOperations.hpp
+   ../../src/cge/math/HMatrixTests.hpp
    main.cpp )
 
 

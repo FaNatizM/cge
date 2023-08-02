@@ -1,7 +1,7 @@
 ﻿#include <cassert>
 #include <iostream>
 
-#include "../../src/menu/CCGEMenu.hpp"
+#include "../../src/cge/menu/CCGEMenu.hpp"
 
 
 
