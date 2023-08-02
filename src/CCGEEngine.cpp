@@ -1,13 +1,18 @@
 #include <iostream>
 #include <chrono>
 
-#include "CCGEEngine.h"
+#include <cge/CCGEEngine.h>
 #include "CCGEUI.h"
 
 
 
 
-struct CEngine::SImpl {
+using namespace NCGE;
+
+
+
+
+struct NCGE::CEngine::SImpl {
     public:
         explicit SImpl( const CGame& a_game )
             : m_game( a_game ) {

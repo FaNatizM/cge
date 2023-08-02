@@ -5,6 +5,7 @@
 
 
 
+using namespace NCGE;
 namespace NUI {
     class CCommandNothing : public CCommand {
         public:

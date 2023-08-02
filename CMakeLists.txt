@@ -4,10 +4,12 @@ project(cge
     DESCRIPTION "Template for C++ library built with CMake"
     LANGUAGES CXX)
 
+
+
+
 #----------------------------------------------------------------------------------------------------------------------
 # general settings and options
 #----------------------------------------------------------------------------------------------------------------------
-
 include(cmake/utils.cmake)
 include(GNUInstallDirs)
 
@@ -36,11 +38,17 @@ set_if_undefined(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 add_library(cge) # initialized below
 add_library(cge::cge ALIAS cge)
 
+
+
+
 #----------------------------------------------------------------------------------------------------------------------
 # cge dependencies
 #----------------------------------------------------------------------------------------------------------------------
 
 # Search for your dependencies here
+
+
+
 
 #----------------------------------------------------------------------------------------------------------------------
 # cge sources
@@ -58,8 +66,51 @@ generate_export_header(cge EXPORT_FILE_NAME include/cge/${export_file_name})
 set(sources
     include/cge/export.h
     include/cge/cge.h
+
+    include/cge/CCGEGame.h
+    src/CCGEGame.cpp
+    src/CCGEUI.h
+    src/CCGEUI.cpp
+    src/CCGEUICommand.h
+    src/CCGEUICommand.cpp
+    include/cge/CCGEEngine.h
+    src/CCGEEngine.cpp
+
+    include/cge/HCGEMacroses.h
+    src/CCGEPoint.h
+    src/CCGEPoint.cpp
+    src/CCGETexture.h
+    src/CCGETexture.cpp
+    src/CCGEScene.h
+    src/CCGEScene.cpp
+    src/CCGEPlace.h
+    src/CCGEPlace.cpp
+    src/CCGELocation.h
+    src/CCGELocation.cpp
+    src/CCGEViewer.h
+    src/CCGEViewer.cpp
+    src/CCGEObject.h
+    src/CCGEObject.cpp
+    src/CCGEModel.h
+    src/CCGEModel.cpp
+    src/CCGEModelPoint.h
+    src/CCGEModelPoint.cpp
+    src/CCGEModelChain.h
+    src/CCGEModelChain.cpp
+    src/CCGEEntityID.h
+    src/CCGEEntityID.cpp
+    src/CCGEEntity.h
+    src/CCGEEntity.cpp
+    src/CCGEItem.h
+    src/CCGEItem.cpp
+    src/CCGEItemsCreator.h
+    src/CCGEItemsCreator.cpp
+
     src/cge.cpp)
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${sources})
+
+
+
 
 #----------------------------------------------------------------------------------------------------------------------
 # cge target
@@ -136,6 +187,9 @@ if(CGE_INSTALL AND NOT CMAKE_SKIP_INSTALL_RULES)
             OPTIONAL)
     endif()
 endif()
+
+
+
 
 #----------------------------------------------------------------------------------------------------------------------
 # other targets

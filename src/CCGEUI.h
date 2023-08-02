@@ -1,5 +1,5 @@
-#ifndef CUI_H
-#define CUI_H
+#ifndef CCGEUI_H
+#define CCGEUI_H
 
 
 #include "CCGEUICommand.h"

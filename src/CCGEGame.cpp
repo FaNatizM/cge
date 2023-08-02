@@ -1,8 +1,9 @@
-#include "CCGEGame.h"
+#include <cge/CCGEGame.h>
 
 #include <iostream>
 #include <cassert>
 
+#include "CCGEViewer.h"
 #include "CCGEModelPoint.h"
 #include "CCGEModelChain.h"
 #include "CCGEItemsCreator.h"
@@ -10,7 +11,12 @@
 
 
 
-struct CGame::SImpl {
+using namespace NCGE;
+
+
+
+
+struct NCGE::CGame::SImpl {
     public:
         explicit SImpl()
             : m_location(

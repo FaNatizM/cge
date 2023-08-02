@@ -1,6 +1,11 @@
 #include <iostream>
 
-#include "CCGEEngine.h"
+#include <cge/CCGEEngine.h>
+
+
+
+
+using namespace NCGE;
 
 
 

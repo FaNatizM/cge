@@ -1,15 +1,16 @@
-#ifndef CUICOMMAND_H
-#define CUICOMMAND_H
+#ifndef CCGEUICOMMAND_H
+#define CCGEUICOMMAND_H
 
 
 #include <memory>
 
-#include "CCGEGame.h"
+#include <cge/CCGEGame.h>
 
 
 
 
 namespace NUI {
+    using namespace NCGE;
 
     // Перечислитель для команды движени в определённую сторону
     enum class EMoveSide {
