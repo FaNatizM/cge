@@ -1,6 +1,5 @@
 #include "CRules.h"
 
-#include <iostream>
 #include <cassert>
 
 
@@ -64,6 +63,15 @@ bool SPoint::operator< (
     }
 
     return false;
+}
+
+
+
+std::ostream& operator << (
+    std::ostream& a_out
+    , const SPoint& a_point ) {
+    a_out << "( " << a_point.m_x
+        << ", " << a_point.m_y << std::endl;
 }
 
 
@@ -165,6 +173,25 @@ namespace {
         return a_head;
     }
 }
+
+
+
+std::ostream& operator << (
+    std::ostream& a_out
+    , const CSnake& a_snake ) {
+    const auto snake_head = a_snake.f_GetHead();
+    a_out << "head: " << snake_head << std::endl;
+
+    a_out << "body:" << std::endl;
+    const auto body = a_snake.f_GetBody();
+    for ( auto point : body ) {
+        a_out << point << std::endl;
+    }
+
+    a_out << "length: " << a_snake.f_GetLength()
+        << std::endl;
+}
+
 
 
 

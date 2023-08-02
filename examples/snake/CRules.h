@@ -2,6 +2,7 @@
 #define CRULES_H
 
 
+#include <iostream>
 #include <list>
 
 
@@ -21,6 +22,10 @@ namespace NSnake {
         int m_x = 0;
         int m_y = 0;
     };
+
+    std::ostream& operator << (
+        std::ostream& a_out
+        , const SPoint& a_point );
 
     using TPoints = std::list< SPoint >;
 
@@ -77,6 +82,10 @@ namespace NSnake {
             TPoints m_body;
             int m_length;
     };
+
+    std::ostream& operator << (
+        std::ostream& a_out
+        , const CSnake& a_point );
 
 
 
