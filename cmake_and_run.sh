@@ -18,7 +18,7 @@ echo ${g_exe_args[*]}
 
 
 g_args=()
-g_args+=( "src/snake" )
+g_args+=( "examples/add/cge-add" )
 g_args+=( "${PWD}" )
 g_args+=( "${g_rep_root}/build" )
 g_args+=( "${HOME}" )
