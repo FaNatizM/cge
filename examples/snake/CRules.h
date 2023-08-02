@@ -81,6 +81,12 @@ namespace NSnake {
 
 
     struct SFood {
+        explicit SFood( const SPoint& a_position
+            = SPoint() )
+            : m_position( a_position ) {
+        }
+
+
         SPoint m_position;
     };
 
