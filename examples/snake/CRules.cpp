@@ -67,11 +67,14 @@ bool SPoint::operator< (
 
 
 
-std::ostream& operator << (
+std::ostream& NSnake::operator << (
     std::ostream& a_out
     , const SPoint& a_point ) {
     a_out << "( " << a_point.m_x
-        << ", " << a_point.m_y << std::endl;
+        << ", " << a_point.m_y
+        << " )";
+
+    return a_out;
 }
 
 
@@ -154,20 +157,24 @@ namespace {
     SPoint& f_MoveSnakeHead(
         const EDirection a_course
         , SPoint& a_head ) {
-        if ( a_course == EDirection::E_Left ) {
-            a_head = SPoint( a_head.m_x - 1, a_head.m_y );
+        if ( a_course
+            == EDirection::E_Left ) {
+            a_head.m_x = a_head.m_x - 1;
         }
 
-        if ( a_course == EDirection::E_Top ) {
-            a_head = SPoint( a_head.m_x, a_head.m_y - 1 );
+        if ( a_course
+            == EDirection::E_Top ) {
+            a_head.m_y = a_head.m_y - 1;
         }
 
-        if ( a_course == EDirection::E_Right ) {
-            a_head = SPoint( a_head.m_x + 1, a_head.m_y );
+        if ( a_course
+            == EDirection::E_Right ) {
+            a_head.m_x = a_head.m_x + 1;
         }
 
-        if ( a_course == EDirection::E_Bottom ) {
-            a_head = SPoint( a_head.m_x, a_head.m_y + 1 );
+        if ( a_course
+            == EDirection::E_Bottom ) {
+            a_head.m_y = a_head.m_y + 1;
         }
 
         return a_head;
@@ -176,11 +183,13 @@ namespace {
 
 
 
-std::ostream& operator << (
+std::ostream& NSnake::operator << (
     std::ostream& a_out
     , const CSnake& a_snake ) {
-    const auto snake_head = a_snake.f_GetHead();
-    a_out << "head: " << snake_head << std::endl;
+    const auto snake_head
+        = a_snake.f_GetHead();
+    a_out << "head: " << snake_head
+        << std::endl;
 
     a_out << "body:" << std::endl;
     const auto body = a_snake.f_GetBody();
@@ -190,6 +199,9 @@ std::ostream& operator << (
 
     a_out << "length: " << a_snake.f_GetLength()
         << std::endl;
+
+
+    return a_out;
 }
 
 
@@ -263,10 +275,14 @@ EGameState CGame::f_CheckState() const {
 
 
 bool NSnake::f_Test() {
+    std::cout << "f_Test()" << std::endl;
+
+
     {
         CGame game( SSize( 3, 3 ) );
-        const auto snake = game.f_MoveSnake(
-            EDirection::E_Top );
+        const auto snake = game
+            .f_MoveSnake(
+                EDirection::E_Top );
         const auto snake_head
             = snake.f_GetHead();
         const auto snake_body
@@ -287,53 +303,62 @@ bool NSnake::f_Test() {
 
     {
         CGame game( SSize( 3, 3 ) );
-        const auto snake = game.f_MoveSnake(
-            EDirection::E_Bottom );
-        assert( game.f_CheckState()
-            == EGameState::E_IsBeing );
 
-        game.f_MoveSnake(
+        auto snake = game
+            .f_MoveSnake(
+                EDirection::E_Bottom );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+        std::cout << snake << std::endl;
+
+        snake = game.f_MoveSnake(
             EDirection::E_Bottom );
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
+        std::cout << snake << std::endl;
 
         game.f_MoveSnake(
             EDirection::E_Left );
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
+        std::cout << snake << std::endl;
 
         game.f_MoveSnake(
             EDirection::E_Left );
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
+        std::cout << snake << std::endl;
 
         game.f_MoveSnake(
             EDirection::E_Top );
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
+        std::cout << snake << std::endl;
 
         game.f_MoveSnake(
             EDirection::E_Top );
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
+        std::cout << snake << std::endl;
 
         game.f_MoveSnake(
             EDirection::E_Right );
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
+        std::cout << snake << std::endl;
 
-        game.f_MoveSnake(
+        snake = game.f_MoveSnake(
             EDirection::E_Right );
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
 
-        std::cout << snake.f_GetHead().m_x << std::endl;
-        std::cout << snake.f_GetHead().m_y << std::endl;
+        std::cout << snake << std::endl;
         const auto snake_head
             = snake.f_GetHead();
         assert( snake_head.m_x == 2
             && snake_head.m_y == 0 );
     }
+
 
     return true;
 }
