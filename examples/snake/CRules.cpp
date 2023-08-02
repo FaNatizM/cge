@@ -1,5 +1,6 @@
 #include "CRules.h"
 
+#include <iostream>
 #include <cassert>
 
 
@@ -74,8 +75,8 @@ CSnake::CSnake()
     , m_head( 2, 0 )
     , m_body()
     , m_length( C_SNAKE_LENGHT_MIN ) {
-    m_body.push_back( SPoint( 0, 0 ) );
-    m_body.push_back( SPoint( 1, 0 ) );
+    m_body.push_front( SPoint( 0, 0 ) );
+    m_body.push_front( SPoint( 1, 0 ) );
 }
 
 
@@ -123,7 +124,7 @@ void CSnake::f_Move(
     m_body.push_front( m_head );
     m_body.pop_back();
 
-    f_MoveSnakeHead( m_course, m_head );
+    m_head = f_MoveSnakeHead( m_course, m_head );
 }
 
 
@@ -134,7 +135,7 @@ void CSnake::f_Eat(
 
     m_body.push_front( m_head );
 
-    f_MoveSnakeHead( m_course, m_head );
+    m_head = f_MoveSnakeHead( m_course, m_head );
 
     m_length++;
 }
@@ -186,7 +187,7 @@ namespace {
 CGame::CGame( const SSize& a_size )
     : m_snake()
     , m_location( SLocation( a_size ) )
-    , m_food() {
+    , m_food( SPoint( -1, -1 ) ) {
 }
 
 
@@ -213,10 +214,14 @@ EGameState CGame::f_CheckState() const {
     const auto snake_head = m_snake.f_GetHead();
     if ( m_location.m_size.m_width <= snake_head.m_x
         || m_location.m_size.m_height <= snake_head.m_y
-        || 0 < snake_head.m_x
-        || 0 < snake_head.m_y ) {
+        || snake_head.m_x < 0
+        || snake_head.m_y < 0 ) {
         return EGameState::E_Losed;
     }
+
+
+    // Проверка поедания самой себя?
+
 
     if ( m_snake.f_GetLength() ==
         m_location.m_size.m_width
@@ -231,10 +236,77 @@ EGameState CGame::f_CheckState() const {
 
 
 bool NSnake::f_Test() {
-    CGame game( SSize( 3, 3 ) );
-    game.f_MoveSnake( EDirection::E_Top );
-    assert( game.f_CheckState() == EGameState::E_Losed );
+    {
+        CGame game( SSize( 3, 3 ) );
+        const auto snake = game.f_MoveSnake(
+            EDirection::E_Top );
+        const auto snake_head
+            = snake.f_GetHead();
+        const auto snake_body
+            = snake.f_GetBody();
 
+        assert( snake.f_GetLength() == 3 );
+        assert( snake_body.front().m_x == 2
+            && snake_body.front().m_y == 0 );
+        assert( snake_body.back().m_x == 1
+            && snake_body.back().m_y == 0 );
+        assert( snake_head.m_x == 2
+            && snake_head.m_y == -1 );
+
+        assert( game.f_CheckState()
+            == EGameState::E_Losed );
+    }
+
+
+    {
+        CGame game( SSize( 3, 3 ) );
+        const auto snake = game.f_MoveSnake(
+            EDirection::E_Bottom );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        game.f_MoveSnake(
+            EDirection::E_Bottom );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        game.f_MoveSnake(
+            EDirection::E_Left );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        game.f_MoveSnake(
+            EDirection::E_Left );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        game.f_MoveSnake(
+            EDirection::E_Top );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        game.f_MoveSnake(
+            EDirection::E_Top );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        game.f_MoveSnake(
+            EDirection::E_Right );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        game.f_MoveSnake(
+            EDirection::E_Right );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        std::cout << snake.f_GetHead().m_x << std::endl;
+        std::cout << snake.f_GetHead().m_y << std::endl;
+        const auto snake_head
+            = snake.f_GetHead();
+        assert( snake_head.m_x == 2
+            && snake_head.m_y == 0 );
+    }
 
     return true;
 }
