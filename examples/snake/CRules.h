@@ -13,6 +13,8 @@ namespace NSnake {
             const int a_x = 0
             , const int a_y = 0 );
 
+        bool operator == ( const SPoint& a_other ) const;
+        bool operator != ( const SPoint& a_other ) const;
         bool operator< ( const SPoint& a_other ) const;
 
 
@@ -25,8 +27,16 @@ namespace NSnake {
 
 
     struct SSize {
-        int m_width = 0;
-        int m_height = 0;
+        explicit SSize(
+            const int a_width = 0
+            , const int a_height = 0 )
+            : m_width( a_width )
+            , m_height( a_height ) {
+        }
+
+
+        int m_width;
+        int m_height;
     };
 
 
@@ -56,7 +66,8 @@ namespace NSnake {
 
             void f_Move(
                 const EDirection a_course );
-            void f_Eat();
+            void f_Eat(
+                const EDirection a_course );
 
 
         private:
@@ -70,7 +81,7 @@ namespace NSnake {
 
 
     struct SFood {
-        SPoint m_point;
+        SPoint m_position;
     };
 
 
@@ -90,7 +101,7 @@ namespace NSnake {
     enum class EGameState {
         E_IsBeing
         , E_Losed
-        , E_Winned
+        , E_Won
     };
     class CGame {
         public:

@@ -1,5 +1,7 @@
 #include "CRules.h"
 
+#include <cassert>
+
 
 
 
@@ -17,6 +19,29 @@ SPoint::SPoint(
     , const int a_y )
     : m_x( a_x )
     , m_y( a_y ) {
+}
+
+
+
+bool SPoint::operator == (
+    const SPoint& a_other ) const {
+
+    if ( m_y != a_other.m_y ) {
+        return false;
+    }
+
+    if ( m_x != a_other.m_x ) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+bool SPoint::operator != (
+    const SPoint& a_other ) const {
+    return ! ( *this == a_other );
 }
 
 
@@ -46,11 +71,11 @@ bool SPoint::operator< (
 CSnake::CSnake()
     : m_state( ESnakeState::E_Alive )
     , m_course( EDirection::E_Right )
-    , m_head( 0, 2 )
+    , m_head( 2, 0 )
     , m_body()
     , m_length( C_SNAKE_LENGHT_MIN ) {
     m_body.push_back( SPoint( 0, 0 ) );
-    m_body.push_back( SPoint( 0, 1 ) );
+    m_body.push_back( SPoint( 1, 0 ) );
 }
 
 
@@ -93,6 +118,8 @@ namespace {
 
 void CSnake::f_Move(
     const EDirection a_course ) {
+    m_course = a_course;
+
     m_body.push_front( m_head );
     m_body.pop_back();
 
@@ -101,7 +128,10 @@ void CSnake::f_Move(
 
 
 
-void CSnake::f_Eat() {
+void CSnake::f_Eat(
+    const EDirection a_course ) {
+    m_course = a_course;
+
     m_body.push_front( m_head );
 
     f_MoveSnakeHead( m_course, m_head );
@@ -164,7 +194,15 @@ CGame::CGame( const SSize& a_size )
 const CSnake& CGame::f_MoveSnake(
     const EDirection a_course ) {
 
-    m_snake.f_Move( a_course );
+    auto snake_head = m_snake.f_GetHead();
+    snake_head = f_MoveSnakeHead(
+        a_course
+        , snake_head );
+    if ( snake_head == m_food.m_position ) {
+        m_snake.f_Eat( a_course );
+    } else {
+        m_snake.f_Move( a_course );
+    }
 
     return m_snake;
 }
@@ -172,6 +210,20 @@ const CSnake& CGame::f_MoveSnake(
 
 
 EGameState CGame::f_CheckState() const {
+    const auto snake_head = m_snake.f_GetHead();
+    if ( m_location.m_size.m_width <= snake_head.m_x
+        || m_location.m_size.m_height <= snake_head.m_y
+        || 0 < snake_head.m_x
+        || 0 < snake_head.m_y ) {
+        return EGameState::E_Losed;
+    }
+
+    if ( m_snake.f_GetLength() ==
+        m_location.m_size.m_width
+            * m_location.m_size.m_height ) {
+        return EGameState::E_Won;
+    }
+
     return EGameState::E_IsBeing;
 }
 
@@ -179,5 +231,10 @@ EGameState CGame::f_CheckState() const {
 
 
 bool NSnake::f_Test() {
+    CGame game( SSize( 3, 3 ) );
+    game.f_MoveSnake( EDirection::E_Top );
+    assert( game.f_CheckState() == EGameState::E_Losed );
+
+
     return true;
 }
