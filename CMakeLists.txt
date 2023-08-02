@@ -65,7 +65,7 @@ generate_export_header(cge EXPORT_FILE_NAME include/cge/${export_file_name})
 
 set(sources
     include/cge/export.h
-    include/cge/cge.h
+    include/cge/HCGE.h
 
     include/cge/CCGEGame.h
     src/CCGEGame.cpp
@@ -106,7 +106,7 @@ set(sources
     src/CCGEItemsCreator.h
     src/CCGEItemsCreator.cpp
 
-    src/cge.cpp)
+    src/HCGE.cpp)
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${sources})
 
 

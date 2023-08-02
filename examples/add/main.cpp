@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <cge/cge.h>
+#include <cge/HCGE.h>
 
 
 
