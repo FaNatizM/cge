@@ -42,6 +42,7 @@ bool SPoint::operator< (
 
 
 
+
 CSnake::CSnake()
     : m_state( ESnakeState::E_Alive )
     , m_course( EDirection::E_Right )
@@ -50,7 +51,6 @@ CSnake::CSnake()
     , m_length( C_SNAKE_LENGHT_MIN ) {
     m_body.push_back( SPoint( 0, 0 ) );
     m_body.push_back( SPoint( 0, 1 ) );
-    m_body.push_back( SPoint( 0, 2 ) );
 }
 
 
@@ -67,8 +67,14 @@ EDirection CSnake::f_GetCourse() const {
 
 
 
-SPoint CSnake::f_GetPosition() const {
+const SPoint& CSnake::f_GetHead() const {
     return m_head;
+}
+
+
+
+const TPoints& CSnake::f_GetBody() const {
+    return m_body;
 }
 
 
@@ -79,19 +85,55 @@ int CSnake::f_GetLength() const {
 
 
 
+namespace {
+    SPoint& f_MoveSnakeHead(
+        const EDirection a_course
+        , SPoint& a_head );
+}
+
 void CSnake::f_Move(
-    const EDirection a_course
-    , const SPoint& a_position ) {
-    m_course = a_course;
-    m_head = a_position;
+    const EDirection a_course ) {
+    m_body.push_front( m_head );
+    m_body.pop_back();
+
+    f_MoveSnakeHead( m_course, m_head );
 }
 
 
 
 void CSnake::f_Eat() {
+    m_body.push_front( m_head );
+
+    f_MoveSnakeHead( m_course, m_head );
+
     m_length++;
 }
 
+
+
+namespace {
+    SPoint& f_MoveSnakeHead(
+        const EDirection a_course
+        , SPoint& a_head ) {
+        if ( a_course == EDirection::E_Left ) {
+            a_head = SPoint( a_head.m_x - 1, a_head.m_y );
+        }
+
+        if ( a_course == EDirection::E_Top ) {
+            a_head = SPoint( a_head.m_x, a_head.m_y - 1 );
+        }
+
+        if ( a_course == EDirection::E_Right ) {
+            a_head = SPoint( a_head.m_x + 1, a_head.m_y );
+        }
+
+        if ( a_course == EDirection::E_Bottom ) {
+            a_head = SPoint( a_head.m_x, a_head.m_y + 1 );
+        }
+
+        return a_head;
+    }
+}
 
 
 
@@ -120,8 +162,10 @@ CGame::CGame( const SSize& a_size )
 
 
 const CSnake& CGame::f_MoveSnake(
-    const EDirection a_course
-    , const SPoint& a_position ) {
+    const EDirection a_course ) {
+
+    m_snake.f_Move( a_course );
+
     return m_snake;
 }
 

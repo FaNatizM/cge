@@ -2,7 +2,7 @@
 #define CRULES_H
 
 
-#include <vector>
+#include <list>
 
 
 
@@ -20,7 +20,7 @@ namespace NSnake {
         int m_y = 0;
     };
 
-    using TPoints = std::vector< SPoint >;
+    using TPoints = std::list< SPoint >;
 
 
 
@@ -47,15 +47,15 @@ namespace NSnake {
     class CSnake {
         public:
             explicit CSnake();
+
             ESnakeState f_GetState() const;
             EDirection f_GetCourse() const;
-            SPoint f_GetPosition() const;
-            const TPoints f_GetBody() const;
+            const SPoint& f_GetHead() const;
+            const TPoints& f_GetBody() const;
             int f_GetLength() const;
 
             void f_Move(
-                const EDirection a_course
-                , const SPoint& a_position );
+                const EDirection a_course );
             void f_Eat();
 
 
@@ -97,8 +97,7 @@ namespace NSnake {
             explicit CGame(
                 const SSize& a_size );
             const CSnake& f_MoveSnake(
-                const EDirection a_course
-                , const SPoint& a_position );
+                const EDirection a_course );
             EGameState f_CheckState() const;
 
 
