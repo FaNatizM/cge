@@ -155,4 +155,6 @@ std::ostream& operator<<(
     for ( auto point : a_points ) {
         a_out << point << " ";
     }
+
+    return a_out;
 }
