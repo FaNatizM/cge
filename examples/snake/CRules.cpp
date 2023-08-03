@@ -7,8 +7,10 @@
 
 using namespace NSnake;
 namespace {
-    constexpr auto C_SNAKE_LENGHT_MIN = 3;
-    constexpr auto C_LOCATION_SIZE_MIN = 3;
+    constexpr auto C_SNAKE_LENGHT_MIN
+        = 3;
+    constexpr auto C_LOCATION_SIZE_MIN
+        = 3;
 }
 
 
@@ -110,7 +112,8 @@ const SPoint& CSnake::f_GetHead() const {
 
 
 
-const TPoints& CSnake::f_GetBody() const {
+const TPoints&
+CSnake::f_GetBody() const {
     return m_body;
 }
 
@@ -135,7 +138,8 @@ void CSnake::f_Move(
     m_body.push_front( m_head );
     m_body.pop_back();
 
-    m_head = f_MoveSnakeHead( m_course, m_head );
+    m_head = f_MoveSnakeHead(
+        m_course, m_head );
 }
 
 
@@ -146,7 +150,8 @@ void CSnake::f_Eat(
 
     m_body.push_front( m_head );
 
-    m_head = f_MoveSnakeHead( m_course, m_head );
+    m_head = f_MoveSnakeHead(
+        m_course, m_head );
 
     m_length++;
 }
@@ -197,7 +202,8 @@ std::ostream& NSnake::operator << (
         a_out << point << std::endl;
     }
 
-    a_out << "length: " << a_snake.f_GetLength()
+    a_out << "length: "
+        << a_snake.f_GetLength()
         << std::endl;
 
 
@@ -208,7 +214,8 @@ std::ostream& NSnake::operator << (
 
 
 namespace {
-    SSize f_FixLocationSize( const SSize& a_size ) {
+    SSize f_FixLocationSize(
+        const SSize& a_size ) {
         auto size = a_size;
         if ( size.m_width < C_LOCATION_SIZE_MIN ) {
             size.m_width = C_LOCATION_SIZE_MIN;
@@ -250,16 +257,26 @@ const CSnake& CGame::f_MoveSnake(
 
 
 EGameState CGame::f_CheckState() const {
-    const auto snake_head = m_snake.f_GetHead();
-    if ( m_location.m_size.m_width <= snake_head.m_x
-        || m_location.m_size.m_height <= snake_head.m_y
+    const auto snake_head
+        = m_snake.f_GetHead();
+    if ( m_location.m_size.m_width
+            <= snake_head.m_x
+        || m_location.m_size.m_height
+            <= snake_head.m_y
         || snake_head.m_x < 0
         || snake_head.m_y < 0 ) {
         return EGameState::E_Losed;
     }
 
 
-    // Проверка поедания самой себя?
+    // Проверка поедания самой себя
+    const auto snake_body
+        = m_snake.f_GetBody();
+    for ( auto part : snake_body ) {
+        if ( snake_head == part ) {
+            return EGameState::E_Losed;
+        }
+    }
 
 
     if ( m_snake.f_GetLength() ==
@@ -268,7 +285,15 @@ EGameState CGame::f_CheckState() const {
         return EGameState::E_Won;
     }
 
+
     return EGameState::E_IsBeing;
+}
+
+
+
+void CGame::f_MakeFood(
+    const SPoint& a_position ) {
+    m_food.m_position = a_position;
 }
 
 
@@ -288,13 +313,14 @@ bool NSnake::f_Test() {
         const auto snake_body
             = snake.f_GetBody();
 
-        assert( snake.f_GetLength() == 3 );
-        assert( snake_body.front().m_x == 2
-            && snake_body.front().m_y == 0 );
-        assert( snake_body.back().m_x == 1
-            && snake_body.back().m_y == 0 );
-        assert( snake_head.m_x == 2
-            && snake_head.m_y == -1 );
+        assert( snake.f_GetLength()
+            == 3 );
+        assert( snake_body.front()
+            == SPoint( 2, 0 ) );
+        assert( snake_body.back()
+            == SPoint( 1, 0 ) );
+        assert( snake_head
+            == SPoint( 2, -1 ) );
 
         assert( game.f_CheckState()
             == EGameState::E_Losed );
@@ -358,6 +384,34 @@ bool NSnake::f_Test() {
         assert( snake_head.m_x == 2
             && snake_head.m_y == 0 );
     }
+
+
+    {
+        CGame game( SSize( 3, 3 ) );
+        game.f_MakeFood(
+            SPoint( 2, 1 ) );
+        const auto snake = game
+            .f_MoveSnake(
+                EDirection::E_Bottom );
+        const auto snake_head
+            = snake.f_GetHead();
+        const auto snake_body
+            = snake.f_GetBody();
+        std::cout << snake << std::endl;
+
+        assert( snake.f_GetLength()
+            == 4 );
+        assert( snake_body.front()
+            == SPoint( 2, 0 ) );
+        assert( snake_body.back()
+            == SPoint( 0, 0 ) );
+        assert( snake_head
+            == SPoint( 2, 1 ) );
+
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+    }
+
 
 
     return true;

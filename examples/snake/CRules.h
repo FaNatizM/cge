@@ -126,6 +126,9 @@ namespace NSnake {
                 const EDirection a_course );
             EGameState f_CheckState() const;
 
+            void f_MakeFood(
+                const SPoint& );
+
 
         private:
             CSnake m_snake;
