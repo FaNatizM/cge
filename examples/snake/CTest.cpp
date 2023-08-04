@@ -11,6 +11,7 @@ namespace {
     bool f_TestMoveToWall();
     bool f_TestMoveCircle();
     bool f_TestEatingSelf();
+    bool f_TestWin();
 }
 
 
@@ -22,6 +23,7 @@ bool NSnake::f_Test() {
     assert( f_TestMoveToWall() == true );
     assert( f_TestMoveCircle() == true );
     assert( f_TestEatingSelf() == true );
+    assert( f_TestWin() == true );
 
 
     return true;
@@ -165,6 +167,69 @@ namespace {
         std::cout << snake << std::endl;
         assert( game.f_CheckState()
             == EGameState::E_Losed );
+
+
+        return true;
+    }
+
+
+
+    bool f_TestWin() {
+        std::cout << "\nf_TestWin()"
+            << std::endl;
+        CGame game( SSize( 3, 3 ) );
+
+
+        game.f_MakeFood(
+            SPoint( 2, 1 ) );
+        auto snake = game
+            .f_MoveSnake(
+                EDirection::E_Bottom );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+
+        game.f_MakeFood(
+            SPoint( 2, 2 ) );
+        game.f_MoveSnake(
+            EDirection::E_Bottom );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+
+        game.f_MakeFood(
+            SPoint( 1, 2 ) );
+        game.f_MoveSnake(
+            EDirection::E_Left );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+
+        game.f_MakeFood(
+            SPoint( 0, 2 ) );
+        game.f_MoveSnake(
+            EDirection::E_Left );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+
+        game.f_MakeFood(
+            SPoint( 0, 1 ) );
+        game.f_MoveSnake(
+            EDirection::E_Top );
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+
+        game.f_MakeFood(
+            SPoint( 1, 1 ) );
+        snake = game.f_MoveSnake(
+            EDirection::E_Right );
+
+
+        std::cout << snake << std::endl;
+        assert( game.f_CheckState()
+            == EGameState::E_Won );
 
 
         return true;
