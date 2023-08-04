@@ -16,7 +16,7 @@ g_args=()
 g_args+=( "${g_project_path}" )
 g_args+=( "${g_project_path}/build" )
 g_args+=( "${g_project_path}/src" )
-g_args+=( "${PWD}/src.list" )
+g_args+=( "${PWD}/src_test.list" )
 g_args+=( "${HOME}/snake_test" )
 
 f_BT_BuildAndRun ${g_args[*]}
