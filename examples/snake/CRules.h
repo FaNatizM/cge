@@ -135,11 +135,6 @@ namespace NSnake {
             SLocation m_location;
             SFood m_food;
     };
-
-
-
-
-    bool f_Test();
 }
 
 

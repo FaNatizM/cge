@@ -1,3 +1,5 @@
 examples/snake/CRules.h
 examples/snake/CRules.cpp
+examples/snake/CTest.h
+examples/snake/CTest.cpp
 examples/snake/test.cpp
