@@ -129,6 +129,8 @@ namespace NSnake {
             void f_MakeFood(
                 const SPoint& );
 
+            void f_MakeFood();
+
 
         private:
             CSnake m_snake;

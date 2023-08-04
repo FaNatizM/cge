@@ -1,6 +1,7 @@
 #include "CRules.h"
 
 #include <cassert>
+#include <time.h>
 
 
 
@@ -247,6 +248,7 @@ const CSnake& CGame::f_MoveSnake(
         , snake_head );
     if ( snake_head == m_food.m_position ) {
         m_snake.f_Eat( a_course );
+        f_MakeFood();
     } else {
         m_snake.f_Move( a_course );
     }
@@ -294,4 +296,24 @@ EGameState CGame::f_CheckState() const {
 void CGame::f_MakeFood(
     const SPoint& a_position ) {
     m_food.m_position = a_position;
+}
+
+
+
+namespace {
+    SPoint f_MakeRandomPosition(
+        const SLocation& a_location ) {
+        const auto size
+            = a_location.m_size;
+        srand( time( 0 ) );
+        return SPoint(
+            rand() % size.m_width
+            , rand() % size.m_height );
+    }
+}
+
+void CGame::f_MakeFood() {
+    m_food.m_position
+        = f_MakeRandomPosition(
+            m_location );
 }
