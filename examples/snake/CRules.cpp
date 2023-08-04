@@ -390,7 +390,7 @@ bool NSnake::f_Test() {
         CGame game( SSize( 3, 3 ) );
         game.f_MakeFood(
             SPoint( 2, 1 ) );
-        const auto snake = game
+        auto snake = game
             .f_MoveSnake(
                 EDirection::E_Bottom );
         const auto snake_head
@@ -408,6 +408,16 @@ bool NSnake::f_Test() {
         assert( snake_head
             == SPoint( 2, 1 ) );
 
+        assert( game.f_CheckState()
+            == EGameState::E_IsBeing );
+
+        snake = game
+            .f_MoveSnake(
+                EDirection::E_Left );
+        snake = game
+            .f_MoveSnake(
+                EDirection::E_Top );
+        std::cout << snake << std::endl;
         assert( game.f_CheckState()
             == EGameState::E_IsBeing );
     }
