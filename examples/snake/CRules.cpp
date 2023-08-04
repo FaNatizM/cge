@@ -84,19 +84,12 @@ std::ostream& NSnake::operator << (
 
 
 CSnake::CSnake()
-    : m_state( ESnakeState::E_Alive )
-    , m_course( EDirection::E_Right )
+    : m_course( EDirection::E_Right )
     , m_head( 2, 0 )
     , m_body()
     , m_length( C_SNAKE_LENGHT_MIN ) {
     m_body.push_front( SPoint( 0, 0 ) );
     m_body.push_front( SPoint( 1, 0 ) );
-}
-
-
-
-ESnakeState CSnake::f_GetState() const {
-    return m_state;
 }
 
 

@@ -55,15 +55,10 @@ namespace NSnake {
 
 
 
-    enum class ESnakeState {
-        E_Alive
-        , E_Died
-    };
     class CSnake {
         public:
             explicit CSnake();
 
-            ESnakeState f_GetState() const;
             EDirection f_GetCourse() const;
             const SPoint& f_GetHead() const;
             const TPoints& f_GetBody() const;
@@ -76,7 +71,6 @@ namespace NSnake {
 
 
         private:
-            ESnakeState m_state;
             EDirection m_course;
             SPoint m_head;
             TPoints m_body;
