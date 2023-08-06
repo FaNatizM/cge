@@ -137,6 +137,11 @@ a_class& a_class::operator=(\
 
 
 
+#define M_IMPL_UNIQUE_STRUCT_IMPL()\
+    M_IMPL_UNIQUE_STRUCT( SImpl, TImpl )
+
+
+
 #define M_IMPL_MAKE_STRUCT(\
     a_struct, a_type )\
     template< typename... Types >\
