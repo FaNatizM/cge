@@ -1,7 +1,8 @@
 #include "CRules.h"
 
 #include <cassert>
-#include <time.h>
+#include <ctime>
+#include <cstdlib>
 
 
 
@@ -191,7 +192,8 @@ std::ostream& NSnake::operator << (
         << std::endl;
 
     a_out << "body:" << std::endl;
-    const auto body = a_snake.f_GetBody();
+    const auto body
+        = a_snake.f_GetBody();
     for ( auto point : body ) {
         a_out << point << std::endl;
     }
@@ -211,12 +213,16 @@ namespace {
     SSize f_FixLocationSize(
         const SSize& a_size ) {
         auto size = a_size;
-        if ( size.m_width < C_LOCATION_SIZE_MIN ) {
-            size.m_width = C_LOCATION_SIZE_MIN;
+        if ( size.m_width
+            < C_LOCATION_SIZE_MIN ) {
+            size.m_width
+                = C_LOCATION_SIZE_MIN;
         }
 
-        if ( size.m_height < C_LOCATION_SIZE_MIN ) {
-            size.m_height = C_LOCATION_SIZE_MIN;
+        if ( size.m_height
+            < C_LOCATION_SIZE_MIN ) {
+            size.m_height
+                = C_LOCATION_SIZE_MIN;
         }
 
 
@@ -235,11 +241,14 @@ CGame::CGame( const SSize& a_size )
 const CSnake& CGame::f_MoveSnake(
     const EDirection a_course ) {
 
-    auto snake_head = m_snake.f_GetHead();
+    auto snake_head
+        = m_snake.f_GetHead();
     snake_head = f_MoveSnakeHead(
         a_course
         , snake_head );
-    if ( snake_head == m_food.m_position ) {
+    if ( snake_head
+        == m_food.m_position ) {
+
         m_snake.f_Eat( a_course );
         f_MakeFood();
     } else {
@@ -274,9 +283,12 @@ EGameState CGame::f_CheckState() const {
     }
 
 
-    if ( m_snake.f_GetLength() ==
-        m_location.m_size.m_width
-            * m_location.m_size.m_height ) {
+    const auto location_square
+        = m_location.m_size.m_width
+            * m_location.m_size
+                .m_height;
+    if ( m_snake.f_GetLength()
+        == location_square ) {
         return EGameState::E_Won;
     }
 
@@ -298,15 +310,26 @@ namespace {
         const SLocation& a_location ) {
         const auto size
             = a_location.m_size;
-        srand( time( 0 ) );
-        return SPoint(
-            rand() % size.m_width
-            , rand() % size.m_height );
+        std::srand(
+            std::time( nullptr ) );
+        const auto x
+            = 1 + std::rand()
+                / ( ( RAND_MAX + 1u )
+                / ( size.m_width - 1 ) );
+        const auto y
+            = 1 + std::rand()
+                / ( ( RAND_MAX + 1u )
+                / ( size.m_height - 1 )
+        );
+
+        return SPoint( x, y );
     }
 }
 
-void CGame::f_MakeFood() {
+const SFood& CGame::f_MakeFood() {
     m_food.m_position
         = f_MakeRandomPosition(
             m_location );
+
+    return m_food;
 }

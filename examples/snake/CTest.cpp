@@ -12,6 +12,7 @@ namespace {
     bool f_TestMoveCircle();
     bool f_TestEatingSelf();
     bool f_TestWin();
+    bool f_TestFoodMaking();
 }
 
 
@@ -24,6 +25,7 @@ bool NSnake::f_Test() {
     assert( f_TestMoveCircle() == true );
     assert( f_TestEatingSelf() == true );
     assert( f_TestWin() == true );
+    assert( f_TestFoodMaking() == true );
 
 
     return true;
@@ -231,6 +233,32 @@ namespace {
         assert( game.f_CheckState()
             == EGameState::E_Won );
 
+
+        return true;
+    }
+
+
+
+    bool f_TestFoodMaking() {
+        std::cout
+            << "\nf_TestFoodMaking()"
+            << std::endl;
+
+
+        CGame game( SSize( 3, 3 ) );
+
+        for ( auto i = 0
+            ; i < 10000
+            ; i++ ) {
+            const auto food
+                = game.f_MakeFood();
+            const auto point
+                = food.m_position;
+            assert( 0 <= point.m_x );
+            assert( 0 <= point.m_y );
+            assert( point.m_x < 3 );
+            assert( point.m_y < 3 );
+        }
 
         return true;
     }

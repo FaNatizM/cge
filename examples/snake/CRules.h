@@ -14,9 +14,15 @@ namespace NSnake {
             const int a_x = 0
             , const int a_y = 0 );
 
-        bool operator == ( const SPoint& a_other ) const;
-        bool operator != ( const SPoint& a_other ) const;
-        bool operator< ( const SPoint& a_other ) const;
+        bool operator == (
+            const SPoint& a_other )
+            const;
+        bool operator != (
+            const SPoint& a_other )
+            const;
+        bool operator< (
+            const SPoint& a_other )
+            const;
 
 
         int m_x = 0;
@@ -59,9 +65,12 @@ namespace NSnake {
         public:
             explicit CSnake();
 
-            EDirection f_GetCourse() const;
-            const SPoint& f_GetHead() const;
-            const TPoints& f_GetBody() const;
+            EDirection f_GetCourse()
+                const;
+            const SPoint& f_GetHead()
+                const;
+            const TPoints& f_GetBody()
+                const;
             int f_GetLength() const;
 
             void f_Move(
@@ -84,8 +93,9 @@ namespace NSnake {
 
 
     struct SFood {
-        explicit SFood( const SPoint& a_position
-            = SPoint() )
+        explicit SFood(
+            const SPoint& a_position
+                = SPoint() )
             : m_position( a_position ) {
         }
 
@@ -96,7 +106,8 @@ namespace NSnake {
 
 
     struct SLocation {
-        explicit SLocation( const SSize& a_size )
+        explicit SLocation(
+            const SSize& a_size )
             : m_size( a_size ) {
         }
 
@@ -118,12 +129,13 @@ namespace NSnake {
                 const SSize& a_size );
             const CSnake& f_MoveSnake(
                 const EDirection a_course );
-            EGameState f_CheckState() const;
+            EGameState f_CheckState()
+                const;
 
             void f_MakeFood(
                 const SPoint& );
 
-            void f_MakeFood();
+            const SFood& f_MakeFood();
 
 
         private:
