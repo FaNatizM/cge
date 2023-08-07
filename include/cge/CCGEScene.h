@@ -1,5 +1,5 @@
-﻿#ifndef CGECENE_H
-#define CGECENE_H
+﻿#ifndef CCGECENE_H
+#define CCGECENE_H
 
 
 #include <memory>
@@ -12,7 +12,7 @@
 
 
 
-namespace NGE {
+namespace NCGE {
     class CScene {
         public:
             using TNode

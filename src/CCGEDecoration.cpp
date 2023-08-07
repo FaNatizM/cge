@@ -1,4 +1,4 @@
-#include "CCGEDecoration.h"
+#include <cge/CCGEDecoration.h>
 
 #include <cassert>
 #include <vector>

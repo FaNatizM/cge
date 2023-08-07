@@ -1,19 +1,23 @@
-#ifndef CCGEGAME_H
-#define CCGEGAME_H
+#ifndef CGAME_H
+#define CGAME_H
 
 
 #include <memory>
 
 #include <cge/export.h>
+#include <cge/CCGEEngine.h>
 #include <cge/HCGEMacroses.h>
 
 
 
 
-namespace NCGE {
-    CGE_EXPORT class CGame {
+namespace NSnake {
+    class CGame {
         public:
             explicit CGame();
+
+            NCGE::TDrawer f_GetDrawer()
+                const;
 
             void f_ViewAndDraw() const;
 

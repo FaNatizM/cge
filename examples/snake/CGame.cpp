@@ -1,22 +1,23 @@
-#include <cge/CCGEGame.h>
+#include "CGame.h"
 
 #include <iostream>
 #include <cassert>
 
-#include "CCGEViewer.h"
-#include "CCGEModelPoint.h"
-#include "CCGEModelChain.h"
-#include "CCGEItemsCreator.h"
+#include <cge/CCGEViewer.h>
+#include <cge/CCGEModelPoint.h>
+#include <cge/CCGEModelChain.h>
+#include <cge/CCGEItemsCreator.h>
 
 
 
 
+using namespace NSnake;
 using namespace NCGE;
 
 
 
 
-struct NCGE::CGame::SImpl {
+struct NSnake::CGame::SImpl {
     public:
         explicit SImpl()
             : m_location(
@@ -24,7 +25,7 @@ struct NCGE::CGame::SImpl {
                     20, 20 ) )
             , m_viewer(
                 NWRD::CViewer(
-                    NGE::CScene(
+                    NCGE::CScene(
                         10, 10 )
                     , m_location ) )
             , m_item() {
@@ -32,7 +33,7 @@ struct NCGE::CGame::SImpl {
             // Создание предмета,
             // который будем двигать
              const auto head = NWRD::CObject(
-                 CPoint( 2, 0 ), NGE::CTexture( 'x' ) );
+                 CPoint( 2, 0 ), NCGE::CTexture( 'x' ) );
              const auto body = NWRD::CObject(
                  CPoint( 1, 0 ), head.f_GetTexture() );
              const auto tail = NWRD::CObject(
@@ -83,7 +84,7 @@ struct NCGE::CGame::SImpl {
             const auto food_object
                 = NWRD::CObject(
                     CPoint()
-                    , NGE::CTexture(
+                    , NCGE::CTexture(
                         'o' ) );
             const auto food_creator
                 = NWRD::CItemsCreator(
@@ -153,6 +154,15 @@ struct NCGE::CGame::SImpl {
 CGame::CGame()
     : m_impl(
         SImpl::f_Create() ) {
+}
+
+
+
+NCGE::TDrawer
+    CGame::f_GetDrawer() const {
+    return [ = ]() {
+        this->f_ViewAndDraw();
+    };
 }
 
 

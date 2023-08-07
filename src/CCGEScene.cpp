@@ -1,4 +1,4 @@
-﻿#include "CCGEScene.h"
+﻿#include <cge/CCGEScene.h>
 
 #include <iostream>
 #include <map>
@@ -8,7 +8,7 @@
 
 
 
-namespace NGE {
+namespace NCGE {
     using TNodes = std::map<
         CPoint, CTexture >;
 
@@ -62,8 +62,8 @@ namespace NGE {
 
 
 
-NGE::CTexture
-NGE::CScene::SImpl::f_GetTexture() {
+NCGE::CTexture
+NCGE::CScene::SImpl::f_GetTexture() {
     static auto texture
         = CTexture();
     return texture;
@@ -71,7 +71,7 @@ NGE::CScene::SImpl::f_GetTexture() {
 
 
 
-void NGE::CScene::SImpl::f_InitNodes() {
+void NCGE::CScene::SImpl::f_InitNodes() {
     auto size
         = m_width * m_height;
     for ( int row = 0
@@ -96,7 +96,7 @@ void NGE::CScene::SImpl::f_InitNodes() {
 
 
 
-NGE::CScene::CScene(
+NCGE::CScene::CScene(
     const int a_width
     , const int a_height )
     : m_impl(
@@ -107,8 +107,8 @@ NGE::CScene::CScene(
 
 
 
-NGE::CScene::TOperation
-NGE::CScene::
+NCGE::CScene::TOperation
+NCGE::CScene::
 f_GetVisualOperation() {
     static TOperation f_VisualNode
         = [ = ]( const TNode& a_node )
@@ -123,19 +123,19 @@ f_GetVisualOperation() {
 
 
 
-int NGE::CScene::f_GetWidth() const {
+int NCGE::CScene::f_GetWidth() const {
     return m_impl->m_width;
 }
 
 
 
-int NGE::CScene::f_GetHeight() const {
+int NCGE::CScene::f_GetHeight() const {
     return m_impl->m_height;
 }
 
 
 
-void NGE::CScene::f_Draw() const {
+void NCGE::CScene::f_Draw() const {
     std::cout << std::endl;
 
     auto counter = 1;
@@ -157,7 +157,7 @@ void NGE::CScene::f_Draw() const {
 
 
 
-NGE::CTexture NGE::CScene::f_GetTexture(
+NCGE::CTexture NCGE::CScene::f_GetTexture(
     const CPoint& a_point )
     const {
 
@@ -176,7 +176,7 @@ NGE::CTexture NGE::CScene::f_GetTexture(
 
 
 
-bool NGE::CScene::f_SetTexture(
+bool NCGE::CScene::f_SetTexture(
     const CPoint& a_point
     , const CTexture& a_texture ) {
 
@@ -207,7 +207,7 @@ bool NGE::CScene::f_SetTexture(
 
 
 
-void NGE::CScene::f_Loop(
+void NCGE::CScene::f_Loop(
     const TOperation&
         a_operation ) {
     auto begin
@@ -223,7 +223,7 @@ void NGE::CScene::f_Loop(
 
 
 
-void NGE::CScene::f_LoopConst(
+void NCGE::CScene::f_LoopConst(
     const TOperation&
         a_operation ) const {
     auto begin
@@ -242,9 +242,9 @@ void NGE::CScene::f_LoopConst(
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NGE::CScene& a_scene ) {
+    , const NCGE::CScene& a_scene ) {
     a_scene.f_LoopConst(
-        NGE::CScene::
+        NCGE::CScene::
         f_GetVisualOperation() );
 
     return a_out;

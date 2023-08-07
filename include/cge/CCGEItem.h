@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include "CCGEEntity.h"
+#include <cge/CCGEEntity.h>
 
 
 

@@ -5,9 +5,9 @@
 #include <memory>
 #include <iostream>
 
-#include "HCGEMacroses.h"
-#include "CCGEPoint.h"
-#include "CCGETexture.h"
+#include <cge/HCGEMacroses.h>
+#include <cge/CCGEPoint.h>
+#include <cge/CCGETexture.h>
 
 
 
@@ -24,7 +24,7 @@ namespace NWRD {
 
             explicit CObject(
                 const CPoint& a_point
-                , const NGE::CTexture&
+                , const NCGE::CTexture&
                 a_texture );
 
             bool operator==(
@@ -37,7 +37,7 @@ namespace NWRD {
 
             void f_SetPoint( const CPoint& a_point );
 
-            NGE::CTexture
+            NCGE::CTexture
             f_GetTexture() const;
 
 

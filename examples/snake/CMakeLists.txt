@@ -16,6 +16,10 @@ endif()
 set( SOURCES
    CRules.h
    CRules.cpp
+   CGame.h
+   CGame.cpp
+   CUI.h
+   CUI.cpp
    main.cpp )
 source_group( TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES} )
 

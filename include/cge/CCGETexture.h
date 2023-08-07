@@ -1,5 +1,5 @@
-﻿#ifndef CGETEXTURE_H
-#define CGETEXTURE_H
+﻿#ifndef CCGETEXTURE_H
+#define CCGETEXTURE_H
 
 
 #include <iostream>
@@ -10,7 +10,7 @@
 
 
 
-namespace NGE {
+namespace NCGE {
     using TTexture = char;
 
 
@@ -58,7 +58,7 @@ namespace NGE {
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NGE::CTexture& a_texture );
+    , const NCGE::CTexture& a_texture );
 
 
 

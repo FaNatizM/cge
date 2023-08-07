@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(cge
     VERSION 1.0.0
-    DESCRIPTION "Template for C++ library built with CMake"
+    DESCRIPTION "Console Game Engine C++ library built with CMake"
     LANGUAGES CXX)
 
 
@@ -63,50 +63,50 @@ endif()
 
 generate_export_header(cge EXPORT_FILE_NAME include/cge/${export_file_name})
 
-set(sources
-    include/cge/export.h
-    include/cge/HCGE.h
+set( sources
+   include/cge/export.h
+   include/cge/HCGE.h
 
-    include/cge/CCGEGame.h
-    src/CCGEGame.cpp
-    src/CCGEUI.h
-    src/CCGEUI.cpp
-    src/CCGEUICommand.h
-    src/CCGEUICommand.cpp
-    include/cge/CCGEEngine.h
-    src/CCGEEngine.cpp
+   include/cge/CCGEUI.h
+   src/CCGEUI.cpp
+   include/cge/CCGEUICommand.h
+   src/CCGEUICommand.cpp
+   include/cge/CCGEEngine.h
+   src/CCGEEngine.cpp
 
-    include/cge/HCGEMacroses.h
-    src/CCGEPoint.h
-    src/CCGEPoint.cpp
-    src/CCGETexture.h
-    src/CCGETexture.cpp
-    src/CCGEScene.h
-    src/CCGEScene.cpp
-    src/CCGEPlace.h
-    src/CCGEPlace.cpp
-    src/CCGELocation.h
-    src/CCGELocation.cpp
-    src/CCGEViewer.h
-    src/CCGEViewer.cpp
-    src/CCGEObject.h
-    src/CCGEObject.cpp
-    src/CCGEModel.h
-    src/CCGEModel.cpp
-    src/CCGEModelPoint.h
-    src/CCGEModelPoint.cpp
-    src/CCGEModelChain.h
-    src/CCGEModelChain.cpp
-    src/CCGEEntityID.h
-    src/CCGEEntityID.cpp
-    src/CCGEEntity.h
-    src/CCGEEntity.cpp
-    src/CCGEItem.h
-    src/CCGEItem.cpp
-    src/CCGEItemsCreator.h
-    src/CCGEItemsCreator.cpp
+   include/cge/HCGEMacroses.h
+   include/cge/HCGEKeyboard.hpp
 
-    src/HCGE.cpp)
+   include/cge/CCGEPoint.h
+   src/CCGEPoint.cpp
+   include/cge/CCGETexture.h
+   src/CCGETexture.cpp
+   include/cge/CCGEScene.h
+   src/CCGEScene.cpp
+   include/cge/CCGEPlace.h
+   src/CCGEPlace.cpp
+   include/cge/CCGELocation.h
+   src/CCGELocation.cpp
+   include/cge/CCGEViewer.h
+   src/CCGEViewer.cpp
+   include/cge/CCGEObject.h
+   src/CCGEObject.cpp
+   include/cge/CCGEModel.h
+   src/CCGEModel.cpp
+   include/cge/CCGEModelPoint.h
+   src/CCGEModelPoint.cpp
+   include/cge/CCGEModelChain.h
+   src/CCGEModelChain.cpp
+   include/cge/CCGEEntityID.h
+   src/CCGEEntityID.cpp
+   include/cge/CCGEEntity.h
+   src/CCGEEntity.cpp
+   include/cge/CCGEItem.h
+   src/CCGEItem.cpp
+   include/cge/CCGEItemsCreator.h
+   src/CCGEItemsCreator.cpp
+
+   src/HCGE.cpp )
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${sources})
 
 

@@ -1,4 +1,4 @@
-#include "CCGEModel.h"
+#include <cge/CCGEModel.h>
 
 #include <cassert>
 
@@ -33,11 +33,11 @@ NWRD::CModel::f_GetPoints() const {
 
 
 
-NGE::CTexture
+NCGE::CTexture
 NWRD::CModel::f_GetTexture(
     const int ) const {
     return
-        NGE::CTexture();
+        NCGE::CTexture();
 }
 
 

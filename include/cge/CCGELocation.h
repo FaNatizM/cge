@@ -5,9 +5,9 @@
 #include <memory>
 #include <functional>
 
-#include "HCGEMacroses.h"
-#include "CCGEPoint.h"
-#include "CCGETexture.h"
+#include <cge/HCGEMacroses.h>
+#include <cge/CCGEPoint.h>
+#include <cge/CCGETexture.h>
 #include "CCGEPlace.h"
 #include "CCGEItem.h"
 
@@ -54,7 +54,7 @@ namespace NWRD {
                 const CPoint& a_point
                 ) const;
 
-            NGE::CTexture
+            NCGE::CTexture
             f_GetTexture(
                 const CPoint& a_point )
                 const;

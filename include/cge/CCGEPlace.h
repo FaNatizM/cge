@@ -5,9 +5,9 @@
 #include <memory>
 #include <iostream>
 
-#include "HCGEMacroses.h"
-#include "CCGETexture.h"
-#include "CCGEObject.h"
+#include <cge/HCGEMacroses.h>
+#include <cge/CCGETexture.h>
+#include <cge/CCGEObject.h>
 
 
 
@@ -29,12 +29,12 @@ namespace NWRD {
             static CPlace f_MakeGround();
 
             explicit CPlace(
-                const NGE::CTexture&
-                a_texture = NGE::CTexture(
-                    NGE::CTexture::C_NOWHERE )
+                const NCGE::CTexture&
+                a_texture = NCGE::CTexture(
+                    NCGE::CTexture::C_NOWHERE )
                 , const bool a_space = false );
 
-            NGE::CTexture
+            NCGE::CTexture
             f_GetTexture() const;
 
             bool f_IsSpace() const;

@@ -2,23 +2,28 @@
 
 #include <cassert>
 
-#include <cge/CCGEEngine.h>
-#include "CRules.h"
+#include "CGame.h"
+#include "CUI.h"
 
 
 
 
-using namespace NCGE;
+using namespace NSnake;
 
 
 
 
 int main() {
     CGame game;
-    CEngine test( game );
-    test.f_Exec();
+    const auto ui
+        = NSnake::CCommandFactory::f_Create(
+            game );
+
+    NCGE::CEngine engine(
+        ui
+        , game.f_GetDrawer() );
+    engine.f_Exec();
 
 
     return 0;
 }
-

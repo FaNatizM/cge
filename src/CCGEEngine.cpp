@@ -2,7 +2,6 @@
 #include <chrono>
 
 #include <cge/CCGEEngine.h>
-#include "CCGEUI.h"
 
 
 
@@ -15,18 +14,22 @@ using namespace NCGE;
 struct NCGE::CEngine::SImpl {
     public:
         explicit SImpl(
-            const CGame& a_game )
-            : m_game( a_game ) {
+            const NUI::TCommandFactory&
+                a_ui
+            , const TDrawer& a_drawer )
+            : m_ui( a_ui )
+            , m_drawer( a_drawer ) {
         }
 
         M_IMPL_MAKE_STRUCT(
             SImpl, TImpl )
 
-    void f_Draw();
+        void f_Draw();
 
 
     public:
-        CGame m_game;
+        NUI::TCommandFactory m_ui;
+        TDrawer m_drawer;
 };
 
 
@@ -35,15 +38,19 @@ void CEngine::SImpl::f_Draw() {
     system( "clear" );
 
     // Рисуем происходящее
-    m_game.f_ViewAndDraw();
+    m_drawer();
 }
 
 
 
 
-CEngine::CEngine( const CGame& a_game )
+CEngine::CEngine(
+    const NUI::TCommandFactory& a_ui
+    , const TDrawer& a_drawer )
     : m_impl(
-        SImpl::f_Create( a_game ) ) {
+        SImpl::f_Create(
+            a_ui, a_drawer ) ) {
+
     m_impl->f_Draw();
 }
 
@@ -84,7 +91,7 @@ void CEngine::f_Exec() {
         auto ms = f_GetCurrentTime();
         const auto once_25_ms = 40;
         const auto once_60_ms = 90;
-        TTime step{ 40 };
+        TTime step{ once_25_ms };
 
         if ( step
             <= ( ms - g_ms_last ) ) {
@@ -98,8 +105,8 @@ void CEngine::f_Exec() {
 
         // Обрабатываем пользовательский ввод
         auto command
-            = NUI::CUI::f_ProcessInput(
-                m_impl->m_game );
+            = m_impl->m_ui
+                ->f_ProcessInput();
 
         // Выполняем пользовательскую команду
         if ( command->f_Execute()

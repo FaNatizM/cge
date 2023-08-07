@@ -15,7 +15,7 @@ namespace NWRD {
     class CViewer {
         public:
             explicit CViewer(
-                const NGE::CScene&
+                const NCGE::CScene&
                     a_scene
                 , const CLocation&
                     a_location );

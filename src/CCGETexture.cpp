@@ -1,11 +1,11 @@
-﻿#include "CCGETexture.h"
+﻿#include <cge/CCGETexture.h>
 
 #include <iostream>
 
 
 
 
-namespace NGE {
+namespace NCGE {
     struct CTexture::SImpl {
         public:
             explicit SImpl(
@@ -22,7 +22,7 @@ namespace NGE {
 
 
 
-NGE::CTexture::CTexture(
+NCGE::CTexture::CTexture(
     const TTexture a_texture )
     : m_impl(
         std::make_shared< SImpl >(
@@ -31,7 +31,7 @@ NGE::CTexture::CTexture(
 
 
 
-bool NGE::CTexture::operator==(
+bool NCGE::CTexture::operator==(
     const CTexture& a_other ) const {
     if ( m_impl->m_texture
         != a_other.m_impl
@@ -45,7 +45,7 @@ bool NGE::CTexture::operator==(
 
 
 
-bool NGE::CTexture::f_IsUndefined(
+bool NCGE::CTexture::f_IsUndefined(
     ) const {
     return m_impl->m_texture
         == C_UNDEFINED;
@@ -53,14 +53,14 @@ bool NGE::CTexture::f_IsUndefined(
 
 
 
-NGE::TTexture NGE::CTexture::f_Get()
+NCGE::TTexture NCGE::CTexture::f_Get()
     const {
         return m_impl->m_texture;
 }
 
 
 
-void NGE::CTexture::f_Draw() const {
+void NCGE::CTexture::f_Draw() const {
     std::cout << m_impl->m_texture;
 }
 
@@ -68,7 +68,7 @@ void NGE::CTexture::f_Draw() const {
 
 std::ostream& operator<<(
     std::ostream& a_out
-    , const NGE::CTexture& a_texture ) {
+    , const NCGE::CTexture& a_texture ) {
     a_out << a_texture.f_Get();
 
     return a_out;

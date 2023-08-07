@@ -1,4 +1,4 @@
-#include "CCGEModelChain.h"
+#include <cge/CCGEModelChain.h>
 
 #include <cassert>
 #include <vector>
@@ -18,117 +18,117 @@ namespace NWRD {
             explicit SImpl(
                 const CObject& a_head
                 , const CObject& a_body
-                , const CObject& a_tail
-                );
+                    , const CObject& a_tail
+                    );
 
-            M_IMPL_MAKE_STRUCT(
-                SImpl, TImpl )
+                M_IMPL_MAKE_STRUCT(
+                    SImpl, TImpl )
 
-            int f_Contains( const CObject& a_object ) {
-                int counter = 0;
-                for ( auto object : m_objects ) {
-                    if ( object == a_object ) {
-                        return counter;
+                int f_Contains( const CObject& a_object ) {
+                    int counter = 0;
+                    for ( auto object : m_objects ) {
+                        if ( object == a_object ) {
+                            return counter;
+                        }
+
+                        counter++;
                     }
 
-                    counter++;
+                    return -1;
                 }
 
-                return -1;
-            }
-
-            CObject f_GetObject(
-                const int a_index ) const;
+                CObject f_GetObject(
+                    const int a_index ) const;
 
 
 
-        public:
+            public:
 
-            // Объекты
-            TObjects m_objects;
-    };
-}
-
-
-
-
-NWRD::CModelChain::SImpl::SImpl(
-    const CObject& a_head
-    , const CObject& a_body
-    , const CObject& a_tail )
-    : m_objects() {
-
-    // Проверка смежности позиций
-    // объектов
-    m_objects.push_back( a_head );
-    m_objects.push_back( a_body );
-    m_objects.push_back( a_tail );
-}
-
-
-
-NWRD::CObject
-NWRD::CModelChain::SImpl::f_GetObject(
-    const int a_index ) const {
-    if ( a_index < 0 ) {
-        return CObject::f_MakeNull();
+                // Объекты
+                TObjects m_objects;
+        };
     }
 
-    if ( m_objects.size()
-        <= a_index ) {
-        return CObject::f_MakeNull();
+
+
+
+    NWRD::CModelChain::SImpl::SImpl(
+        const CObject& a_head
+        , const CObject& a_body
+        , const CObject& a_tail )
+        : m_objects() {
+
+        // Проверка смежности позиций
+        // объектов
+        m_objects.push_back( a_head );
+        m_objects.push_back( a_body );
+        m_objects.push_back( a_tail );
     }
 
-    return m_objects[ a_index ];
-}
 
 
+    NWRD::CObject
+    NWRD::CModelChain::SImpl::f_GetObject(
+        const int a_index ) const {
+        if ( a_index < 0 ) {
+            return CObject::f_MakeNull();
+        }
 
+        if ( m_objects.size()
+            <= a_index ) {
+            return CObject::f_MakeNull();
+        }
 
-NWRD::CModelChain::CModelChain(
-    const CObject& a_head
-    , const CObject& a_body
-    , const CObject& a_tail )
-    : CModel()
-    , m_impl(
-        SImpl::f_Create(
-            a_head
-            , a_body
-            , a_tail ) ) {
-}
-
-
-
-NWRD::CObject
-NWRD::CModelChain::f_GetObject(
-    const int a_index ) const {
-    return m_impl->f_GetObject( a_index );
-}
-
-
-
-CPoint
-NWRD::CModelChain::f_GetPoint(
-    const int a_index ) const {
-    return m_impl->f_GetObject( a_index )
-            .f_GetPoint();
-}
-
-
-
-TPoints
-NWRD::CModelChain::f_GetPoints() const {
-    auto points = TPoints();
-    for ( auto object : m_impl->m_objects ) {
-        points.push_back( object.f_GetPoint() );
+        return m_objects[ a_index ];
     }
 
-    return points;
-}
 
 
 
-NGE::CTexture
+    NWRD::CModelChain::CModelChain(
+        const CObject& a_head
+        , const CObject& a_body
+        , const CObject& a_tail )
+        : CModel()
+        , m_impl(
+            SImpl::f_Create(
+                a_head
+                , a_body
+                , a_tail ) ) {
+    }
+
+
+
+    NWRD::CObject
+    NWRD::CModelChain::f_GetObject(
+        const int a_index ) const {
+        return m_impl->f_GetObject( a_index );
+    }
+
+
+
+    CPoint
+    NWRD::CModelChain::f_GetPoint(
+        const int a_index ) const {
+        return m_impl->f_GetObject( a_index )
+                .f_GetPoint();
+    }
+
+
+
+    TPoints
+    NWRD::CModelChain::f_GetPoints() const {
+        auto points = TPoints();
+        for ( auto object : m_impl->m_objects ) {
+            points.push_back( object.f_GetPoint() );
+        }
+
+        return points;
+    }
+
+
+
+NCGE::CTexture
 NWRD::CModelChain::f_GetTexture(
     const int a_index ) const {
     return m_impl->f_GetObject( a_index )

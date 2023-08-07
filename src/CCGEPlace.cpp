@@ -1,4 +1,4 @@
-#include "CCGEPlace.h"
+#include <cge/CCGEPlace.h>
 
 
 
@@ -7,7 +7,7 @@ namespace NWRD {
     struct CPlace::SImpl {
         public:
             explicit SImpl(
-                const NGE::CTexture&
+                const NCGE::CTexture&
                 a_texture
                 , const bool a_space );
 
@@ -18,7 +18,7 @@ namespace NWRD {
         public:
 
             // Текстура
-            NGE::CTexture m_texture;
+            NCGE::CTexture m_texture;
 
             // Признак возможности
             // помещения объекта
@@ -41,7 +41,7 @@ namespace NWRD {
 
 
 NWRD::CPlace::SImpl::SImpl(
-    const NGE::CTexture& a_texture
+    const NCGE::CTexture& a_texture
     , const bool a_space )
     : m_texture( a_texture )
     , m_space( a_space )
@@ -64,8 +64,8 @@ namespace NWRD {
         public:
             explicit CPlaceNowhere()
                 : CPlace(
-                    NGE::CTexture(
-                        NGE::CTexture
+                    NCGE::CTexture(
+                        NCGE::CTexture
                         ::C_NOWHERE )
                     , false ) {
             }
@@ -77,8 +77,8 @@ namespace NWRD {
         public:
             explicit CPlaceGround()
                 : CPlace(
-                    NGE::CTexture(
-                        NGE::CTexture
+                    NCGE::CTexture(
+                        NCGE::CTexture
                         ::C_GROUND )
                     , true ) {
             }
@@ -107,7 +107,7 @@ NWRD::CPlace::f_MakeGround() {
 
 
 NWRD::CPlace::CPlace(
-    const NGE::CTexture& a_texture
+    const NCGE::CTexture& a_texture
     , const bool a_space )
     : m_impl(
         SImpl::f_Create(
@@ -116,7 +116,7 @@ NWRD::CPlace::CPlace(
 
 
 
-NGE::CTexture
+NCGE::CTexture
 NWRD::CPlace::f_GetTexture() const {
 
     // Убеждаемся, что в месте нет

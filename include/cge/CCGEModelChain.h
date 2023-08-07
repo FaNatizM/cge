@@ -1,5 +1,5 @@
-#ifndef CCGEMODELPOINT_H
-#define CCGEMODELPOINT_H
+#ifndef CCGEMODELCHAIN_H
+#define CCGEMODELCHAIN_H
 
 
 #include <iostream>
@@ -10,24 +10,27 @@
 
 
 namespace NWRD {
-    M_POINTER_TYPE( CModelPoint, TModelPoint )
+    M_POINTER_TYPE(
+        CModelChain, TModelChain )
 
 
 
     // Модель сущности, которая содержит
-    // один объект
-    class CModelPoint : public CModel {
-        M_IMPL_SHARED_DECL( CModelPoint )
+    // цепочку объектов
+    class CModelChain : public CModel {
+        M_IMPL_SHARED_DECL( CModelChain )
 
 
         public:
-            explicit CModelPoint(
-                const CObject&
-                a_object
-                = CObject() );
+            explicit CModelChain(
+                const CObject& a_head
+                , const CObject& a_body
+                , const CObject& a_tail
+            );
 
-        public:
-            M_MAKE_SHARED( CModelPoint, TModelPoint )
+            M_MAKE_SHARED(
+                CModelChain
+                , TModelChain )
 
             CObject
             f_GetObject(
@@ -40,7 +43,7 @@ namespace NWRD {
 
             TPoints f_GetPoints() const override;
 
-            NGE::CTexture
+            NCGE::CTexture
             f_GetTexture(
                 const int a_index = 0 )
                 const override;

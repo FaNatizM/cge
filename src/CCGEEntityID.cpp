@@ -1,4 +1,4 @@
-#include "CCGEEntityID.h"
+#include <cge/CCGEEntityID.h>
 
 #include <cassert>
 

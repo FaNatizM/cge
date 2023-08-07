@@ -1,4 +1,4 @@
-#include "CCGEViewer.h"
+#include <cge/CCGEViewer.h>
 
 #include <iostream>
 #include <map>
@@ -16,7 +16,7 @@ namespace NWRD {
     struct CViewer::SImpl {
         public:
             explicit SImpl(
-                const NGE::CScene&
+                const NCGE::CScene&
                     a_scene
                 , const CLocation&
                     a_location )
@@ -49,7 +49,7 @@ namespace NWRD {
             CPoint m_right_bottom;
 
             // Текущая сцена
-            NGE::CScene m_scene;
+            NCGE::CScene m_scene;
 
             CLocation m_location;
 
@@ -81,7 +81,7 @@ NWRD::CViewer::SImpl::f_ComputeRightBottom(
 
 
 NWRD::CViewer::CViewer(
-    const NGE::CScene& a_scene
+    const NCGE::CScene& a_scene
     , const CLocation& a_location )
     : m_impl(
         SImpl::f_Create(
@@ -180,10 +180,10 @@ void NWRD::CViewer::f_View() const {
 
     // Заполняем оставшуюся часть сцены
     // ничем
-    const NGE::CScene::TOperation
+    const NCGE::CScene::TOperation
     f_SetNowhere
         = [ = ](
-            NGE::CScene::TNode&
+            NCGE::CScene::TNode&
             a_node ) {
 
         const auto nowhere

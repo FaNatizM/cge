@@ -1,4 +1,4 @@
-#include "CCGEUnit.h"
+#include <cge/CCGEUnit.h>
 
 #include <cassert>
 #include <vector>

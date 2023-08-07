@@ -1,4 +1,4 @@
-#include "CCGEItemsCreator.h"
+#include <cge/CCGEItemsCreator.h>
 
 #include <cassert>
 

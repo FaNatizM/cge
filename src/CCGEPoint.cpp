@@ -1,6 +1,6 @@
-﻿#include "CCGEPoint.h"
+﻿#include <cge/CCGEPoint.h>
 
-#include "HCGEMacroses.h"
+#include <cge/HCGEMacroses.h>
 
 
 

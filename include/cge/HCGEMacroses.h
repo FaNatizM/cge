@@ -127,6 +127,11 @@ a_class& a_class::operator=(\
 
 
 
+#define M_IMPL_SHARED_STRUCT_IMPL()\
+    M_IMPL_SHARED_STRUCT( SImpl, TImpl )
+
+
+
 #define M_IMPL_UNIQUE_STRUCT(\
     a_struct, a_type )\
     struct a_struct; \

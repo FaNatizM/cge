@@ -1,4 +1,4 @@
-#include "CCGEEntity.h"
+#include <cge/CCGEEntity.h>
 
 #include <cassert>
 #include <vector>
@@ -115,12 +115,12 @@ size_t NWRD::CEntity::f_GetObjectsCount()
 
 
 
-NGE::CTexture
+NCGE::CTexture
 NWRD::CEntity::f_GetTexture(
     const int a_index ) const {
     if ( m_impl->f_ExistObject( a_index )
         == false ) {
-        return NGE::CTexture();
+        return NCGE::CTexture();
     }
 
 

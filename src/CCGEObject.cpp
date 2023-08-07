@@ -1,4 +1,4 @@
-#include "CCGEObject.h"
+#include <cge/CCGEObject.h>
 
 
 
@@ -8,7 +8,7 @@ namespace NWRD {
         public:
             explicit SImpl(
                 const CPoint& a_point
-                , const NGE::CTexture&
+                , const NCGE::CTexture&
                 a_texture );
 
             M_IMPL_MAKE_STRUCT(
@@ -21,7 +21,7 @@ namespace NWRD {
             CPoint m_point;
 
             // Текстура
-            NGE::CTexture m_texture;
+            NCGE::CTexture m_texture;
     };
 }
 
@@ -30,7 +30,7 @@ namespace NWRD {
 
 NWRD::CObject::SImpl::SImpl(
     const CPoint& a_point
-    , const NGE::CTexture& a_texture )
+    , const NCGE::CTexture& a_texture )
     : m_point( a_point )
     , m_texture( a_texture ) {
 }
@@ -52,14 +52,14 @@ NWRD::CObject::CObject()
     : m_impl(
         SImpl::f_Create(
             CPoint()
-            , NGE::CTexture() ) ) {
+            , NCGE::CTexture() ) ) {
 }
 
 
 
 NWRD::CObject::CObject(
     const CPoint& a_point
-    , const NGE::CTexture& a_texture )
+    , const NCGE::CTexture& a_texture )
     : m_impl(
         SImpl::f_Create(
             a_point, a_texture ) ) {
@@ -119,7 +119,7 @@ void NWRD::CObject::f_SetPoint(
 
 
 
-NGE::CTexture
+NCGE::CTexture
 NWRD::CObject::f_GetTexture() const {
     return m_impl->m_texture;
 }

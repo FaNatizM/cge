@@ -5,8 +5,9 @@
 #include <memory>
 #include <iostream>
 
-#include "CCGEModel.h"
-#include "CCGEEntityID.h"
+#include <cge/CCGEModel.h>
+#include <cge/CCGEEntityID.h>
+
 
 
 
@@ -41,7 +42,7 @@ namespace NWRD {
             size_t f_GetObjectsCount()
                 const;
 
-            NGE::CTexture
+            NCGE::CTexture
             f_GetTexture(
                 const int a_index = 0 )
                 const;

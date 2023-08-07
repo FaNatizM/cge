@@ -1,4 +1,4 @@
-#include "CCGELocation.h"
+#include <cge/CCGELocation.h>
 
 #include <iostream>
 #include <map>
@@ -139,7 +139,7 @@ bool NWRD::CLocation::f_ExistPlace(
 
 
 
-NGE::CTexture
+NCGE::CTexture
 NWRD::CLocation::f_GetTexture(
     const CPoint& a_point )
     const {
@@ -150,7 +150,7 @@ NWRD::CLocation::f_GetTexture(
 
     if ( node
         == m_impl->m_places.end() ) {
-        return NGE::CTexture();
+        return NCGE::CTexture();
     }
 
 
