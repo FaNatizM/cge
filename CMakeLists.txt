@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.14)
-project(cge
-    VERSION 1.0.0
-    DESCRIPTION "Console Game Engine C++ library built with CMake"
-    LANGUAGES CXX)
+cmake_minimum_required( VERSION 3.14 )
+project(
+   cge
+   VERSION 1.0.0
+   DESCRIPTION "Console Game Engine C++ library built with CMake"
+   LANGUAGES CXX )
 
 
 
@@ -10,6 +11,12 @@ project(cge
 #----------------------------------------------------------------------------------------------------------------------
 # general settings and options
 #----------------------------------------------------------------------------------------------------------------------
+string(REGEX REPLACE "( -DNDEBUG$|-DNDEBUG )" "" CMAKE_CXX_FLAGS_BETATEST "${CMAKE_CXX_FLAGS_RELEASE}" )
+string(REGEX REPLACE "( -DNDEBUG$|-DNDEBUG )" "" CMAKE_C_FLAGS_BETATEST "${CMAKE_C_FLAGS_RELEASE}" )
+string(REGEX REPLACE "-DNDEBUG " "" CMAKE_CXX_FLAGS_RELWITHDEBUG "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -DDEBUG" )
+string(REGEX REPLACE "-DNDEBUG " "" CMAKE_C_FLAGS_RELWITHDEBUG "${CMAKE_C_FLAGS_RELWITHDEBINFO} -DDEBUG" )
+
+
 include(cmake/utils.cmake)
 include(GNUInstallDirs)
 
