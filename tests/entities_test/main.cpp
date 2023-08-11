@@ -1,9 +1,14 @@
 #include <cassert>
 
-#include "../../src/cge/CCGEDecoration.h"
-#include "../../src/cge/CCGEItemsCreator.h"
-#include "../../src/cge/CCGEUnit.h"
-#include "../../src/cge/CCGEModelPoint.h"
+#include <cge/CCGEDecoration.h>
+#include <cge/CCGEItemsCreator.h>
+#include <cge/CCGEUnit.h>
+#include <cge/CCGEModelPoint.h>
+
+
+
+
+using namespace NCGE;
 
 
 
@@ -13,7 +18,7 @@ bool f_TestObject() {
 
 
     auto point = CPoint( 0, 1 );
-    auto texture = NGE::CTexture( 'x' );
+    auto texture = NCGE::CTexture( 'x' );
     auto object
         = NWRD::CObject( point, texture );
     std::cout << "object: " << object
@@ -73,7 +78,7 @@ bool f_TestItemsMoving() {
 
     const auto object = NWRD::CObject(
         CPoint()
-        , NGE::CTexture( '1') );
+        , NCGE::CTexture( '1') );
     const auto model = NWRD::CModelPoint::f_Create(
         object );
     std::cout << "model = "
@@ -91,7 +96,7 @@ bool f_TestItemsMoving() {
     assert( item->f_IsEmpty() == false );
 
     assert(
-        item->f_Move( CPoint( 1, 1 ) )
+        item->f_Move( { CPoint( 1, 1 ) } )
             == true );
 
     return true;
