@@ -2,9 +2,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../../src/cge/CCGEPoint.h"
-#include "../../src/cge/CCGETexture.h"
-#include "../../src/cge/CCGEScene.h"
+#include <cge/CCGEPoint.h>
+#include <cge/CCGETexture.h>
+#include <cge/CCGEScene.h>
 
 
 
@@ -41,12 +41,12 @@ bool f_TestPoint() {
 
 
 bool f_TestTexture() {
-    NGE::CTexture texture_1( 'x' );
-    auto texture_2 = NGE::CTexture( 'y' );
+    NCGE::CTexture texture_1( 'x' );
+    auto texture_2 = NCGE::CTexture( 'y' );
     auto texture = texture_1;
 
 
-    std::vector< NGE::CTexture > textures
+    std::vector< NCGE::CTexture > textures
         = { texture_1
             , texture_2
             , texture };
@@ -63,12 +63,12 @@ bool f_TestTexture() {
 
 
 void f_TestScene() {
-    auto scene = NGE::CScene( 3, 3 );
+    auto scene = NCGE::CScene( 3, 3 );
     scene.f_Draw();
 
     std::cout << "empty point test\n";
     const auto point = CPoint();
-    const auto x = NGE::CTexture( 'x' );
+    const auto x = NCGE::CTexture( 'x' );
     assert( scene.f_SetTexture(
         point, x )
             == false );
@@ -98,10 +98,10 @@ void f_TestScene() {
 
     scene.f_SetTexture(
         CPoint( 2, 2 )
-        , NGE::CTexture( 'y' ) );
+        , NCGE::CTexture( 'y' ) );
     scene.f_SetTexture(
         CPoint( 1, 2 )
-        , NGE::CTexture( '1' ) );
+        , NCGE::CTexture( '1' ) );
 
     scene.f_Draw();
 }

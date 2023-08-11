@@ -1,7 +1,7 @@
 cmake_minimum_required( VERSION 2.8.11 )
 
 
-project( test )
+project( tests )
 
 
-add_subdirectory( wrd_test )
+add_subdirectory( ge_test )

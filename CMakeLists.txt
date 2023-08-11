@@ -23,7 +23,8 @@ include(GNUInstallDirs)
 string(COMPARE EQUAL "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}" is_top_level)
 
 # CGE_SHARED_LIBS option (undefined by default) can be used to force shared/static build
-option(CGE_BUILD_TESTS "Build cge tests" OFF)
+option(
+   CGE_BUILD_TESTS "Build cge tests" ON )
 option(CGE_BUILD_EXAMPLES "Build cge examples" ON)
 option(CGE_BUILD_DOCS "Build cge documentation" OFF)
 option(CGE_INSTALL "Generate target for installing cge" ${is_top_level})
