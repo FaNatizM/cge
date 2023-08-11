@@ -8,6 +8,7 @@ g_tests=()
 g_tests+=( build/tests/ge_test/ge_test )
 g_tests+=( build/tests/wrd_test/wrd_test )
 g_tests+=( build/tests/entities_test/entities_test )
+g_tests+=( build/tests/models_test/models_test )
 
 
 for g_test in ${g_tests[*]}; do

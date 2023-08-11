@@ -3,10 +3,10 @@
 #include <cassert>
 #include <iostream>
 
-#include "../../src/cge/CCGEModelPoint.h"
-#include "../../src/cge/CCGEModelChain.h"
-#include "../../src/cge/CCGEViewer.h"
-#include "../../src/cge/CCGEItemsCreator.h"
+#include <cge/CCGEModelPoint.h>
+#include <cge/CCGEModelChain.h>
+#include <cge/CCGEViewer.h>
+#include <cge/CCGEItemsCreator.h>
 
 
 
@@ -17,7 +17,7 @@ bool f_TestItemsMoves() {
 
 
     auto scene
-        = NGE::CScene( 3, 3 );
+        = NCGE::CScene( 3, 3 );
     auto location
         = NWRD::CLocation( 4, 4 );
     auto viewer
@@ -26,7 +26,7 @@ bool f_TestItemsMoves() {
             , location );
 
     const auto head = NWRD::CObject(
-        CPoint( 0, 0 ), NGE::CTexture( 'x' ) );
+        CPoint( 0, 0 ), NCGE::CTexture( 'x' ) );
     const auto body = NWRD::CObject(
         CPoint( 1, 0 ), head.f_GetTexture() );
     const auto tail = NWRD::CObject(
