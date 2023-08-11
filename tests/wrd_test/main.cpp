@@ -1,9 +1,9 @@
 #include <cassert>
 #include <iostream>
 
-#include "../../src/cge/CCGEModelPoint.h"
-#include "../../src/cge/CCGEViewer.h"
-#include "../../src/cge/CCGEItemsCreator.h"
+#include <cge/CCGEModelPoint.h>
+#include <cge/CCGEViewer.h>
+#include <cge/CCGEItemsCreator.h>
 
 
 
@@ -62,7 +62,7 @@ bool f_TestViewerSmall() {
     std::cout
         << "\n\nf_TestViewerSmall()\n";
     auto scene
-        = NGE::CScene( 3, 3 );
+        = NCGE::CScene( 3, 3 );
     auto location
         = NWRD::CLocation( 4, 4 );
     auto viewer
@@ -120,7 +120,7 @@ bool f_TestViewerBig() {
 
 
     auto scene
-        = NGE::CScene( 4, 4 );
+        = NCGE::CScene( 4, 4 );
     auto location
         = NWRD::CLocation( 3, 4 );
     auto viewer
@@ -154,7 +154,7 @@ bool f_TestItemsMoves() {
 
 
     auto scene
-        = NGE::CScene( 3, 3 );
+        = NCGE::CScene( 3, 3 );
     auto location
         = NWRD::CLocation( 4, 4 );
     auto viewer
@@ -163,7 +163,7 @@ bool f_TestItemsMoves() {
             , location );
 
     auto object = NWRD::CObject(
-        CPoint(), NGE::CTexture( 'x' ) );
+        CPoint(), NCGE::CTexture( 'x' ) );
     auto items_creator
         = NWRD::CItemsCreator(
             NWRD::TItemType::EUndefined
