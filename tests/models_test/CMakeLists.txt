@@ -29,6 +29,13 @@ target_link_libraries(
    models_test PRIVATE cge::cge )
 
 
+add_test(
+   NAME models_test
+   COMMAND bash
+      "../../../tools/run_test.sh"
+      "../build/tests/models_test/models_test" )
+
+
 if ( NOT is_top_level )
    win_copy_deps_to_target_dir(
       models_test cge::cge )

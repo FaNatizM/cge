@@ -29,6 +29,13 @@ target_link_libraries(
    entities_test PRIVATE cge::cge )
 
 
+add_test(
+   NAME entities_test
+   COMMAND bash
+      "../../../tools/run_test.sh"
+      "../build/tests/entities_test/entities_test" )
+
+
 if ( NOT is_top_level )
    win_copy_deps_to_target_dir(
       entities_test cge::cge )

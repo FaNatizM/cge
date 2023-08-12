@@ -29,6 +29,13 @@ target_link_libraries(
    wrd_test PRIVATE cge::cge )
 
 
+add_test(
+   NAME wrd_test
+   COMMAND bash
+      "../../../tools/run_test.sh"
+      "../build/tests/wrd_test/wrd_test" )
+
+
 if ( NOT is_top_level )
    win_copy_deps_to_target_dir(
       wrd_test cge::cge )

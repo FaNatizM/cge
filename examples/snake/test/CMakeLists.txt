@@ -32,6 +32,13 @@ target_link_libraries(
    snake_test PRIVATE cge::cge )
 
 
+add_test(
+   NAME snake_test
+   COMMAND bash
+      "../../../../tools/run_test.sh"
+      "../build/examples/snake/test/snake_test" )
+
+
 if ( NOT is_top_level )
    win_copy_deps_to_target_dir(
       snake_test cge::cge )

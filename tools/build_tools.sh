@@ -306,6 +306,12 @@ f_BT_CMakeAndRun() {
    [ ${?} -ne 0 ] && return -4
 
 
+   ctest
+   tests_result=${?}
+   cat "./Testing/Temporary/LastTest.log"
+   [ ${tests_result} -ne 0 ] && return -5
+
+
    # Переходим в каталог проекта
    cd "${a_project_path}"
 
@@ -317,6 +323,6 @@ f_BT_CMakeAndRun() {
    args+=( "${a_target_path}/${a_target}" )
    f_BT_MoveAndRun ${args[*]} ${a_exe_args[*]}
    local result=${?}
-   [ ${result} -ne 0 ] && return -5
+   [ ${result} -ne 0 ] && return -6
    return ${result}
 }
