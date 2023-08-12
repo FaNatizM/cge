@@ -302,7 +302,7 @@ f_BT_CMakeAndRun() {
    # Запускаем make
    # Todo threads count
    echo -e "\nmake..."
-   make -j2
+   cmake --build . -- -j4
    [ ${?} -ne 0 ] && return -4
 
 
