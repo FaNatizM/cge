@@ -41,3 +41,6 @@ target_link_libraries( snake PRIVATE cge::cge )
 if ( NOT is_top_level )
     win_copy_deps_to_target_dir( snake cge::cge )
 endif()
+
+
+add_subdirectory( test )
