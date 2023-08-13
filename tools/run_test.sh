@@ -16,6 +16,7 @@ for g_test in ${g_tests[*]}; do
    "${HOME}/${test_exe}"
    if [ ${?} -ne 0 ]; then
       echo "\nTest ${g_test} has been failed!"
+      exit -1
    fi
 done
 
