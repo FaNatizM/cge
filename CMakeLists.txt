@@ -119,6 +119,11 @@ set( sources
    include/cge/CCGEUnit.h
    src/CCGEUnit.cpp
 
+   include/cge/eng/CCGEEvent.h
+   src/eng/CCGEEvent.cpp
+   include/cge/eng/CCGEEventManagerItem.h
+   src/eng/CCGEEventManagerItem.cpp
+
    src/HCGE.cpp )
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${sources})
 
