@@ -12,6 +12,7 @@ using namespace NCGE;
 
 
 bool f_TestEvents() {
+    std::cout << "f_TestEvents()\n";
     auto events_manager
         = CEventManagerItem();
 
@@ -20,9 +21,12 @@ bool f_TestEvents() {
     TEventEmitter emitter_1
         = [ &counter ]() -> bool {
         counter++;
+        return true;
     };
+
     events_manager.f_AddEventEmitter(
         CEventItem::EType::E_Moved
+        , "emitter_1"
         , emitter_1 );
 
 
@@ -30,9 +34,11 @@ bool f_TestEvents() {
         = [ &counter ]() -> bool {
         counter++;
         counter++;
+        return true;
     };
     events_manager.f_AddEventEmitter(
         CEventItem::EType::E_Moved
+        , "emitter_2"
         , emitter_2 );
 
 
@@ -41,6 +47,9 @@ bool f_TestEvents() {
 
 
     assert( counter == 3 );
+
+
+    return true;
 }
 
 

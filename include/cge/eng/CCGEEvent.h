@@ -9,7 +9,7 @@
 
 namespace NCGE {
     using TEventEmitter
-        = std::function< bool () >;
+        = std::function< bool() >;
 
 
 

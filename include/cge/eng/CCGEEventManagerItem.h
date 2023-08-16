@@ -3,7 +3,7 @@
 
 
 #include <map>
-#include <list>
+#include <string>
 
 #include "CCGEEvent.h"
 
@@ -11,9 +11,20 @@
 
 
 namespace NCGE {
-    struct SEventEmitters {
-        std::list< TEventEmitter >
-            m_emitters;
+    using TEventEmittersPool
+        = std::map<
+            std::string
+            , TEventEmitter >;
+
+    struct SEventTypeEmitters {
+        explicit SEventTypeEmitters(
+            const TEventEmittersPool&
+            a_emitters )
+            : m_emitters( a_emitters ) {
+        }
+
+
+        TEventEmittersPool m_emitters;
     };
 
 
@@ -23,13 +34,14 @@ namespace NCGE {
         public:
             explicit CEventManagerItem();
 
-            int f_AddEventEmitter(
+            void f_AddEventEmitter(
                 const CEventItem::EType
+                , const std::string&
                 , const TEventEmitter& );
 
             void f_RemoveEventEmitter(
                 const CEventItem::EType
-                , const int a_index );
+                , const std::string& );
 
             void f_EmitEvent(
                 const CEventItem::EType
@@ -38,11 +50,13 @@ namespace NCGE {
 
         private:
 
-            // На каждый вид события набор
+            // На каждый вид события
+            // набор
             using TEventsEmitters
              = std::map<
                 CEventItem::EType
-                , SEventEmitters >;
+                , SEventTypeEmitters >;
+            TEventsEmitters m_emitters;
     };
 }
 
