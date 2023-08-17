@@ -40,10 +40,10 @@ namespace NCGE {
 
 
         public:
-            TEventEmitter
-                m_event_emitter;
             TCondition m_condition;
             TAction m_action;
+            TEventEmitter
+                m_event_emitter;
     };
 
 
@@ -81,7 +81,64 @@ namespace NCGE {
 
 
 using namespace NCGE;
+SImplOne::SImplOne(
+    const TCondition& a_condition
+    , const TAction& a_action )
+    : CTrigger::SImpl()
+    , m_condition( a_condition )
+    , m_action( a_action )
+    , m_event_emitter(
+        [ this ]() -> bool {
+            if ( m_condition->f_Check()
+                == true ) {
+                m_action->f_Do();
+                return true;
+            }
 
+            return false;
+        }
+    ) {
+}
+
+
+
+const TEventEmitter&
+SImplOne::f_GetEventEmitter() const {
+    return m_event_emitter;
+}
+
+
+
+
+SImplElse::SImplElse(
+    const TCondition& a_condition
+    , const TAction& a_action
+    , const TAction& a_action_else )
+    : CTrigger::SImpl()
+    , m_condition( a_condition )
+    , m_action( a_action )
+    , m_action_else( a_action_else )
+    , m_event_emitter(
+        [ this ]() -> bool {
+            if ( m_condition->f_Check()
+                == true ) {
+                m_action->f_Do();
+                return true;
+            } else {
+                m_action_else->f_Do();
+            }
+
+            return false;
+        }
+    ) {
+}
+
+
+
+const TEventEmitter&
+SImplElse::f_GetEventEmitter() const {
+    return m_event_emitter;
+}
 
 
 

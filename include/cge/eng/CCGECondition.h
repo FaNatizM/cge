@@ -18,7 +18,8 @@ namespace NCGE {
         public:
             virtual ~CCondition();
 
-            virtual bool f_Check() = 0;
+            virtual bool f_Check() const
+                = 0;
     };
 }
 
