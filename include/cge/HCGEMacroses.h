@@ -168,12 +168,13 @@ a_class& a_class::operator=(\
     static a_pointer f_Create(\
         Types&& ... a_params ) {\
         auto impl\
-            = std::make_shared<\
-                a_type >(\
+            = std::shared_ptr< \
+                a_type >( new a_type( \
                     std::forward<\
                         Types >(\
                             a_params\
-                        ) ... );\
+                        ) ... ) \
+                );\
             return impl;\
     }\
 
