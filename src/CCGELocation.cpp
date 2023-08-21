@@ -8,6 +8,7 @@
 
 
 
+using namespace NCGE;
 namespace NWRD {
     using TPlaces = std::map<
         CPoint, CPlace >;

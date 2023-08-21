@@ -3,9 +3,12 @@
 #include <cassert>
 #include <vector>
 
+#include <cge/eng/CCGEEventManagerItem.h>
 
 
 
+
+using namespace NWRD;
 namespace NWRD {
     struct CItem::SImpl {
         public:
@@ -22,6 +25,9 @@ namespace NWRD {
             TItemType m_type;
 
             // Название предмета
+
+            CEventManagerItem
+                m_event_manager;
     };
 }
 
@@ -30,7 +36,8 @@ namespace NWRD {
 
 NWRD::CItem::SImpl::SImpl(
     const TItemType a_type )
-    : m_type( a_type ) {
+    : m_type( a_type )
+    , m_event_manager() {
 }
 
 
@@ -56,6 +63,19 @@ NWRD::CItem::f_GetType() const {
 bool NWRD::CItem::f_IsUndefined() const {
     return f_GetType()
         == TItemType::EUndefined;
+}
+
+
+
+void CItem::f_AddEventEmitter(
+    const CEventItem::EType a_event_type
+    , const std::string& a_emitter_name
+    , const TEventEmitter& a_emitter ) {
+    m_impl->m_event_manager
+        .f_AddEventEmitter(
+            a_event_type
+            , a_emitter_name
+            , a_emitter );
 }
 
 

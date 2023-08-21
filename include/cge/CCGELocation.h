@@ -82,11 +82,17 @@ namespace NWRD {
                 const TItem& a_item );
 
             TItem f_GetItem(
-                const CEntityID& a_id ) const;
+                const CEntityID& a_id )
+                const;
 
             bool f_MoveItem(
                 const CEntityID& a_id
                 , const CPoint& a_point );
+            void f_AddTriggerToItem(
+                const CEntityID& a_id
+                , const
+                    CEventItem::EType
+                , const CTrigger& );
 
             void f_LoopItems(
                 const TItemOperation )

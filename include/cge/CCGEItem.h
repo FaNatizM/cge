@@ -5,10 +5,13 @@
 #include <iostream>
 
 #include <cge/CCGEEntity.h>
+#include <cge/eng/CCGETrigger.h>
 
 
 
 
+// Test
+using namespace NCGE;
 namespace NWRD {
     enum class TItemType {
         EUndefined = -1
@@ -33,7 +36,8 @@ namespace NWRD {
                         ::EUndefined
                 , const TModel&
                     a_model
-                    = CModel::f_Create() );
+                    = CModel::f_Create()
+            );
 
         public:
             M_MAKE_SHARED(
@@ -42,6 +46,11 @@ namespace NWRD {
             TItemType f_GetType() const;
 
             bool f_IsUndefined() const;
+
+            void f_AddEventEmitter(
+                const CEventItem::EType
+                , const std::string&
+                , const TEventEmitter& );
 
             static bool f_Test();
 
