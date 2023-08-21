@@ -80,6 +80,15 @@ void CItem::f_AddEventEmitter(
 
 
 
+void CItem::f_EmitEvent(
+    const CEventItem::EType
+        a_event_type ) {
+    m_impl->m_event_manager.f_EmitEvent(
+        a_event_type );
+}
+
+
+
 bool NWRD::CItem::f_Test() {
     CItem item;
     std::cout << item << std::endl;

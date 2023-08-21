@@ -52,6 +52,9 @@ namespace NWRD {
                 , const std::string&
                 , const TEventEmitter& );
 
+            void f_EmitEvent(
+                const CEventItem::EType );
+
             static bool f_Test();
 
 
