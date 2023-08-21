@@ -3,6 +3,7 @@
 
 
 #include <memory>
+#include <utility>
 
 #include "CCGEEvent.h"
 #include "CCGECondition.h"
@@ -38,6 +39,13 @@ namespace NCGE {
             TImpl m_impl;
 
     };
+
+
+
+    using TTrigger
+        = std::pair<
+            const std::string
+            , CTrigger >;
 }
 
 
