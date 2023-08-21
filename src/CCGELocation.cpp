@@ -9,12 +9,18 @@
 
 
 using namespace NCGE;
+using namespace NWRD;
 namespace NWRD {
     using TPlaces = std::map<
         CPoint, CPlace >;
 
     using TItems = std::map<
         CEntityID, TItem >;
+
+    using TTriggers
+        = std::map<
+            std::string
+            , CTrigger >;
 
 
 
@@ -27,7 +33,8 @@ namespace NWRD {
                 : m_width( a_width )
                 , m_height( a_height )
                 , m_places()
-                , m_items() {
+                , m_items()
+                , m_triggers() {
 
                 if ( m_width <= 0 ) {
                     m_width = 1;
@@ -51,6 +58,7 @@ namespace NWRD {
             int m_height;
             TPlaces m_places;
             TItems m_items;
+            TTriggers m_triggers;
     };
 }
 
@@ -392,6 +400,9 @@ bool NWRD::CLocation::f_MoveItem(
 
 
     // Сдвигаем сущность
+    item->f_EmitEvent(
+        CEventItem::EType::E_Moved );
+
     // Задаём позицию предмету
     if ( item->f_Move( points )
         == false ) {
@@ -444,6 +455,29 @@ bool NWRD::CLocation::f_MoveItem(
 
 
     return taken;
+}
+
+
+
+void CLocation::f_AddTriggerToItem(
+    const CEntityID& a_id
+    , const CEventItem::EType a_event_type
+    , const TTrigger& a_trigger ) {
+
+    const auto item
+        = m_impl->m_items.find( a_id );
+    if ( item == m_impl->m_items.end() ) {
+        return;
+    }
+
+
+    item->second->f_AddEventEmitter(
+        a_event_type
+        , std::get< 0 >( a_trigger ) + "_emitter"
+        , std::get< 1 >( a_trigger ).f_GetEventEmitter() );
+
+
+    m_impl->m_triggers.emplace( a_trigger );
 }
 
 
